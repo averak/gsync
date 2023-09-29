@@ -25,7 +25,5 @@ class JsonUtils {
         fun <T> fromJson(json: String, clazz: Class<T>): T {
             return objectMapper.readValue(json, clazz)
         }
-
     }
-
 }

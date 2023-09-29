@@ -1,5 +1,6 @@
 # gsync
 
+![CI](https://github.com/averak/gsync/workflows/CI/badge.svg)
 ![version](https://img.shields.io/badge/version-1.0.0--SNAPSHOT-blue.svg)
 
 This is a multi-tenancy game server for MO games.
@@ -23,22 +24,22 @@ This component provides only reusable features that can be used across various g
 * Quarkus 3.4
 * TiDB 7.1
 
-## Running the application in dev mode
+### Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+You can run your application in dev mode that enables live coding.
 
-```shell script
+```shell
 docker compose up -d
 ./gradlew quarkusDev
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-## Packaging and running the application
+### Packaging and running the application
 
-The application can be packaged using:
+The application can be packaged.
 
-```shell script
+```shell
 ./gradlew build
 ```
 
@@ -46,16 +47,32 @@ It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
 
 The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
 
-## Creating a native executable
+### Creating a native executable
 
-You can create a native executable using:
+You can create a native executable.
 
-```shell script
+```shell
 ./gradlew build -Dquarkus.package.type=native
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+Or, if you don't have GraalVM installed, you can run the native executable build in a container.
 
-```shell script
+```shell
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+```
+
+### Check Dependency updates
+
+[Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) checks outdated dependencies.
+
+```shell
+$ ./gradlew dependencyUpdates -Drevision=release
+```
+
+### Run code formatter
+
+This codebase is formatted by [ktlint](https://github.com/pinterest/ktlint).
+
+```shell
+./gradlew spotlessApply
 ```
