@@ -11,5 +11,4 @@ class HealthCheckController {
     fun health(): RestResponse<Void> {
         return RestResponse.ok()
     }
-
 }

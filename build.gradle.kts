@@ -6,6 +6,7 @@ plugins {
 
     id("io.quarkus")
     id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.diffplug.spotless") version "6.21.0"
 
     application
     java
@@ -69,4 +70,13 @@ allOpen {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     kotlinOptions.javaParameters = true
+}
+
+spotless {
+    kotlin {
+        ktlint()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
 }

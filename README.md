@@ -26,9 +26,9 @@ This component provides only reusable features that can be used across various g
 
 ### Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+You can run your application in dev mode that enables live coding.
 
-```shell script
+```shell
 docker compose up -d
 ./gradlew quarkusDev
 ```
@@ -37,9 +37,9 @@ docker compose up -d
 
 ### Packaging and running the application
 
-The application can be packaged using:
+The application can be packaged.
 
-```shell script
+```shell
 ./gradlew build
 ```
 
@@ -49,14 +49,30 @@ The application is now runnable using `java -jar build/quarkus-app/quarkus-run.j
 
 ### Creating a native executable
 
-You can create a native executable using:
+You can create a native executable.
 
-```shell script
+```shell
 ./gradlew build -Dquarkus.package.type=native
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+Or, if you don't have GraalVM installed, you can run the native executable build in a container.
 
-```shell script
+```shell
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+```
+
+### Check Dependency updates
+
+[Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) checks outdated dependencies.
+
+```shell
+$ ./gradlew dependencyUpdates -Drevision=release
+```
+
+### Run code formatter
+
+This codebase is formatted by [ktlint](https://github.com/pinterest/ktlint).
+
+```shell
+./gradlew spotlessApply
 ```
