@@ -1,13 +1,34 @@
 # gsync
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+![version](https://img.shields.io/badge/version-1.0.0--SNAPSHOT-blue.svg)
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This is a multi-tenancy game server for MO games.
+
+This component provides only reusable features that can be used across various games, and individual logic cannot be embedded.
+
+## Features
+
+* Player authentication / authorization
+* Friend
+* Match making
+* Realtime messaging
+* And more
+
+## Develop
+
+### Environments
+
+* Java OpenJDK 17
+* Kotlin 1.9
+* Quarkus 3.4
+* TiDB 7.1
 
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
+
 ```shell script
+docker compose up -d
 ./gradlew quarkusDev
 ```
 
@@ -16,37 +37,25 @@ You can run your application in dev mode that enables live coding using:
 ## Packaging and running the application
 
 The application can be packaged using:
+
 ```shell script
 ./gradlew build
 ```
+
 It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
 
 The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
 ## Creating a native executable
 
-You can create a native executable using: 
+You can create a native executable using:
+
 ```shell script
 ./gradlew build -Dquarkus.package.type=native
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+
 ```shell script
 ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
 ```
-
-You can then execute your native executable with: `./build/gsync-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
-
-## Related Guides
-
-- Kotlin ([guide](https://quarkus.io/guides/kotlin)): Write your services in Kotlin
