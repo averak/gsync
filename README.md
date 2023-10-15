@@ -22,14 +22,14 @@ This component provides only reusable features that can be used across various g
 * Java OpenJDK 17
 * Kotlin 1.9
 * Quarkus 3.4
-* TiDB 7.1
+* Cloud Spanner
 
 ### Running the application in dev mode
 
 You can run your application in dev mode that enables live coding.
 
 ```shell
-docker compose up -d
+make init_spanner_emulator
 ./gradlew quarkusDev
 ```
 
@@ -66,7 +66,7 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 [Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) checks outdated dependencies.
 
 ```shell
-$ ./gradlew dependencyUpdates -Drevision=release
+make check_dependencies
 ```
 
 ### Run code formatter
@@ -74,5 +74,5 @@ $ ./gradlew dependencyUpdates -Drevision=release
 This codebase is formatted by [ktlint](https://github.com/pinterest/ktlint).
 
 ```shell
-./gradlew spotlessApply
+make format
 ```

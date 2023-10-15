@@ -21,10 +21,15 @@ jobs:
           distribution: corretto
           java-version: 17
           cache: gradle
+      - uses: google-github-actions/setup-gcloud@v1
+
+      - name: start database
+        run: |
+          make init_spanner_emulator
 
       - name: backend test
         run: |
-          ./gradlew test -x build
+          make test
 
   lint:
     runs-on: ubuntu-latest
@@ -39,7 +44,7 @@ jobs:
 
       - name: backend lint
         run: |
-          ./gradlew spotlessCheck
+          make lint
 
   build:
     runs-on: ubuntu-latest

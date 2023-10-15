@@ -1,0 +1,6 @@
+services:
+  spanner:
+    build: ./docker/spanner
+    ports:
+      - "9010:9010"
+      - "9020:9020"

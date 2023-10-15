@@ -35,6 +35,7 @@ val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
 dependencies {
+    // Quarkus
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
@@ -43,6 +44,21 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-config-yaml")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    // GCP
+    // implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-parent:2.5.0")
+//    implementation("com.google.cloud:google-cloud-spanner:6.51.0")
+    implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-spanner:2.5.0") {
+        modules {
+            module("com.google.guava:listenablefuture") {
+                replacedBy("com.google.guava:guava", "listenablefuture is part of guava")
+            }
+        }
+    }
+
+    // utils
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    implementation("com.google.guava:guava:32.1.3-jre")
 
     // test
     testImplementation("io.quarkus:quarkus-junit5")
