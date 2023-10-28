@@ -29,6 +29,7 @@ This component provides only reusable features that can be used across various g
 You can run your application in dev mode that enables live coding.
 
 ```shell
+docker compose up -d
 make init_spanner_emulator
 make run_application
 ```
