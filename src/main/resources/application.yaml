@@ -2,11 +2,9 @@ quarkus:
   application:
     name: "gsync"
     version: "1.0.0-SNAPSHOT"
-  #  datasource:
-  #    db-kind: spanner
-  #    jdbc:
-  #      url: jdbc:cloudspanner:/projects/${quarkus.google.cloud.project-id}/instances/${quarkus.google.cloud.instance-id}/databases/${quarkus.google.cloud.database-id}
-  #      driver: com.google.cloud.spanner.jdbc.JdbcDriver
+  log:
+    console:
+      json: true
   google:
     cloud:
       project-id: ${GOOGLE_CLOUD_PROJECT_ID:gsync}
@@ -14,3 +12,15 @@ quarkus:
       database-id: ${GOOGLE_CLOUD_SPANNER_DATABASE_NAME:gsync}
       spanner:
         emulator-host: http://localhost:9020
+
+"%dev":
+  quarkus:
+    log:
+      console:
+        json: false
+
+"%test":
+  quarkus:
+    log:
+      console:
+        json: false

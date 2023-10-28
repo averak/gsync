@@ -19,6 +19,7 @@ quarkus-google-cloud-spanner = "io.quarkiverse.googlecloudservices:quarkus-googl
 quarkus-hibernate-orm = { module = "io.quarkus:quarkus-hibernate-orm", version.ref = "quarkus" }
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
 quarkus-kotlin = { module = "io.quarkus:quarkus-kotlin", version.ref = "quarkus" }
+quarkus-logging-json = { module = "io.quarkus:quarkus-logging-json", version.ref = "quarkus" }
 quarkus-resteasy-reactive = { module = "io.quarkus:quarkus-resteasy-reactive", version.ref = "quarkus" }
 quarkus-resteasy-reactive-jackson = { module = "io.quarkus:quarkus-resteasy-reactive-jackson", version.ref = "quarkus" }
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
