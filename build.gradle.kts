@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.9.10"
     kotlin("plugin.allopen") version "1.9.10"
@@ -7,10 +5,12 @@ plugins {
     id("io.quarkus")
     id("com.github.ben-manes.versions") version "0.47.0"
     id("com.diffplug.spotless") version "6.21.0"
+    id("org.sonarqube") version "4.4.1.3373"
 
     application
     java
     groovy
+    jacoco
     eclipse
     idea
 }
@@ -36,7 +36,7 @@ val quarkusPlatformVersion: String by project
 
 dependencies {
     // Quarkus
-    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
+    implementation(enforcedPlatform("$quarkusPlatformGroupId:$quarkusPlatformArtifactId:$quarkusPlatformVersion"))
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-hibernate-orm")
@@ -47,7 +47,7 @@ dependencies {
 
     // GCP
     // implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-parent:2.5.0")
-//    implementation("com.google.cloud:google-cloud-spanner:6.51.0")
+    // implementation("com.google.cloud:google-cloud-spanner:6.51.0")
     implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-spanner:2.5.0") {
         modules {
             module("com.google.guava:listenablefuture") {
@@ -74,25 +74,51 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<Test> {
-    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+kotlin {
+    jvmToolchain(17)
 }
+
 allOpen {
     annotation("jakarta.ws.rs.Path")
     annotation("jakarta.enterprise.context.ApplicationScoped")
     annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
-    kotlinOptions.javaParameters = true
-}
-
 spotless {
     kotlin {
+        targetExclude("build/**/*.kt")
         ktlint()
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "averak_gsync")
+        property("sonar.organization", "averak")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+
+    jar {
+        enabled = false
+    }
+
+    javadoc {
+        (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            csv.required = true
+        }
     }
 }
