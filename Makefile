@@ -1,18 +1,18 @@
-GOOGLE_CLOUD_PROJECT_ID="gsync"
+.PHONY: build
+build:
+	./gradlew build -x test
 
-.PHONY: init_spanner_emulator
-init_spanner_emulator:
-	docker-compose up -d
-	gcloud config configurations create emulator || true
-	gcloud config set auth/disable_credentials true
-	gcloud config set project ${GOOGLE_CLOUD_PROJECT_ID}
-	gcloud config set api_endpoint_overrides/spanner http://localhost:9020/
-	gcloud spanner instances create gsync --config=emulator-config --description="gsync" --nodes=1
-	gcloud spanner databases create gsync --instance=gsync
+.PHONY: build_native
+build_native:
+	./gradlew build -x test -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+
+.PHONY: run_application
+run_application:
+	./gradlew quarkusDev
 
 .PHONY: test
 test:
-	./gradlew test
+	./gradlew test jacocoTestReport
 
 .PHONY: lint
 lint:
@@ -25,3 +25,7 @@ format:
 .PHONY: check_dependencies
 check_dependencies:
 	./gradlew dependencyUpdates -Drevision=release
+
+.PHONY: update_dependencies
+update_dependencies:
+	./gradlew versionCatalogUpdate

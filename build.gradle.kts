@@ -1,16 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.allopen") version "1.9.10"
+    kotlin("jvm") version libs.versions.kotlin
+    kotlin("plugin.allopen") version libs.versions.kotlin
 
-    id("io.quarkus")
-    id("com.github.ben-manes.versions") version "0.47.0"
-    id("com.diffplug.spotless") version "6.21.0"
+    alias(libs.plugins.versions)
+    alias(libs.plugins.version.catalog.update)
+    alias(libs.plugins.gradle.git.properties)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.sonarqube)
+    alias(libs.plugins.quarkus)
 
     application
     java
     groovy
+    jacoco
     eclipse
     idea
 }
@@ -27,28 +29,19 @@ repositories {
     gradlePluginPortal()
 }
 
-group = "net.averak.gsync"
-version = "1.0.0-SNAPSHOT"
-
-val quarkusPlatformGroupId: String by project
-val quarkusPlatformArtifactId: String by project
-val quarkusPlatformVersion: String by project
-
 dependencies {
     // Quarkus
-    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    implementation("io.quarkus:quarkus-kotlin")
-    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
-    implementation("io.quarkus:quarkus-hibernate-orm")
-    implementation("io.quarkus:quarkus-arc")
-    implementation("io.quarkus:quarkus-resteasy-reactive")
-    implementation("io.quarkus:quarkus-config-yaml")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation(enforcedPlatform(libs.quarkus.bom))
+    implementation(libs.quarkus.kotlin)
+    implementation(libs.quarkus.resteasy.reactive)
+    implementation(libs.quarkus.resteasy.reactive.jackson)
+    implementation(libs.quarkus.hibernate.orm)
+    implementation(libs.quarkus.arc)
+    implementation(libs.quarkus.config.yaml)
+    implementation(libs.kotlin.stdlib.jdk8)
 
     // GCP
-    // implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-parent:2.5.0")
-//    implementation("com.google.cloud:google-cloud-spanner:6.51.0")
-    implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-spanner:2.5.0") {
+    implementation(libs.quarkus.google.cloud.spanner) {
         modules {
             module("com.google.guava:listenablefuture") {
                 replacedBy("com.google.guava:guava", "listenablefuture is part of guava")
@@ -56,17 +49,17 @@ dependencies {
         }
     }
 
-    // utils
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
-    implementation("com.google.guava:guava:32.1.3-jre")
+    // Other utils
+    implementation(libs.guava)
+    implementation(libs.jackson.module.kotlin)
 
-    // test
-    testImplementation("io.quarkus:quarkus-junit5")
-    testImplementation("io.github.dvgaba:easy-random-core:6.2.0")
-    testImplementation("org.apache.groovy:groovy")
-    testImplementation("org.apache.groovy:groovy-sql")
-    testImplementation("org.spockframework:spock-core:2.4-M1-groovy-4.0")
-    testImplementation("org.spockframework:spock-junit4:2.4-M1-groovy-4.0")
+    // Test Framework & utils
+    testImplementation(libs.quarkus.junit5)
+    testImplementation(libs.spock.core)
+    testImplementation(libs.spock.junit4)
+    testImplementation(libs.groovy)
+    testImplementation(libs.groovy.sql)
+    testImplementation(libs.easy.random)
 }
 
 java {
@@ -74,25 +67,51 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.withType<Test> {
-    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+kotlin {
+    jvmToolchain(17)
 }
+
 allOpen {
     annotation("jakarta.ws.rs.Path")
     annotation("jakarta.enterprise.context.ApplicationScoped")
     annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
-    kotlinOptions.javaParameters = true
-}
-
 spotless {
     kotlin {
+        targetExclude("build/**/*.kt")
         ktlint()
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "averak_gsync")
+        property("sonar.organization", "averak")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+
+    jar {
+        enabled = false
+    }
+
+    javadoc {
+        (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            csv.required = true
+        }
     }
 }
