@@ -23,6 +23,7 @@ jobs:
           distribution: corretto
           java-version: 17
           cache: gradle
+      - uses: google-github-actions/setup-gcloud@v1
 
       - name: cache sonar packages
         uses: actions/cache@v3
@@ -30,6 +31,14 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
+      - name: launch docker
+        run: |
+          docker-compose up -d
+
+      - name: start spanner emulator
+        run: |
+          make init_spanner_emulator
 
       - name: backend test
         run: |
