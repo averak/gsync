@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.quarkus.hibernate.orm)
     implementation(libs.quarkus.arc)
     implementation(libs.quarkus.config.yaml)
+    implementation(libs.quarkus.logging.json)
     implementation(libs.kotlin.stdlib.jdk8)
 
     // GCP
