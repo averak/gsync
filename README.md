@@ -21,7 +21,7 @@ This component provides only reusable features that can be used across various g
 
 * Java OpenJDK 17
 * Kotlin 1.9
-* Quarkus 3.4
+* Quarkus 3.5
 * Cloud Spanner
 
 ### Running the application in dev mode
@@ -30,7 +30,7 @@ You can run your application in dev mode that enables live coding.
 
 ```shell
 make init_spanner_emulator
-./gradlew quarkusDev
+make run_application
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
@@ -40,7 +40,7 @@ make init_spanner_emulator
 The application can be packaged.
 
 ```shell
-./gradlew build
+make build
 ```
 
 It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
@@ -52,27 +52,26 @@ The application is now runnable using `java -jar build/quarkus-app/quarkus-run.j
 You can create a native executable.
 
 ```shell
-./gradlew build -Dquarkus.package.type=native
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container.
-
-```shell
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+make build_native
 ```
 
 ### Check Dependency updates
 
-[Gradle Versions Plugin](https://github.com/ben-manes/gradle-versions-plugin) checks outdated dependencies.
-
 ```shell
 make check_dependencies
+make update_dependencies
 ```
 
 ### Run code formatter
 
-This codebase is formatted by [ktlint](https://github.com/pinterest/ktlint).
-
 ```shell
 make format
+```
+
+### Run test and report coverage
+
+When you run tests, a coverage report will be generated in [build/reports/jacoco/test/html](./build/reports/jacoco/test/html).
+
+```shell
+make test
 ```

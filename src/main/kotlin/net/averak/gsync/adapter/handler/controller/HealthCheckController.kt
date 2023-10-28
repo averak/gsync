@@ -6,9 +6,8 @@ import org.jboss.resteasy.reactive.RestResponse
 
 @Path("/api/health")
 class HealthCheckController {
-
     @GET
-    fun health(): RestResponse<Void> {
+    fun health(): RestResponse<Unit> {
         return RestResponse.ok()
     }
 }
