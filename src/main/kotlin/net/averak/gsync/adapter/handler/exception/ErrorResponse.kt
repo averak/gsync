@@ -4,7 +4,7 @@ import net.averak.gsync.core.exception.ErrorCode
 
 data class ErrorResponse(
     val code: String,
-    val description: String,
+    val summary: String,
 ) {
-    constructor(errorCode: ErrorCode) : this(errorCode.name, errorCode.description)
+    constructor(errorCode: ErrorCode) : this(errorCode.name, errorCode.summary)
 }

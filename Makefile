@@ -4,7 +4,7 @@ SPANNER_DATABASE_ID=gsync
 
 .PHONY: build
 build:
-	./gradlew build -x test
+	./gradlew quarkusBuild
 
 .PHONY: build_native
 build_native:
