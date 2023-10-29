@@ -79,4 +79,4 @@ jobs:
 
       - name: backend build
         run: |
-          ./gradlew build -x test
+          ./gradlew quarkusBuild
