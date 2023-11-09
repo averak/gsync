@@ -1,11 +1,12 @@
 [versions]
 easy-random = "6.2.1"
 groovy = "4.0.7"
-kotlin = "1.9.10"
+kotlin = "1.9.20"
 quarkus = "3.5.0"
 spock = "2.4-M1-groovy-4.0"
 
 [libraries]
+commons-lang3 = "org.apache.commons:commons-lang3:3.13.0"
 easy-random = { module = "io.github.dvgaba:easy-random-core", version.ref = "easy-random" }
 groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 groovy-sql = { module = "org.apache.groovy:groovy-sql", version.ref = "groovy" }
@@ -23,7 +24,6 @@ quarkus-logging-json = { module = "io.quarkus:quarkus-logging-json", version.ref
 quarkus-resteasy-reactive = { module = "io.quarkus:quarkus-resteasy-reactive", version.ref = "quarkus" }
 quarkus-resteasy-reactive-jackson = { module = "io.quarkus:quarkus-resteasy-reactive-jackson", version.ref = "quarkus" }
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
-spock-junit4 = { module = "org.spockframework:spock-junit4", version.ref = "spock" }
 
 [plugins]
 gradle-git-properties = "com.gorylenko.gradle-git-properties:2.4.1"
