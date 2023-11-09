@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version libs.versions.kotlin
-    kotlin("plugin.allopen") version libs.versions.kotlin
 
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
@@ -17,15 +16,8 @@ plugins {
     idea
 }
 
-buildscript {
-    dependencies {
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.47.0")
-    }
-}
-
 repositories {
     mavenCentral()
-    mavenLocal()
     gradlePluginPortal()
 }
 
@@ -55,27 +47,28 @@ dependencies {
     implementation(libs.jackson.module.kotlin)
 
     // Test Framework & utils
+    testImplementation(project(":testkit"))
     testImplementation(libs.quarkus.junit5)
     testImplementation(libs.spock.core)
-    testImplementation(libs.spock.junit4)
     testImplementation(libs.groovy)
     testImplementation(libs.groovy.sql)
     testImplementation(libs.easy.random)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 kotlin {
-    jvmToolchain(17)
-}
-
-allOpen {
-    annotation("jakarta.ws.rs.Path")
-    annotation("jakarta.enterprise.context.ApplicationScoped")
-    annotation("io.quarkus.test.junit.QuarkusTest")
+    sourceSets {
+        all {
+            languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
 }
 
 spotless {
@@ -93,6 +86,7 @@ sonar {
         property("sonar.projectKey", "averak_gsync")
         property("sonar.organization", "averak")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.exclusions", "testkit/**")
     }
 }
 

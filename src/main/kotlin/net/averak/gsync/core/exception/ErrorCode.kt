@@ -1,6 +1,6 @@
 package net.averak.gsync.core.exception
 
-enum class ErrorCode(val description: String) {
+enum class ErrorCode(val summary: String) {
     // 400 Bad Request
     VALIDATION_ERROR("Request validation exception was thrown."),
     INVALID_REQUEST_PARAMETERS("Request parameters is invalid."),
