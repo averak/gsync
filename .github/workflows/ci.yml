@@ -36,10 +36,6 @@ jobs:
         run: |
           docker-compose up -d
 
-      - name: start spanner emulator
-        run: |
-          make init_spanner_emulator
-
       - name: backend test
         run: |
           ./gradlew test jacocoTestReport
