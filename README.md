@@ -30,7 +30,6 @@ You can run your application in dev mode that enables live coding.
 
 ```shell
 docker compose up -d
-make init_spanner_emulator
 make run_application
 ```
 
