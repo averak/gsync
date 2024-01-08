@@ -130,7 +130,6 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.google.cloud.spanner.spring)
-        implementation(rootProject.libs.google.cloud.spanner.jdbc)
         implementation(rootProject.libs.google.cloud.spanner.hibernate)
 
         testImplementation(rootProject.libs.spring.boot.starter.test)
@@ -155,6 +154,7 @@ project(":infrastructure") {
     dependencies {
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
+        implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
     }
@@ -164,6 +164,7 @@ project(":usecase") {
     dependencies {
         implementation(project(":core"))
         implementation(project(":domain"))
+        implementation(rootProject.libs.google.cloud.spanner.spring)
     }
 }
 
@@ -176,7 +177,6 @@ project(":testkit") {
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.test)
-        implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
 
@@ -202,7 +202,6 @@ dependencies {
     implementation(project(":usecase"))
     implementation(libs.spring.boot.starter)
     implementation(libs.spring.boot.starter.data.jpa)
-    implementation(libs.google.cloud.spanner.spring)
     implementation(libs.google.cloud.spanner.jdbc)
 }
 

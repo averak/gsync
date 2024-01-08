@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="jp.canoecorp.morningexpress.adapter.dao.mapper" additivity="false">
+    <logger name="com.google.cloud.spring.data.spanner" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="STDOUT"/>
     </logger>
