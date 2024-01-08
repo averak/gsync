@@ -1,26 +1,40 @@
-quarkus:
-  application:
-    name: "gsync"
-    version: "1.0.0-SNAPSHOT"
-  log:
-    console:
-      json: true
-  google:
-    cloud:
-      project-id: ${GOOGLE_CLOUD_PROJECT_ID:gsync}
-      instance-id: ${GOOGLE_CLOUD_SPANNER_INSTANCE_ID:gsync}
-      database-id: ${GOOGLE_CLOUD_SPANNER_DATABASE_NAME:gsync}
+spring:
+  config:
+    import:
+      - classpath:/git.properties
+  cloud:
+    gcp:
       spanner:
-        emulator-host: http://localhost:9020
+        project-id: ${GCP_PROJECT_ID:gsync-sandbox}
+        instance-id: ${GCP_SPANNER_INSTANCE_ID:sandbox}
+        database: ${GCP_SPANNER_DATABASE:sandbox}
+        emulator-host: ${SPANNER_EMULATOR_HOST:localhost:9010}
+  datasource:
+    url: jdbc:cloudspanner:/projects/${spring.cloud.gcp.spanner.project-id}/instances/${spring.cloud.gcp.spanner.instance-id}/databases/${spring.cloud.gcp.spanner.database}
+    driver-class-name: com.google.cloud.spanner.jdbc.JdbcDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: com.google.cloud.spanner.hibernate.SpannerDialect
+        show_sql: true
+        format_sql: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      database: 0
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
+    time-zone: UTC
+server:
+  port: ${PORT:8080}
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 
-"%dev":
-  quarkus:
-    log:
-      console:
-        json: false
-
-"%test":
-  quarkus:
-    log:
-      console:
-        json: false
+gsync:
+  version: ${git.commit.id.describe}
+  debug: ${IS_DEBUG:false}

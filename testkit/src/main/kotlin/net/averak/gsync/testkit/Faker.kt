@@ -3,7 +3,6 @@ package net.averak.gsync.testkit
 import org.apache.commons.lang3.RandomStringUtils
 import org.jeasy.random.EasyRandom
 import org.jeasy.random.EasyRandomParameters
-import java.time.LocalDate
 import java.util.*
 
 class Faker {
@@ -69,7 +68,9 @@ class Faker {
          */
         @JvmStatic
         fun email(): String {
-            return "${RandomStringUtils.randomAlphanumeric(10)}@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
+            return "${RandomStringUtils.randomAlphanumeric(
+                10,
+            )}@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
         }
 
         /**
@@ -156,30 +157,6 @@ class Faker {
         @JvmStatic
         fun uuidv5(name: String): String {
             return UUID.nameUUIDFromBytes(name.toByteArray()).toString()
-        }
-
-        /**
-         * 本日の日付を生成する
-         */
-        @JvmStatic
-        fun today(): LocalDate {
-            return LocalDate.now()
-        }
-
-        /**
-         * 本日の日付を生成する
-         */
-        @JvmStatic
-        fun tomorrow(): LocalDate {
-            return LocalDate.now().plusDays(1)
-        }
-
-        /**
-         * 本日の日付を生成する
-         */
-        @JvmStatic
-        fun yesterday(): LocalDate {
-            return LocalDate.now().minusDays(1)
         }
     }
 }

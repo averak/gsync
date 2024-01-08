@@ -1,0 +1,7 @@
+spring:
+  data:
+    redis:
+      database: 1
+
+gsync:
+  debug: true

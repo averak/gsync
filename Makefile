@@ -1,10 +1,6 @@
 .PHONY: build
 build:
-	./gradlew quarkusBuild
-
-.PHONY: build_native
-build_native:
-	./gradlew build -x test -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+	./gradlew bootJar
 
 .PHONY: test
 test:
