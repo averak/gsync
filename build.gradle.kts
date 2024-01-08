@@ -73,11 +73,21 @@ kotlin {
 
 spotless {
     kotlin {
-        targetExclude("build/**/*.kt")
+        targetExclude("build/**")
         ktlint()
-        trimTrailingWhitespace()
-        indentWithSpaces()
-        endWithNewline()
+            .setEditorConfigPath("$rootDir/.editorconfig")
+            .editorConfigOverride(
+                mapOf(
+                    // .editorconfig のルール無効化設定を読み込んでくれないので、再度設定する必要がある
+                    "ktlint_standard_no-wildcard-imports" to "disabled",
+                    "ktlint_standard_package-name" to "disabled",
+                    "ktlint_standard_max-line-length" to "disabled",
+                ),
+            )
+    }
+
+    groovy {
+        targetExclude("build/**")
     }
 }
 

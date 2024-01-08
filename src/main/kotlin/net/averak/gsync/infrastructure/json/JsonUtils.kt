@@ -33,10 +33,7 @@ class JsonUtils {
         }
 
         @JvmStatic
-        fun <T> decode(
-            json: String,
-            clazz: Class<T>,
-        ): T {
+        fun <T> decode(json: String, clazz: Class<T>): T {
             return objectMapper.readValue(json, clazz)
         }
     }
