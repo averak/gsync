@@ -26,6 +26,7 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring-boot" }
 google-cloud-spanner-spring = "com.google.cloud:spring-cloud-gcp-starter-data-spanner:5.0.0"
 google-cloud-spanner-jdbc = "com.google.cloud:google-cloud-spanner-jdbc:2.15.0"
+google-cloud-spanner-hibernate = "com.google.cloud:google-cloud-spanner-hibernate-dialect:3.0.3"
 
 [plugins]
 gradle-git-properties = "com.gorylenko.gradle-git-properties:2.4.1"

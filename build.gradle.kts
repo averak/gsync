@@ -128,6 +128,10 @@ project(":adapter") {
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
+        implementation(rootProject.libs.spring.boot.starter.data.jpa)
+        implementation(rootProject.libs.google.cloud.spanner.spring)
+        implementation(rootProject.libs.google.cloud.spanner.jdbc)
+        implementation(rootProject.libs.google.cloud.spanner.hibernate)
 
         testImplementation(rootProject.libs.spring.boot.starter.test)
     }
@@ -197,6 +201,7 @@ dependencies {
     implementation(project(":infrastructure"))
     implementation(project(":usecase"))
     implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.google.cloud.spanner.spring)
     implementation(libs.google.cloud.spanner.jdbc)
 }
