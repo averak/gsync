@@ -18,7 +18,7 @@ class EchoUsecase_UT extends AbstractUsecase_UT {
         final result = this.sut.echo(gctx, message)
 
         then:
-        1 * this.echoRepository.save(_)
+        1 * this.echoRepository.save(gctx, _)
         result.timestamp == gctx.currentTime
         result.message == message
     }

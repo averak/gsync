@@ -20,4 +20,8 @@ abstract class AbstractDatabaseSpec extends AbstractSpec {
         Fixture.init(sql)
     }
 
+    void cleanup() {
+        // なぜか @Transactional でロールバックされないので、仕方なく DELETE クエリを実行している
+        sql.execute("DELETE FROM gsync_echo WHERE echo_id IS NOT NULL")
+    }
 }

@@ -68,9 +68,11 @@ class Faker {
          */
         @JvmStatic
         fun email(): String {
-            return "${RandomStringUtils.randomAlphanumeric(
-                10,
-            )}@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
+            return "${
+                RandomStringUtils.randomAlphanumeric(
+                    10,
+                )
+            }@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
         }
 
         /**
@@ -147,16 +149,16 @@ class Faker {
          * UUIDv4を生成する
          */
         @JvmStatic
-        fun uuidv4(): String {
-            return UUID.randomUUID().toString()
+        fun uuidv4(): UUID {
+            return UUID.randomUUID()
         }
 
         /**
          * UUIDv5を生成する
          */
         @JvmStatic
-        fun uuidv5(name: String): String {
-            return UUID.nameUUIDFromBytes(name.toByteArray()).toString()
+        fun uuidv5(name: String): UUID {
+            return UUID.nameUUIDFromBytes(name.toByteArray())
         }
     }
 }

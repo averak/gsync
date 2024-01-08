@@ -50,7 +50,7 @@ class Logger {
         return StructuredArguments.value(
             "game_context",
             mapOf(
-                "idempotencyKey" to gctx.idempotencyKey,
+                "idempotencyKey" to gctx.idempotencyKey.toString(),
                 "currentTime" to gctx.currentTime.toString(),
             ),
         )

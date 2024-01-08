@@ -22,7 +22,7 @@ open class GameContextInterceptor(
         val gctx = GameContext(
             config.version,
             // クライアントが Idempotency-Key を必ず設定してくるとは限らないので、未設定の場合はサーバ側でユニークキーを発行し、毎回異なるリクエストとして扱う
-            requestScope.getIdempotencyKey() ?: UUID.randomUUID().toString(),
+            requestScope.getIdempotencyKey() ?: UUID.randomUUID(),
             Dateline.DEFAULT,
             spoofingCurrentTime ?: LocalDateTime.now(),
         )

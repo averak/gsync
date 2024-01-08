@@ -56,6 +56,7 @@ mybatis:
   mapperLocations:
     - classpath:/dao/base/*.xml
     - classpath:/dao/extend/*.xml
+  type-handlers-package: net.averak.gsync.infrastructure.mybatis.type_handler
 
 gsync:
   version: ${git.commit.id.describe}

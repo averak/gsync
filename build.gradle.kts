@@ -167,6 +167,7 @@ project(":infrastructure") {
         implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
+        implementation(rootProject.libs.mybatis.spring.boot.starter)
         implementation(rootProject.libs.mybatis.generator.maven.plugin)
     }
 }
