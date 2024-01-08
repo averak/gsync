@@ -1,4 +1,4 @@
-package net.averak.gsync.core.gamecontext
+package net.averak.gsync.core.game_context
 
 import net.averak.gsync.core.daterange.DateRange
 import net.averak.gsync.core.daterange.Dateline

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="schema" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="autoDelimitKeyWords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+
+        <plugin type="net.averak.gsync.infrastructure.mybatis.RenameGeneratedFilesPlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.IgnoreTablePlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.ResolveNullPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.google.cloud.spanner.jdbc.JdbcDriver"
+                        connectionURL="jdbc:cloudspanner://localhost:9010/projects/gsync-sandbox/instances/sandbox/databases/sandbox?autoConfigEmulator=true">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="net.averak.gsync.adapter.dao.entity.base"
+                            targetProject="app/adapter/src/main/java">
+            <property name="constructorBased" value="true"/>
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="dao.base" targetProject="src/main/resources"/>
+        <javaClientGenerator targetPackage="net.averak.gsync.adapter.dao.mapper.base"
+                             targetProject="app/adapter/src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table tableName="gsync_%" delimitIdentifiers="true" delimitAllColumns="true">
+            <domainObjectRenamingRule searchString="^Gsync" replaceString=""/>
+        </table>
+    </context>
+</generatorConfiguration>

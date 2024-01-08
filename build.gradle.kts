@@ -18,6 +18,8 @@ buildscript {
     dependencies {
         classpath(libs.spring.boot.gradle.plugin)
         classpath(libs.flyway.gradle.plugin)
+        classpath(libs.flyway.spanner)
+        classpath(libs.google.cloud.spanner.jdbc)
     }
 }
 
@@ -72,6 +74,11 @@ allprojects {
                 )
         }
 
+        java {
+            targetExclude("build/**")
+            eclipse()
+        }
+
         groovy {
             targetExclude("build/**")
         }
@@ -82,7 +89,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**")
+            property("sonar.exclusions", "testkit/**,**/dto/*,**/entity/base/*,**/mapper/base/*")
         }
     }
 
@@ -133,6 +140,7 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.google.cloud.spanner.hibernate)
+        implementation(rootProject.libs.mybatis.spring.boot.starter)
 
         testImplementation(rootProject.libs.spring.boot.starter.test)
     }
@@ -159,6 +167,7 @@ project(":infrastructure") {
         implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
+        implementation(rootProject.libs.mybatis.generator.maven.plugin)
     }
 }
 
@@ -179,8 +188,10 @@ project(":testkit") {
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.test)
+        implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
+        implementation(rootProject.libs.flyway.core)
 
         api(rootProject.libs.spock.core)
         api(rootProject.libs.spock.spring)
@@ -209,6 +220,11 @@ dependencies {
     implementation(libs.flyway.spanner)
 }
 
+flyway {
+    url = "jdbc:cloudspanner://localhost:9010/projects/gsync-sandbox/instances/sandbox/databases/sandbox?autoConfigEmulator=true"
+    cleanDisabled = false
+}
+
 gitProperties {
     val stdout = ByteArrayOutputStream()
     project.exec {
@@ -219,4 +235,31 @@ gitProperties {
     val version = stdout.toString().trim().replaceFirst("^v", "")
     customProperty("git.commit.id.describe", version)
     gitPropertiesResourceDir = file("$rootDir/build/git/src/main/resources")
+}
+
+tasks {
+    val mybatisGenerator: Configuration by configurations.creating
+    dependencies {
+        mybatisGenerator(project(":infrastructure"))
+        mybatisGenerator(libs.mybatis.generator.core)
+        mybatisGenerator(libs.google.cloud.spanner.jdbc)
+    }
+    register("mbgenerate", Task::class) {
+        doLast {
+            ant.withGroovyBuilder {
+                "taskdef"(
+                    "name" to "mbgenerator",
+                    "classname" to "org.mybatis.generator.ant.GeneratorAntTask",
+                    "classpath" to mybatisGenerator.asPath,
+                )
+            }
+            ant.withGroovyBuilder {
+                "mbgenerator"(
+                    "overwrite" to true,
+                    "configfile" to "$rootDir/src/main/resources/mybatis-generator-config.xml",
+                    "verbose" to true,
+                )
+            }
+        }
+    }
 }

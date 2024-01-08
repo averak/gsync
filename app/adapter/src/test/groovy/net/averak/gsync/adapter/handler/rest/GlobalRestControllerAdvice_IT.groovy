@@ -2,6 +2,7 @@ package net.averak.gsync.adapter.handler.rest
 
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
+import org.springframework.http.HttpStatus
 
 class GlobalRestControllerAdvice_IT extends AbstractController_IT {
 
@@ -11,6 +12,6 @@ class GlobalRestControllerAdvice_IT extends AbstractController_IT {
 
         expect:
         final request = this.getRequest(path)
-        execute(request, new GsyncException(ErrorCode.NOT_FOUND_API))
+        execute(request, HttpStatus.NOT_FOUND, new GsyncException(ErrorCode.NOT_FOUND_API))
     }
 }

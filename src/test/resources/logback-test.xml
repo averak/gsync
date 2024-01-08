@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.google.cloud.spring.data.spanner" additivity="false">
+    <logger name="net.averak.gsync.adapter.dao" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="STDOUT"/>
     </logger>

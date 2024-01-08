@@ -40,7 +40,7 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: false
     outOfOrder: false
-    locations: classpath:/migration
+    locations: classpath:/db/migration
     connect-retries: 5
 
 server:
@@ -49,6 +49,13 @@ server:
     encoding:
       charset: UTF-8
       force: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapperLocations:
+    - classpath:/dao/base/*.xml
+    - classpath:/dao/extend/*.xml
 
 gsync:
   version: ${git.commit.id.describe}

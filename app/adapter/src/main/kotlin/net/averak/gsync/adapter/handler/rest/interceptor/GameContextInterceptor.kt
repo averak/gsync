@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse
 import net.averak.gsync.adapter.handler.rest.HttpRequestScope
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.daterange.Dateline
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.ModelAndView
 import java.time.LocalDateTime

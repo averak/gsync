@@ -1,6 +1,6 @@
 package net.averak.gsync.usecase
 
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Echo
 import net.averak.gsync.domain.repository.IEchoRepository
 import net.averak.gsync.usecase.transaction.ITransaction

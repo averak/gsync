@@ -3,6 +3,7 @@ easy-random = "6.2.1"
 flyway = "10.4.1"
 groovy = "4.0.7"
 kotlin = "1.9.20"
+mybatis-generator = "1.4.2"
 spock = "2.4-M1-groovy-4.0"
 spring-boot = "3.2.1"
 
@@ -19,6 +20,9 @@ jackson-module-kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.16
 jackson-datatype-jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1"
 logback-classic = "ch.qos.logback:logback-classic:1.4.14"
 logstash-logback-encoder = "net.logstash.logback:logstash-logback-encoder:7.4"
+mybatis-generator-core = { module = "org.mybatis.generator:mybatis-generator-core", version.ref = "mybatis-generator" }
+mybatis-generator-maven-plugin = { module = "org.mybatis.generator:mybatis-generator-maven-plugin", version.ref = "mybatis-generator" }
+mybatis-spring-boot-starter = "org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3"
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 spock-spring = { module = "org.spockframework:spock-spring", version.ref = "spock" }
 spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }

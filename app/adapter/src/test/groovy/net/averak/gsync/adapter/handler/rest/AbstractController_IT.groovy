@@ -135,10 +135,11 @@ abstract class AbstractController_IT extends AbstractDatabaseSpec {
      *
      * @return error response
      */
-    GlobalRestControllerAdvice.ErrorResponse execute(final MockHttpServletRequestBuilder request, final GsyncException ex) {
+    GlobalRestControllerAdvice.ErrorResponse execute(final MockHttpServletRequestBuilder request, final HttpStatus expectedHttpStatus, final GsyncException ex) {
         final result = mockMvc.perform(request).andReturn()
 
         final response = JsonUtils.decode(result.response.contentAsString, GlobalRestControllerAdvice.ErrorResponse.class)
+        assert result.response.status == expectedHttpStatus.value()
         assert response.code == ex.errorCode.name()
         assert response.message == ex.errorCode.summary
         return response

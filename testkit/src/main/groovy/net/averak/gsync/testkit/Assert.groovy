@@ -2,6 +2,7 @@ package net.averak.gsync.testkit
 
 import net.averak.gsync.core.exception.GsyncException
 
+import java.sql.Timestamp
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -19,12 +20,13 @@ class Assert {
     }
 
     /**
-     * LocalDateTime が一致するか判定
+     * タイムスタンプが一致するか検証
      *
      * @param approxDuration 許容する誤差
      */
-    static void localDateTimeIs(final LocalDateTime actual, final LocalDateTime expected, final Duration approxDuration = Duration.ofSeconds(5)) {
-        assert ChronoUnit.MILLIS.between(actual as LocalDateTime, expected) <= approxDuration.toMillis()
+    static void timestampIs(final Object actual, final LocalDateTime expected, final Duration approxDuration = Duration.ofSeconds(5)) {
+        assert actual instanceof Timestamp
+        assert ChronoUnit.MILLIS.between(actual.toLocalDateTime(), expected) <= approxDuration.toMillis()
     }
 
 }

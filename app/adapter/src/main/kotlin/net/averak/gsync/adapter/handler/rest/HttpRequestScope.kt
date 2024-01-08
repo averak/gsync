@@ -2,7 +2,7 @@ package net.averak.gsync.adapter.handler.rest
 
 import jakarta.servlet.http.HttpServletRequest
 import net.averak.gsync.core.config.Config
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
