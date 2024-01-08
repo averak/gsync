@@ -1,2 +1,14 @@
 rootProject.name = "gsync"
+
+include(":adapter")
+include(":core")
+include(":domain")
+include(":infrastructure")
+include(":usecase")
 include(":testkit")
+
+project(":adapter").projectDir = file("app/adapter")
+project(":core").projectDir = file("app/core")
+project(":domain").projectDir = file("app/domain")
+project(":infrastructure").projectDir = file("app/infrastructure")
+project(":usecase").projectDir = file("app/usecase")

@@ -19,7 +19,7 @@ services:
       PROJECT_ID: "gsync-sandbox"
       SPANNER_EMULATOR_URL: "http://spanner-emulator:9020/"
       INSTANCE_NAME: "sandbox"
-      DATABASE_NAME: "local"
+      DATABASE_NAME: "sandbox"
 
   redis:
     image: redis:7.0
