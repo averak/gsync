@@ -1,0 +1,10 @@
+START BATCH DDL;
+
+CREATE TABLE echo
+(
+    id        STRING(36) NOT NULL,
+    message   STRING(255) NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+) PRIMARY KEY (id);
+
+RUN BATCH;

@@ -5,6 +5,7 @@ plugins {
 
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
+    alias(libs.plugins.flyway)
     alias(libs.plugins.gradle.git.properties)
     alias(libs.plugins.spotless)
     alias(libs.plugins.sonarqube)
@@ -16,6 +17,7 @@ plugins {
 buildscript {
     dependencies {
         classpath(libs.spring.boot.gradle.plugin)
+        classpath(libs.flyway.gradle.plugin)
     }
 }
 
@@ -203,6 +205,8 @@ dependencies {
     implementation(libs.spring.boot.starter)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.google.cloud.spanner.jdbc)
+    implementation(libs.flyway.core)
+    implementation(libs.flyway.spanner)
 }
 
 gitProperties {

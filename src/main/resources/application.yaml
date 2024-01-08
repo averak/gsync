@@ -33,6 +33,15 @@ spring:
     time-zone: UTC
   main:
     allow-bean-definition-overriding: true
+  flyway:
+    url: ${spring.datasource.url}
+    driver-class-name: ${spring.datasource.driver-class-name}
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    outOfOrder: false
+    locations: classpath:/migration
+    connect-retries: 5
 
 server:
   port: ${PORT:8080}
