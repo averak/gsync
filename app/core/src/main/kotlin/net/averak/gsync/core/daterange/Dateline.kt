@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**
- * サービス内で日付が変更される境界線を表すオブジェクト (UTC)
+ * ゲーム内で日付が変更される境界線を表すオブジェクト (UTC)
  * -12:00:00 から +12:00:00 までの値をとる
  *
  * 例) Dateline が 00:00:00 の場合
@@ -29,10 +29,11 @@ data class Dateline(
 
     companion object {
 
+        // 06:00 (JST) に日付を切り替えるので、06:00:00 - 09:00:00 = -03:00:00 (UTC) になる
         // 22:00 (JST) に注文を締め切ることから、デフォルトの日付変更境界線は -11:00:00 (UTC) とする
         // JST だと -02:00:00 なので、UTC だと -02:00:00 - 09:00:00 = -11:00:00 になる
         @JvmStatic
-        val DEFAULT = Dateline(true, 11, 0, 0)
+        val DEFAULT = Dateline(true, 3, 0, 0)
     }
 
     init {

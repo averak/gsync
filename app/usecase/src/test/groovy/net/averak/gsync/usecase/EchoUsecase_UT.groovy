@@ -1,6 +1,6 @@
 package net.averak.gsync.usecase
 
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.testkit.Faker
 import org.springframework.beans.factory.annotation.Autowired
 
@@ -18,6 +18,7 @@ class EchoUsecase_UT extends AbstractUsecase_UT {
         final result = this.sut.echo(gctx, message)
 
         then:
+        1 * this.echoRepository.save(gctx, _)
         result.timestamp == gctx.currentTime
         result.message == message
     }

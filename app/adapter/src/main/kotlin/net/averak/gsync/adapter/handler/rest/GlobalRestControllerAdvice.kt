@@ -48,15 +48,16 @@ class GlobalRestControllerAdvice(
             GsyncException(ex)
         }
 
+        val body = ErrorResponse(e)
         when (e.errorCode) {
             ErrorCode.NOT_FOUND_API -> {
                 this.customLogger.warn(requestScope.getGameContext(), e)
-                return ResponseEntity(ErrorResponse(e), HttpStatus.NOT_FOUND)
+                return ResponseEntity(body, HttpStatus.NOT_FOUND)
             }
 
             else -> {
                 this.customLogger.error(requestScope.getGameContext(), e)
-                return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
+                return ResponseEntity(body, HttpStatus.INTERNAL_SERVER_ERROR)
             }
         }
     }

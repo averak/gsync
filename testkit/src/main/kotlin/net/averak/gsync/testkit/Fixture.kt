@@ -2,6 +2,10 @@ package net.averak.gsync.testkit
 
 import com.google.common.base.CaseFormat
 import groovy.sql.Sql
+import java.sql.Date
+import java.sql.Timestamp
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class Fixture {
 
@@ -42,7 +46,7 @@ class Fixture {
 
         private fun extractTableName(entity: Any): String {
             val tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, entity.javaClass.simpleName).replace("_entity", "")
-            return "`$tableName`"
+            return "`gsync_$tableName`"
         }
 
         private fun extractColumns(entity: Any): Map<String, Any> {
@@ -50,7 +54,20 @@ class Fixture {
             entity.javaClass.declaredFields.forEach {
                 val columnName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, it.name)
                 it.isAccessible = true
-                result["`$columnName`"] = it[entity]
+
+                when (val value = it[entity]) {
+                    is LocalDateTime -> {
+                        result["`$columnName`"] = Timestamp.valueOf(value)
+                    }
+
+                    is LocalDate -> {
+                        result["`$columnName`"] = Date.valueOf(value)
+                    }
+
+                    else -> {
+                        result["`$columnName`"] = value
+                    }
+                }
                 it.isAccessible = false
             }
             return result

@@ -8,7 +8,10 @@ import org.springframework.context.annotation.ComponentScan
 import java.util.*
 
 @SpringBootApplication
-@ComponentScan(basePackages = ["net.averak.gsync"], nameGenerator = Entrypoint.FQCNBeanNameGenerator::class)
+@ComponentScan(
+    basePackages = ["net.averak.gsync"],
+    nameGenerator = Entrypoint.FQCNBeanNameGenerator::class,
+)
 open class Entrypoint {
 
     class FQCNBeanNameGenerator : AnnotationBeanNameGenerator() {

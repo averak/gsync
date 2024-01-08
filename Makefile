@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	./gradlew bootJar
+	./gradlew build -x test
 
 .PHONY: test
 test:
@@ -13,6 +13,19 @@ lint:
 .PHONY: format
 format:
 	./gradlew spotlessApply
+
+.PHONY: codegen
+codegen:
+	./gradlew mbGenerate
+	./gradlew spotlessApply
+
+.PHONY: db-migrate
+db-migrate:
+	./gradlew flywayMigrate
+
+.PHONY: db-clean
+db-clean:
+	./gradlew flywayClean
 
 .PHONY: check_dependencies
 check_dependencies:

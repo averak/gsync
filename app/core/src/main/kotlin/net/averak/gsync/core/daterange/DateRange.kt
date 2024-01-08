@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 /**
- * サービス内の「o月x日」を表す時刻範囲オブジェクト
+ * ゲーム内の「o月x日」を表す時刻範囲オブジェクト
  *
  * [from, to) の半開区間のため to は含まない
  */
@@ -14,7 +14,9 @@ data class DateRange(
     val to: LocalDateTime,
 ) {
 
-    constructor(time: LocalDateTime) : this(Dateline.DEFAULT.getDateRangeAtTime(time))
+    constructor(time: LocalDateTime) : this(time, Dateline.DEFAULT)
+
+    constructor(time: LocalDateTime, dateline: Dateline) : this(dateline.getDateRangeAtTime(time))
 
     private constructor(dateRange: DateRange) : this(dateRange.date, dateRange.from, dateRange.to)
 

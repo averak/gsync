@@ -2,10 +2,11 @@ package net.averak.gsync.adapter.handler.rest
 
 import jakarta.servlet.http.HttpServletRequest
 import net.averak.gsync.core.config.Config
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Component
 class HttpRequestScope(
@@ -50,8 +51,10 @@ class HttpRequestScope(
         return httpServletRequest.getHeader(HeaderName.CLIENT_VERSION.key)
     }
 
-    fun getIdempotencyKey(): String? {
-        return httpServletRequest.getHeader(HeaderName.IDEMPOTENCY_KEY.key)
+    fun getIdempotencyKey(): UUID? {
+        return httpServletRequest.getHeader(HeaderName.IDEMPOTENCY_KEY.key)?.let {
+            UUID.fromString(it)
+        }
     }
 
     fun getSpoofingCurrentTime(): LocalDateTime? {

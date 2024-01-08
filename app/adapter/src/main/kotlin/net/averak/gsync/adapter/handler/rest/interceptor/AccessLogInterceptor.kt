@@ -31,7 +31,7 @@ class AccessLogInterceptor(
             mapOf(
                 "http_request" to mapOf(
                     "client_version" to requestScope.getClientVersion(),
-                    "idempotency_key" to gctx.idempotencyKey,
+                    "idempotency_key" to gctx.idempotencyKey.toString(),
                     "requested_at" to gctx.currentTime.toString(),
                     "elapsed_ms" to Duration.between(gctx.currentTime, LocalDateTime.now()).toMillis(),
                     "status_code" to HttpStatusCode.valueOf(response.status),

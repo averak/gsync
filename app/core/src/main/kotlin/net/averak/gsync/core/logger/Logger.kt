@@ -1,6 +1,6 @@
 package net.averak.gsync.core.logger
 
-import net.averak.gsync.core.gamecontext.GameContext
+import net.averak.gsync.core.game_context.GameContext
 import net.logstash.logback.argument.StructuredArgument
 import net.logstash.logback.argument.StructuredArguments
 import org.slf4j.LoggerFactory
@@ -50,7 +50,7 @@ class Logger {
         return StructuredArguments.value(
             "game_context",
             mapOf(
-                "idempotencyKey" to gctx.idempotencyKey,
+                "idempotencyKey" to gctx.idempotencyKey.toString(),
                 "currentTime" to gctx.currentTime.toString(),
             ),
         )

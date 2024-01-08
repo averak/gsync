@@ -8,18 +8,21 @@ spring:
         project-id: ${GCP_PROJECT_ID:gsync-sandbox}
         instance-id: ${GCP_SPANNER_INSTANCE_ID:sandbox}
         database: ${GCP_SPANNER_DATABASE:sandbox}
+        emulator:
+          enabled: true
         emulator-host: ${SPANNER_EMULATOR_HOST:localhost:9010}
   datasource:
-    url: jdbc:cloudspanner:/projects/${spring.cloud.gcp.spanner.project-id}/instances/${spring.cloud.gcp.spanner.instance-id}/databases/${spring.cloud.gcp.spanner.database}
+    url: jdbc:cloudspanner://${spring.cloud.gcp.spanner.emulator-host}/projects/${spring.cloud.gcp.spanner.project-id}/instances/${spring.cloud.gcp.spanner.instance-id}/databases/${spring.cloud.gcp.spanner.database}?autoConfigEmulator=${spring.cloud.gcp.spanner.emulator.enabled}
     driver-class-name: com.google.cloud.spanner.jdbc.JdbcDriver
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: com.google.cloud.spanner.hibernate.SpannerDialect
     properties:
       hibernate:
-        dialect: com.google.cloud.spanner.hibernate.SpannerDialect
-        show_sql: true
-        format_sql: true
+        jdbc:
+          batch_size: 100
+        order_updates: true
   data:
     redis:
       host: ${REDIS_HOST:localhost}
@@ -28,12 +31,32 @@ spring:
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
     time-zone: UTC
+  main:
+    allow-bean-definition-overriding: true
+  flyway:
+    url: ${spring.datasource.url}
+    driver-class-name: ${spring.datasource.driver-class-name}
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: false
+    outOfOrder: false
+    locations: classpath:/db/migration
+    connect-retries: 5
+
 server:
   port: ${PORT:8080}
   servlet:
     encoding:
       charset: UTF-8
       force: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapperLocations:
+    - classpath:/dao/base/*.xml
+    - classpath:/dao/extend/*.xml
+  type-handlers-package: net.averak.gsync.infrastructure.mybatis.type_handler
 
 gsync:
   version: ${git.commit.id.describe}
