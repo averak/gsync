@@ -19,14 +19,8 @@ class Assert {
         assert expected.message == actual.message
     }
 
-    /**
-     * タイムスタンプが一致するか検証
-     *
-     * @param approxDuration 許容する誤差
-     */
-    static void timestampIs(final Object actual, final LocalDateTime expected, final Duration approxDuration = Duration.ofSeconds(5)) {
+    static void timestampIs(final Object actual, final LocalDateTime expected, final Duration approxDuration = Duration.ofMillis(500)) {
         assert actual instanceof Timestamp
         assert ChronoUnit.MILLIS.between(actual.toLocalDateTime(), expected) <= approxDuration.toMillis()
     }
-
 }

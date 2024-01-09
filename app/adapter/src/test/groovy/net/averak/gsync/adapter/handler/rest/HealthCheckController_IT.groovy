@@ -3,8 +3,6 @@ package net.averak.gsync.adapter.handler.rest
 import net.averak.gsync.testkit.Assert
 import org.springframework.http.HttpStatus
 
-import java.time.LocalDateTime
-
 class HealthCheckController_IT extends AbstractController_IT {
 
     // API PATH
@@ -20,7 +18,7 @@ class HealthCheckController_IT extends AbstractController_IT {
         with(sql.rows("SELECT * FROM gsync_echo")) {
             it.size() == 1
             it[0].message == "Health Check"
-            Assert.timestampIs(it[0].timestamp, LocalDateTime.now())
+            Assert.timestampIs(it[0].timestamp, this.gctx.currentTime)
         }
     }
 }

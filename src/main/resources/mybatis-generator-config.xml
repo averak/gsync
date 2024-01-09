@@ -27,7 +27,7 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="net.averak.gsync.adapter.dao.entity.base"
+        <javaModelGenerator targetPackage="net.averak.gsync.adapter.dao.dto.base"
                             targetProject="app/adapter/src/main/java">
             <property name="constructorBased" value="true"/>
             <property name="immutable" value="false"/>
