@@ -9,20 +9,11 @@ spring:
         instance-id: ${GCP_SPANNER_INSTANCE_ID:sandbox}
         database: ${GCP_SPANNER_DATABASE:sandbox}
         emulator:
-          enabled: true
+          enabled: ${GCP_SPANNER_EMULATOR_ENABLED:true}
         emulator-host: ${SPANNER_EMULATOR_HOST:localhost:9010}
   datasource:
     url: jdbc:cloudspanner://${spring.cloud.gcp.spanner.emulator-host}/projects/${spring.cloud.gcp.spanner.project-id}/instances/${spring.cloud.gcp.spanner.instance-id}/databases/${spring.cloud.gcp.spanner.database}?autoConfigEmulator=${spring.cloud.gcp.spanner.emulator.enabled}
     driver-class-name: com.google.cloud.spanner.jdbc.JdbcDriver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database-platform: com.google.cloud.spanner.hibernate.SpannerDialect
-    properties:
-      hibernate:
-        jdbc:
-          batch_size: 100
-        order_updates: true
   data:
     redis:
       host: ${REDIS_HOST:localhost}
