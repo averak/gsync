@@ -1,7 +1,7 @@
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("jvm") version libs.versions.kotlin
+    kotlin("jvm") version "1.9.20"
 
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
@@ -138,8 +138,6 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
-        implementation(rootProject.libs.google.cloud.spanner.spring)
-        implementation(rootProject.libs.google.cloud.spanner.hibernate)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
 
         testImplementation(rootProject.libs.spring.boot.starter.test)
@@ -165,7 +163,6 @@ project(":infrastructure") {
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
-        implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
@@ -177,7 +174,6 @@ project(":usecase") {
     dependencies {
         implementation(project(":core"))
         implementation(project(":domain"))
-        implementation(rootProject.libs.google.cloud.spanner.spring)
     }
 }
 
