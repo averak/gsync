@@ -164,6 +164,7 @@ project(":infrastructure") {
     dependencies {
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
+        implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.google.cloud.spanner.spring)
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)

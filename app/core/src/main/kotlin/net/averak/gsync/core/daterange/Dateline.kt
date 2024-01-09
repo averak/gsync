@@ -30,8 +30,6 @@ data class Dateline(
     companion object {
 
         // 06:00 (JST) に日付を切り替えるので、06:00:00 - 09:00:00 = -03:00:00 (UTC) になる
-        // 22:00 (JST) に注文を締め切ることから、デフォルトの日付変更境界線は -11:00:00 (UTC) とする
-        // JST だと -02:00:00 なので、UTC だと -02:00:00 - 09:00:00 = -11:00:00 になる
         @JvmStatic
         val DEFAULT = Dateline(true, 3, 0, 0)
     }

@@ -2,6 +2,7 @@ package net.averak.gsync.testkit
 
 import groovy.sql.Sql
 import jakarta.annotation.PostConstruct
+import net.averak.gsync.infrastructure.redis.RedisClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.transaction.annotation.Transactional
@@ -15,12 +16,17 @@ abstract class AbstractDatabaseSpec extends AbstractSpec {
     @Autowired
     Sql sql
 
+    @Autowired
+    RedisClient redis
+
     @PostConstruct
     private void init() {
         Fixture.init(sql)
     }
 
     void cleanup() {
+        redis.flushdb()
+
         // なぜか @Transactional でロールバックされないので、仕方なく DELETE クエリを実行している
         sql.execute("DELETE FROM gsync_echo WHERE echo_id IS NOT NULL")
     }
