@@ -1,0 +1,27 @@
+services:
+  spanner:
+    image: gcr.io/cloud-spanner-emulator/emulator
+    ports:
+      - "9010:9010"
+      - "9020:9020"
+
+  spanner-emulator-init:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    platform: linux/x86_64
+    command: >
+      bash -c 'gcloud config configurations create emulator;
+               gcloud config set auth/disable_credentials true;
+               gcloud config set project $${PROJECT_ID};
+               gcloud config set api_endpoint_overrides/spanner $${SPANNER_EMULATOR_URL};
+               gcloud spanner instances create $${INSTANCE_NAME} --config=emulator-config --description=Emulator --nodes=1;
+               gcloud spanner databases create $${DATABASE_NAME} --instance=$${INSTANCE_NAME}'
+    environment:
+      PROJECT_ID: "gsync-sandbox"
+      SPANNER_EMULATOR_URL: "http://spanner-emulator:9020/"
+      INSTANCE_NAME: "sandbox"
+      DATABASE_NAME: "sandbox"
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"

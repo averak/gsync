@@ -1,0 +1,43 @@
+[versions]
+easy-random = "6.2.1"
+flyway = "10.4.1"
+groovy = "4.0.7"
+mybatis-generator = "1.4.2"
+spock = "2.4-M1-groovy-4.0"
+spring-boot = "3.2.1"
+
+[libraries]
+commons-lang3 = "org.apache.commons:commons-lang3:3.14.0"
+easy-random = { module = "io.github.dvgaba:easy-random-core", version.ref = "easy-random" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-gradle-plugin = { module = "org.flywaydb:flyway-gradle-plugin", version.ref = "flyway" }
+flyway-spanner = { module = "org.flywaydb:flyway-gcp-spanner", version.ref = "flyway" }
+google-cloud-spanner-jdbc = "com.google.cloud:google-cloud-spanner-jdbc:2.15.0"
+google-cloud-spanner-spring = "com.google.cloud:spring-cloud-gcp-starter-data-spanner:5.0.0"
+groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
+groovy-sql = { module = "org.apache.groovy:groovy-sql", version.ref = "groovy" }
+guava = "com.google.guava:guava:33.0.0-jre"
+jackson-datatype-jsr310 = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1"
+jackson-module-kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.16.1"
+logback-classic = "ch.qos.logback:logback-classic:1.4.14"
+logstash-logback-encoder = "net.logstash.logback:logstash-logback-encoder:7.4"
+mybatis-generator-core = { module = "org.mybatis.generator:mybatis-generator-core", version.ref = "mybatis-generator" }
+mybatis-generator-maven-plugin = { module = "org.mybatis.generator:mybatis-generator-maven-plugin", version.ref = "mybatis-generator" }
+mybatis-spring-boot-starter = "org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3"
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
+spock-spring = { module = "org.spockframework:spock-spring", version.ref = "spock" }
+spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring-boot" }
+
+[plugins]
+flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
+gradle-git-properties = "com.gorylenko.gradle-git-properties:2.4.1"
+sonarqube = "org.sonarqube:4.4.1.3373"
+spotless = "com.diffplug.spotless:6.23.3"
+version-catalog-update = "nl.littlerobots.version-catalog-update:0.8.3"
+versions = "com.github.ben-manes.versions:0.50.0"
