@@ -29,9 +29,5 @@ abstract class AbstractDatabaseSpec extends AbstractSpec {
 
     void cleanup() {
         redis.flushdb()
-
-        // なぜか @Transactional でロールバックされないので、仕方なく DELETE クエリを実行している
-        sql.execute("DELETE FROM gsync_echo WHERE echo_id IS NOT NULL")
-        sql.execute("DELETE FROM gsync_player WHERE player_id IS NOT NULL")
     }
 }
