@@ -89,7 +89,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/*,**/mapper/base/*")
+            property("sonar.exclusions", "testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
