@@ -1,11 +1,11 @@
-package net.averak.gsync.adapter.handler.rest.interceptor
+package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 import com.google.common.annotations.VisibleForTesting
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import net.averak.gsync.adapter.dao.dto.base.MasterVersionExample
 import net.averak.gsync.adapter.dao.mapper.base.MasterVersionBaseMapper
-import net.averak.gsync.adapter.handler.rest.HttpRequestScope
+import net.averak.gsync.adapter.handler.admin_api.HttpRequestScope
 import net.averak.gsync.core.daterange.Dateline
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException

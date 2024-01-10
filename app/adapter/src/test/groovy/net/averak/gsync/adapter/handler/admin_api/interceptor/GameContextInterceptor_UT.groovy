@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest.interceptor
+package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 import net.averak.gsync.adapter.dao.dto.base.MasterVersionDto
 import net.averak.gsync.core.exception.ErrorCode

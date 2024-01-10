@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest
+package net.averak.gsync.adapter.handler.admin_api
 
 import jakarta.servlet.http.HttpServletRequest
 import net.averak.gsync.core.config.Config

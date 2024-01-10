@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest.interceptor
+package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 import net.averak.gsync.adapter.dao.dto.base.RequiredClientVersionDto
 import net.averak.gsync.core.exception.ErrorCode
@@ -27,7 +27,7 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
             .spoofingMasterVersion(Faker.uuidv5("active"))
             .clientVersion("v1.0.0")
             .platform(Platform.IOS)
-            .execute()
+            .invoke()
 
         then:
         response.status == HttpStatus.BAD_REQUEST

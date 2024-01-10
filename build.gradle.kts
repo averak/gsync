@@ -150,6 +150,12 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
     }
+
+    tasks {
+        compileKotlin {
+            dependsOn(":adapter:generateProto")
+        }
+    }
 }
 
 project(":core") {
@@ -227,6 +233,10 @@ dependencies {
     implementation(libs.flyway.spanner)
 }
 
+grpcSpringBoot {
+    grpcVersion = "1.61.0"
+}
+
 flyway {
     url = "jdbc:cloudspanner://localhost:9010/projects/gsync-sandbox/instances/sandbox/databases/sandbox?autoConfigEmulator=true"
     cleanDisabled = false
@@ -280,9 +290,5 @@ tasks {
                 )
             }
         }
-    }
-
-    compileKotlin {
-        dependsOn(":generateProto")
     }
 }

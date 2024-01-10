@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest
+package net.averak.gsync.adapter.handler.admin_api
 
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
@@ -21,11 +21,10 @@ class HealthCheckController_IT extends AbstractDatabaseSpec {
         final response = this.restTester.get(HEALTH_CHECK_PATH)
             .spoofingMasterVersion(Faker.uuidv5("active"))
             .spoofingCurrentTime(now)
-            .execute(HealthCheckController.Response)
+            .invoke(HealthCheckController.Response)
 
         then:
         response.status == HttpStatus.OK
-        response.body.message == "Health Check"
         Assert.timestampIs(response.body.timestamp, now)
 
         then:

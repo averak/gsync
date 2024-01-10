@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest
+package net.averak.gsync.adapter.handler.admin_api
 
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException

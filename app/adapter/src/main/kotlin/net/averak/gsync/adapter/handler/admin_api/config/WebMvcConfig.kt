@@ -1,7 +1,7 @@
-package net.averak.gsync.adapter.handler.rest.config
+package net.averak.gsync.adapter.handler.admin_api.config
 
-import net.averak.gsync.adapter.handler.rest.interceptor.IRequestInterceptor
-import net.averak.gsync.adapter.handler.rest.interceptor.InterceptorPriority
+import net.averak.gsync.adapter.handler.admin_api.interceptor.IRequestInterceptor
+import net.averak.gsync.adapter.handler.admin_api.interceptor.InterceptorPriority
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer

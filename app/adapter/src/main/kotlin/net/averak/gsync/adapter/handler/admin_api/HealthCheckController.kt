@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest
+package net.averak.gsync.adapter.handler.admin_api
 
 import net.averak.gsync.usecase.EchoUsecase
 import org.springframework.http.HttpStatus
@@ -23,11 +23,10 @@ class HealthCheckController(
         val gctx = requestScope.getGameContext()
         val result = echoUsecase.echo(gctx, "Health Check")
 
-        return ResponseEntity.ok(Response(result.message, result.timestamp))
+        return ResponseEntity.ok(Response(result.timestamp))
     }
 
     data class Response(
-        val message: String,
         val timestamp: LocalDateTime,
     )
 }

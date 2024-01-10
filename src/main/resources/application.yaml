@@ -43,6 +43,7 @@ server:
 
 grpc:
   port: 6565
+  enable-reflection: ${gsync.debug:false}
 
 mybatis:
   configuration:

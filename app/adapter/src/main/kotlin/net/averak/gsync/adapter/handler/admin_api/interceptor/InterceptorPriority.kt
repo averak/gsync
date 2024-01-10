@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest.interceptor
+package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 /**
  * インターセプターの実行優先度

@@ -1,8 +1,8 @@
-package net.averak.gsync.adapter.handler.rest.interceptor
+package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import net.averak.gsync.adapter.handler.rest.HttpRequestScope
+import net.averak.gsync.adapter.handler.admin_api.HttpRequestScope
 import net.averak.gsync.core.logger.Logger
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Component

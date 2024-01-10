@@ -1,0 +1,44 @@
+syntax = "proto3";
+package gsync.player_api;
+
+import "google/protobuf/timestamp.proto";
+import "resource/player_storage.proto";
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.player_api";
+
+service PlayerStorage {
+  rpc SearchV1(PlayerStorageSearchV1.Request) returns (PlayerStorageSearchV1.Response);
+  rpc SetV1(PlayerStorageSetV1.Request) returns (PlayerStorageSetV1.Response);
+  rpc ClearV1(PlayerStorageClearV1.Request) returns (PlayerStorageClearV1.Response);
+}
+
+message PlayerStorageSearchV1 {
+  message Request {
+    resource.player_storage.Criteria criteria = 1;
+  }
+  message Response {
+    repeated resource.player_storage.Entry entries = 1;
+  }
+}
+
+message PlayerStorageSetV1 {
+  message Request {
+    resource.player_storage.Entry entry             = 1;
+    string                        previous_revision = 2;
+  }
+  message Response {
+    resource.player_storage.Entry entry         = 1;
+    string                        next_revision = 2;
+  }
+}
+
+message PlayerStorageClearV1 {
+  message Request {
+    resource.player_storage.Criteria criteria          = 1;
+    string                           previous_revision = 2;
+  }
+  message Response {
+    string next_revision = 1;
+  }
+}

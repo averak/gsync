@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.rest
+package net.averak.gsync.adapter.handler.admin_api
 
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Faker
@@ -13,7 +13,7 @@ class GlobalRestControllerAdvice_IT extends AbstractDatabaseSpec {
         when:
         final response = this.restTester.get(path)
             .spoofingMasterVersion(Faker.uuidv5("active"))
-            .execute()
+            .invoke()
 
         then:
         response.status == HttpStatus.NOT_FOUND
