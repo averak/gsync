@@ -1,8 +1,11 @@
 package net.averak.gsync.adapter.handler.rest
 
+import net.averak.gsync.core.daterange.Dateline
 import net.averak.gsync.core.exception.GsyncException
+import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.infrastructure.json.JsonUtils
 import net.averak.gsync.testkit.AbstractDatabaseSpec
+import net.averak.gsync.testkit.Faker
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -10,16 +13,18 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.util.MultiValueMap
-import org.springframework.web.context.WebApplicationContext
+import spock.lang.Shared
+
+import java.time.LocalDateTime
 
 abstract class AbstractController_IT extends AbstractDatabaseSpec {
 
+    @Autowired
     private MockMvc mockMvc
 
-    @Autowired
-    private WebApplicationContext webApplicationContext
+    @Shared
+    protected GameContext gctx
 
     /**
      * GET request
@@ -149,12 +154,10 @@ abstract class AbstractController_IT extends AbstractDatabaseSpec {
      * setup before test case
      */
     void setup() {
-        this.mockMvc = MockMvcBuilders
-            .webAppContextSetup(this.webApplicationContext)
-            .addFilter(({ request, response, chain ->
-                response.setCharacterEncoding("UTF-8")
-                chain.doFilter(request, response)
-            }))
-            .build()
+        this.gctx = new GameContext(
+            Faker.uuidv4(),
+            Dateline.DEFAULT,
+            LocalDateTime.now(),
+        )
     }
 }

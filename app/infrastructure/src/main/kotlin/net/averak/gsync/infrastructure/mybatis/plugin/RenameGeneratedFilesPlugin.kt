@@ -14,8 +14,8 @@ class RenameGeneratedFilesPlugin : PluginAdapter() {
 
     override fun initialized(introspectedTable: IntrospectedTable) {
         super.initialized(introspectedTable)
-        introspectedTable.baseRecordType += "Entity"
-        introspectedTable.recordWithBLOBsType += "Entity"
+        introspectedTable.baseRecordType += "Dto"
+        introspectedTable.recordWithBLOBsType += "Dto"
 
         // 生成されたファイルに直接変更を加えるのを避けるために、生成されるファイルを XxxMapper から XxxBaseMapper に変更する
         // XxxBaseMapper を継承した XxxMapper が手動で作成されるはず

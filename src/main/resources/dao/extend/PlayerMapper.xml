@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.averak.gsync.adapter.dao.mapper.extend.PlayerMapper">
+    <resultMap id="ResultMap"
+               type="net.averak.gsync.adapter.dao.dto.extend.PlayerILDto"
+               extends="net.averak.gsync.adapter.dao.mapper.base.PlayerBaseMapper.BaseResultMap">
+        <association property="playerProfile" resultMap="net.averak.gsync.adapter.dao.mapper.base.PlayerProfileBaseMapper.BaseResultMap"
+                     columnPrefix="PP__">
+        </association>
+        <association property="playerLogin" resultMap="net.averak.gsync.adapter.dao.mapper.base.PlayerLoginBaseMapper.BaseResultMap"
+                     columnPrefix="PL__">
+        </association>
+    </resultMap>
+
+    <select id="selectByPlayerId" resultType="net.averak.gsync.adapter.dao.dto.extend.PlayerILDto" resultMap="ResultMap">
+        SELECT p.*,
+
+               pp.player_id         AS PP__player_id,
+               pp.nickname          AS PP__nickname,
+               pp.icon_id           AS PP__icon_id,
+               pp.created_at        AS PP__created_at,
+               pp.updated_at        AS PP__updated_at,
+
+               pl.player_id         AS PL__player_id,
+               pl.total_login_days  AS PL__total_login_days,
+               pl.last_logged_in_at AS PL__last_logged_in_at,
+               pl.created_at        AS PL__created_at,
+               pl.updated_at        AS PL__updated_at
+
+        FROM gsync_player p
+                 LEFT JOIN gsync_player_profile pp ON p.player_id = pp.player_id
+                 LEFT JOIN gsync_player_login pl on p.player_id = pl.player_id
+        WHERE p.player_id = #{playerId}
+    </select>
+</mapper>

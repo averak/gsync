@@ -1,5 +1,6 @@
 package net.averak.gsync.core.logger
 
+import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.game_context.GameContext
 import net.logstash.logback.argument.StructuredArgument
 import net.logstash.logback.argument.StructuredArguments
@@ -7,14 +8,16 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-class Logger {
+class Logger(
+    private val config: Config,
+) {
 
     private val logger = LoggerFactory.getLogger(Logger::class.java)
 
     fun info(gctx: GameContext, message: String) {
         this.logger.info(
             message,
-            makeServerInfoPayload(gctx),
+            makeServerInfoPayload(),
             makeGameContextPayload(gctx),
         )
     }
@@ -22,7 +25,7 @@ class Logger {
     fun info(gctx: GameContext, message: String, payload: Map<String, Any>) {
         this.logger.info(
             message,
-            makeServerInfoPayload(gctx),
+            makeServerInfoPayload(),
             makeGameContextPayload(gctx),
             StructuredArguments.value("payload", payload),
         )
@@ -31,7 +34,7 @@ class Logger {
     fun warn(gctx: GameContext, exception: Exception) {
         this.logger.warn(
             exception.toString(),
-            makeServerInfoPayload(gctx),
+            makeServerInfoPayload(),
             makeGameContextPayload(gctx),
             StructuredArguments.value("exception", exception),
         )
@@ -40,7 +43,7 @@ class Logger {
     fun error(gctx: GameContext, exception: Exception) {
         this.logger.error(
             exception.toString(),
-            makeServerInfoPayload(gctx),
+            makeServerInfoPayload(),
             makeGameContextPayload(gctx),
             StructuredArguments.value("exception", exception),
         )
@@ -56,11 +59,11 @@ class Logger {
         )
     }
 
-    private fun makeServerInfoPayload(gctx: GameContext): StructuredArgument {
+    private fun makeServerInfoPayload(): StructuredArgument {
         return StructuredArguments.value(
             "server",
             mapOf(
-                "version" to gctx.serverVersion,
+                "version" to config.version,
             ),
         )
     }

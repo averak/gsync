@@ -1,6 +1,6 @@
 package net.averak.gsync.adapter.repository
 
-import net.averak.gsync.adapter.dao.entity.base.EchoEntity
+import net.averak.gsync.adapter.dao.dto.base.EchoDto
 import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Echo
 import net.averak.gsync.testkit.Assert
@@ -36,9 +36,9 @@ class EchoRepository_UT extends AbstractRepository_UT {
 
     def "save: PKが存在する場合は更新される"() {
         given:
-        final entity = Fixture.setup(Faker.fake(EchoEntity))
+        final dto = Fixture.setup(Faker.fake(EchoDto))
         final echo = new Echo(
-            UUID.fromString(entity.echoId),
+            UUID.fromString(dto.echoId),
             Faker.alphanumeric(),
             LocalDateTime.now(),
         )
@@ -56,14 +56,14 @@ class EchoRepository_UT extends AbstractRepository_UT {
 
     def "findByID: idから検索できる"() {
         given:
-        final entity = new EchoEntity(
+        final dto = new EchoDto(
             Faker.uuidv5("e1").toString(),
             "hello",
             now,
             now,
             now,
         )
-        Fixture.setup(entity)
+        Fixture.setup(dto)
 
         when:
         final result = this.sut.findByID(Faker.fake(GameContext), id)
