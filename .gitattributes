@@ -1,0 +1,3 @@
+app/adapter/src/main/java/net/averak/gsync/dao/entity/base/*.java linguist-generated
+app/adapter/src/main/java/net/averak/gsync/dao/mapper/base/*.java linguist-generated
+src/main/resources/dao/base/mapper/*.xml linguist-generated
