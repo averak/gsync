@@ -41,6 +41,9 @@ server:
       charset: UTF-8
       force: true
 
+grpc:
+  port: 6565
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

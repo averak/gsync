@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.gradle.git.properties)
     alias(libs.plugins.spotless)
     alias(libs.plugins.sonarqube)
+    alias(libs.plugins.lognet.grpc.spring.boot)
 
     groovy
     jacoco
@@ -135,6 +136,10 @@ subprojects {
 }
 
 project(":adapter") {
+    apply {
+        plugin(rootProject.libs.plugins.lognet.grpc.spring.boot.get().pluginId)
+    }
+
     dependencies {
         implementation(project(":core"))
         implementation(project(":domain"))
@@ -275,5 +280,9 @@ tasks {
                 )
             }
         }
+    }
+
+    compileKotlin {
+        dependsOn(":generateProto")
     }
 }

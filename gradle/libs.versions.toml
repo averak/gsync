@@ -37,6 +37,7 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 [plugins]
 flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
 gradle-git-properties = "com.gorylenko.gradle-git-properties:2.4.1"
+lognet-grpc-spring-boot = "io.github.lognet.grpc-spring-boot:5.1.5"
 sonarqube = "org.sonarqube:4.4.1.3373"
 spotless = "com.diffplug.spotless:6.23.3"
 springboot = { id = "org.springframework.boot", version.ref = "spring-boot" }
