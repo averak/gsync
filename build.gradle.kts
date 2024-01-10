@@ -89,7 +89,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/*,**/entity/base/*,**/mapper/base/*")
+            property("sonar.exclusions", "testkit/**,**/dto/*,**/mapper/base/*")
         }
     }
 
@@ -186,10 +186,10 @@ project(":testkit") {
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.test)
+        implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
-        implementation(rootProject.libs.flyway.core)
 
         api(rootProject.libs.spock.core)
         api(rootProject.libs.spock.spring)
