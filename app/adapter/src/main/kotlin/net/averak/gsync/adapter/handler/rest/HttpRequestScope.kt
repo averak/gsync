@@ -25,7 +25,7 @@ class HttpRequestScope(
     /**
      * カスタムヘッダー名
      */
-    private enum class HeaderName(val key: String) {
+    enum class HeaderName(val key: String) {
 
         CLIENT_VERSION("x-client-version"),
         IDEMPOTENCY_KEY("x-idempotency-key"),

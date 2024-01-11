@@ -139,8 +139,6 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
-
-        testImplementation(rootProject.libs.spring.boot.starter.test)
     }
 }
 
@@ -186,6 +184,7 @@ project(":testkit") {
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.test)
+        implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
