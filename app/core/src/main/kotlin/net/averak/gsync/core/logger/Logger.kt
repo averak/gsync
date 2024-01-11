@@ -40,6 +40,14 @@ class Logger(
         )
     }
 
+    fun error(exception: Exception) {
+        this.logger.error(
+            exception.toString(),
+            makeServerInfoPayload(),
+            StructuredArguments.value("exception", exception),
+        )
+    }
+
     fun error(gctx: GameContext, exception: Exception) {
         this.logger.error(
             exception.toString(),

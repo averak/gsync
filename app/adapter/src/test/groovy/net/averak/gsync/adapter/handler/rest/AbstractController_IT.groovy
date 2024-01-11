@@ -156,6 +156,7 @@ abstract class AbstractController_IT extends AbstractDatabaseSpec {
     void setup() {
         this.gctx = new GameContext(
             Faker.uuidv4(),
+            Faker.uuidv4(),
             Dateline.DEFAULT,
             LocalDateTime.now(),
         )

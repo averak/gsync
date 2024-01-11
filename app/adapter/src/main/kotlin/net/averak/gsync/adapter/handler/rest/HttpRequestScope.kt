@@ -31,6 +31,7 @@ class HttpRequestScope(
         IDEMPOTENCY_KEY("x-idempotency-key"),
 
         // 以下はデバッグモードの場合のみ有効になる
+        SPOOFING_MASTER_VERSION("x-spoofing-master-version"),
         SPOOFING_CURRENT_TIME("x-spoofing-current-time"),
     }
 
@@ -54,6 +55,16 @@ class HttpRequestScope(
     fun getIdempotencyKey(): UUID? {
         return httpServletRequest.getHeader(HeaderName.IDEMPOTENCY_KEY.key)?.let {
             UUID.fromString(it)
+        }
+    }
+
+    fun getSpoofingMasterVersion(): UUID? {
+        return if (config.debug) {
+            httpServletRequest.getHeader(HeaderName.SPOOFING_MASTER_VERSION.key)?.let {
+                UUID.fromString(it)
+            }
+        } else {
+            null
         }
     }
 
