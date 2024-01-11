@@ -1,5 +1,6 @@
 package net.averak.gsync.adapter.handler.rest.interceptor
 
+import com.google.common.annotations.VisibleForTesting
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import net.averak.gsync.adapter.dao.dto.base.MasterVersionExample
@@ -22,7 +23,7 @@ open class GameContextInterceptor(
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val gctx = GameContext(
-            getEnabledMasterVersion(),
+            getEnabledMasterVersion(requestScope.getSpoofingMasterVersion()),
             // クライアントが Idempotency-Key を必ず設定してくるとは限らないので、未設定の場合はサーバ側でユニークキーを発行し、毎回異なるリクエストとして扱う
             requestScope.getIdempotencyKey() ?: UUID.randomUUID(),
             Dateline.DEFAULT,
@@ -33,8 +34,8 @@ open class GameContextInterceptor(
     }
 
     @Throws(GsyncException::class)
-    private fun getEnabledMasterVersion(): UUID {
-        val spoofingMasterVersion = requestScope.getSpoofingMasterVersion()
+    @VisibleForTesting
+    fun getEnabledMasterVersion(spoofingMasterVersion: UUID?): UUID {
         return if (spoofingMasterVersion == null) {
             val dtos = masterVersionMapper.selectByExample(
                 MasterVersionExample().apply {
