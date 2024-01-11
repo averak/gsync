@@ -97,7 +97,7 @@ class GameContextInterceptor_UT extends AbstractDatabaseSpec {
                     spoofingMasterVersion: null,
                 ],
                 then : (GsyncException v) -> {
-                    Assert.exceptionIs(v, new GsyncException(ErrorCode.ENABLED_MASTER_VERSION_IS_NOT_DEFINED))
+                    Assert.exceptionIs(v, new GsyncException(ErrorCode.ENABLED_MASTER_VERSION_DEFINITION_IS_NOT_FOUND))
                     return true
                 },
             ],

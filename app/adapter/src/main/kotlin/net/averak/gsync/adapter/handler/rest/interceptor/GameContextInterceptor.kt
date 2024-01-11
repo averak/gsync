@@ -43,7 +43,7 @@ open class GameContextInterceptor(
                 },
             )
             if (dtos.isEmpty()) {
-                throw GsyncException(ErrorCode.ENABLED_MASTER_VERSION_IS_NOT_DEFINED)
+                throw GsyncException(ErrorCode.ENABLED_MASTER_VERSION_DEFINITION_IS_NOT_FOUND)
             }
             if (dtos.size > 1) {
                 throw GsyncException(ErrorCode.MULTIPLE_ENABLED_MASTER_VERSIONS_ARE_DEFINED)

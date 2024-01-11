@@ -1,5 +1,6 @@
 package net.averak.gsync.adapter.handler.rest
 
+import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.core.logger.Logger
 import org.apache.catalina.connector.ClientAbortException
@@ -46,13 +47,22 @@ class GlobalRestControllerAdvice(
         } else {
             GsyncException(ex)
         }
-        try {
-            this.customLogger.error(requestScope.getGameContext(), e)
-        } catch (_: HttpMetadataNotFoundException) {
-            // ゲームコンテキストの取得に失敗する場合でも確実にログを吐く
-            this.customLogger.error(e)
+
+        when (e.errorCode) {
+            ErrorCode.CLIENT_VERSION_IS_NOT_SUPPORTED -> {
+                return ResponseEntity(ErrorResponse(e), HttpStatus.BAD_REQUEST)
+            }
+
+            else -> {
+                try {
+                    this.customLogger.error(requestScope.getGameContext(), e)
+                } catch (_: HttpMetadataNotFoundException) {
+                    // ゲームコンテキストの取得に失敗する場合でも確実にログを吐く
+                    this.customLogger.error(e)
+                }
+                return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
+            }
         }
-        return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     data class ErrorResponse(
