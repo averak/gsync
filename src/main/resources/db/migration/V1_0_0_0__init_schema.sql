@@ -1,13 +1,12 @@
-CREATE TABLE gsync_echo
+CREATE TABLE gsync_master_version
 (
-    echo_id    STRING(36) NOT NULL,
-    message    STRING( MAX) NOT NULL,
-    timestamp  TIMESTAMP NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL,
-) PRIMARY KEY (echo_id);
-ALTER TABLE gsync_echo
-    ADD ROW DELETION POLICY (OLDER_THAN(timestamp, INTERVAL 1 DAY));
+    version STRING(36) NOT NULL,
+    is_enabled BOOL      NOT NULL,
+    comment STRING( MAX) NOT NULL,
+    created TIMESTAMP NOT NULL,
+    updated TIMESTAMP NOT NULL,
+) PRIMARY KEY (version);
+CREATE INDEX gsync_master_version__is_enabled ON gsync_master_version (is_enabled);
 
 CREATE TABLE gsync_player
 (
@@ -42,3 +41,14 @@ CREATE TABLE gsync_player_login
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
+
+CREATE TABLE gsync_echo
+(
+    echo_id    STRING(36) NOT NULL,
+    message    STRING( MAX) NOT NULL,
+    timestamp  TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+) PRIMARY KEY (echo_id);
+ALTER TABLE gsync_echo
+    ADD ROW DELETION POLICY (OLDER_THAN(timestamp, INTERVAL 1 DAY));
