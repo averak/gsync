@@ -1,9 +1,6 @@
 package net.averak.gsync.testkit.randomizer
 
-import net.averak.gsync.adapter.dao.dto.base.EchoDto
-import net.averak.gsync.adapter.dao.dto.base.PlayerDto
-import net.averak.gsync.adapter.dao.dto.base.PlayerLoginDto
-import net.averak.gsync.adapter.dao.dto.base.PlayerProfileDto
+import net.averak.gsync.adapter.dao.dto.base.*
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.IRandomizer
 import org.springframework.stereotype.Component
@@ -21,6 +18,23 @@ class EchoDtoRandomizer implements IRandomizer {
             Faker.uuidv4().toString(),
             Faker.alphanumeric(255),
             Faker.fake(LocalDateTime),
+            Faker.fake(LocalDateTime),
+            Faker.fake(LocalDateTime),
+        )
+    }
+}
+
+@Component
+class MasterVersionDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = MasterVersionDto.class
+
+    @Override
+    Object getRandomValue() {
+        return new MasterVersionDto(
+            Faker.uuidv4().toString(),
+            Faker.fake(Boolean),
+            Faker.alphanumeric(),
             Faker.fake(LocalDateTime),
             Faker.fake(LocalDateTime),
         )

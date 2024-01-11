@@ -1,6 +1,5 @@
 package net.averak.gsync.adapter.handler.rest
 
-import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.core.logger.Logger
 import org.apache.catalina.connector.ClientAbortException
@@ -21,7 +20,7 @@ class GlobalRestControllerAdvice(
 
     @RequestMapping("/**")
     fun handleApiNotFound(): ResponseEntity<Any> {
-        return makeResponseAfterLogging(GsyncException(ErrorCode.NOT_FOUND_API))
+        return ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler(Exception::class)
@@ -47,19 +46,13 @@ class GlobalRestControllerAdvice(
         } else {
             GsyncException(ex)
         }
-
-        val body = ErrorResponse(e)
-        when (e.errorCode) {
-            ErrorCode.NOT_FOUND_API -> {
-                this.customLogger.warn(requestScope.getGameContext(), e)
-                return ResponseEntity(body, HttpStatus.NOT_FOUND)
-            }
-
-            else -> {
-                this.customLogger.error(requestScope.getGameContext(), e)
-                return ResponseEntity(body, HttpStatus.INTERNAL_SERVER_ERROR)
-            }
+        try {
+            this.customLogger.error(requestScope.getGameContext(), e)
+        } catch (_: HttpMetadataNotFoundException) {
+            // ゲームコンテキストの取得に失敗する場合でも確実にログを吐く
+            this.customLogger.error(e)
         }
+        return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     data class ErrorResponse(
