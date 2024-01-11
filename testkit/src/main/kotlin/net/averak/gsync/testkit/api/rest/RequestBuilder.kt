@@ -1,4 +1,4 @@
-package net.averak.gsync.testkit.api
+package net.averak.gsync.testkit.api.rest
 
 import net.averak.gsync.adapter.handler.rest.GlobalRestControllerAdvice
 import net.averak.gsync.adapter.handler.rest.HttpRequestScope
