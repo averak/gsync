@@ -1,12 +1,21 @@
 CREATE TABLE gsync_master_version
 (
-    version STRING(36) NOT NULL,
+    version    STRING(36) NOT NULL,
     is_enabled BOOL      NOT NULL,
-    comment STRING( MAX) NOT NULL,
-    created TIMESTAMP NOT NULL,
-    updated TIMESTAMP NOT NULL,
+    comment    STRING( MAX) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
 ) PRIMARY KEY (version);
 CREATE INDEX gsync_master_version__is_enabled ON gsync_master_version (is_enabled);
+
+CREATE TABLE gsync_required_client_version
+(
+    master_version STRING(36) NOT NULL,
+    client_version STRING( MAX) NOT NULL,
+    platform       INT64     NOT NULL,
+    created_at     TIMESTAMP NOT NULL,
+    updated_at     TIMESTAMP NOT NULL,
+) PRIMARY KEY (master_version, client_version, platform);
 
 CREATE TABLE gsync_player
 (
