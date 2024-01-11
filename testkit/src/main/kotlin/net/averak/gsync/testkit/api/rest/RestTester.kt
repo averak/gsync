@@ -1,4 +1,4 @@
-package net.averak.gsync.testkit.api
+package net.averak.gsync.testkit.api.rest
 
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
 
 @Component
-class HttpTester(
+class RestTester(
     private val webApplicationContext: WebApplicationContext,
 ) {
 

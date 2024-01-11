@@ -1,12 +1,13 @@
 package net.averak.gsync.adapter.handler.rest
 
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import org.springframework.http.HttpStatus
 
 import java.time.LocalDateTime
 
-class HealthCheckController_IT extends AbstractController_IT {
+class HealthCheckController_IT extends AbstractDatabaseSpec {
 
     // API PATH
     static final String BASE_PATH = "/api/health"
@@ -17,7 +18,7 @@ class HealthCheckController_IT extends AbstractController_IT {
         final now = LocalDateTime.now()
 
         when:
-        final response = this.httpTester.get(HEALTH_CHECK_PATH)
+        final response = this.restTester.get(HEALTH_CHECK_PATH)
             .spoofingMasterVersion(Faker.uuidv5("active"))
             .spoofingCurrentTime(now)
             .execute(HealthCheckController.Response)

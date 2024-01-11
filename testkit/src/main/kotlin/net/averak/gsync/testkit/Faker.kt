@@ -146,6 +146,14 @@ class Faker {
         }
 
         /**
+         * セマンティックバージョンを v0.0.0 ~ v9.9.9 の範囲で生成する
+         */
+        @JvmStatic
+        fun semver(): String {
+            return "v${integer(0, 9)}.${integer(0, 9)}.${integer(0, 9)}"
+        }
+
+        /**
          * UUIDv4を生成する
          */
         @JvmStatic

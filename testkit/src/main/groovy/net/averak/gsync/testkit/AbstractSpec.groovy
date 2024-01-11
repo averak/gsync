@@ -1,7 +1,7 @@
 package net.averak.gsync.testkit
 
 import net.averak.gsync.Entrypoint
-import net.averak.gsync.testkit.api.HttpTester
+import net.averak.gsync.testkit.api.rest.RestTester
 import org.spockframework.spring.EnableSharedInjection
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,6 +16,6 @@ abstract class AbstractSpec extends Specification {
 
     @Autowired
     @Shared
-    HttpTester httpTester
+    RestTester restTester
 
 }

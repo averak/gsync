@@ -1,6 +1,7 @@
 package net.averak.gsync.testkit.randomizer
 
 import net.averak.gsync.adapter.dao.dto.base.*
+import net.averak.gsync.domain.model.Platform
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.IRandomizer
 import org.springframework.stereotype.Component
@@ -91,3 +92,19 @@ class PlayerProfileDtoRandomizer implements IRandomizer {
     }
 }
 
+@Component
+class RequiredClientVersionDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = RequiredClientVersionDto.class
+
+    @Override
+    Object getRandomValue() {
+        return new RequiredClientVersionDto(
+            Faker.uuidv4().toString(),
+            Faker.semver(),
+            Faker.fake(Platform).id,
+            Faker.fake(LocalDateTime),
+            Faker.fake(LocalDateTime),
+        )
+    }
+}

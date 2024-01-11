@@ -3,6 +3,7 @@ package net.averak.gsync.adapter.handler.rest
 import jakarta.servlet.http.HttpServletRequest
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.game_context.GameContext
+import net.averak.gsync.domain.model.Platform
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -28,6 +29,7 @@ class HttpRequestScope(
     enum class HeaderName(val key: String) {
 
         CLIENT_VERSION("x-client-version"),
+        PLATFORM("x-platform"),
         IDEMPOTENCY_KEY("x-idempotency-key"),
 
         // 以下はデバッグモードの場合のみ有効になる
@@ -50,6 +52,16 @@ class HttpRequestScope(
 
     fun getClientVersion(): String? {
         return httpServletRequest.getHeader(HeaderName.CLIENT_VERSION.key)
+    }
+
+    fun getPlatform(): Platform? {
+        val value = httpServletRequest.getHeader(HeaderName.PLATFORM.key)
+        return if (value == null) {
+            null
+        } else {
+            // HTTP ヘッダーは大文字小文字を区別しないので、大文字に変換する必要がある
+            Platform.valueOf(value.uppercase())
+        }
     }
 
     fun getIdempotencyKey(): UUID? {
