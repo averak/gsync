@@ -12,7 +12,7 @@
         </association>
     </resultMap>
 
-    <select id="selectByPlayerId" resultType="net.averak.gsync.adapter.dao.dto.extend.PlayerILDto" resultMap="ResultMap">
+    <select id="selectByPlayerId" resultMap="ResultMap">
         SELECT p.*,
 
                pp.player_id         AS PP__player_id,

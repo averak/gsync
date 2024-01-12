@@ -68,11 +68,7 @@ class Faker {
          */
         @JvmStatic
         fun email(): String {
-            return "${
-                RandomStringUtils.randomAlphanumeric(
-                    10,
-                )
-            }@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
+            return "${alphanumeric(10)}@gsync.com".lowercase()
         }
 
         /**

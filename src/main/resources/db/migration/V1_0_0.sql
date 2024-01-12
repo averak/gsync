@@ -1,3 +1,31 @@
+CREATE TABLE gsync_tenant
+(
+    tenant_id  STRING(36) NOT NULL,
+    name       STRING( MAX) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+) PRIMARY KEY (tenant_id);
+
+CREATE TABLE gsync_operator
+(
+    operator_id STRING(36) NOT NULL,
+    email       STRING(255) NOT NULL,
+    created_at  TIMESTAMP NOT NULL,
+    updated_at  TIMESTAMP NOT NULL,
+) PRIMARY KEY (operator_id);
+
+CREATE TABLE gsync_r_tenant_operator
+(
+    operator_id STRING(36) NOT NULL,
+    tenant_id   STRING(36) NOT NULL,
+    is_admin    BOOL      NOT NULL,
+    created_at  TIMESTAMP NOT NULL,
+    updated_at  TIMESTAMP NOT NULL,
+) PRIMARY KEY (operator_id, tenant_id),
+INTERLEAVE IN PARENT gsync_operator ON
+DELETE
+CASCADE;
+
 CREATE TABLE gsync_master_version
 (
     version    STRING(36) NOT NULL,
