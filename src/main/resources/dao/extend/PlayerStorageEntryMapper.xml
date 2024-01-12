@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.averak.gsync.adapter.dao.mapper.extend.PlayerStorageEntryMapper">
+    <select id="selectByPlayerIdAndTenantId" resultType="net.averak.gsync.adapter.dao.dto.base.PlayerStorageEntryDto">
+        SELECT *
+        FROM gsync_player_storage_entry
+        WHERE player_id = #{playerId}
+        AND tenant_id = #{tenantId}
+        <if test="!exactKeyMatch.isEmpty() || !forwardKeyMatch.isEmpty()">
+            AND (
+            <foreach item="pattern" index="index" collection="exactKeyMatch" separator="OR">
+                key = #{pattern}
+            </foreach>
+
+            <if test="!exactKeyMatch.isEmpty() and !forwardKeyMatch.isEmpty()">
+                OR
+            </if>
+            <foreach item="pattern" index="index" collection="forwardKeyMatch" separator="OR">
+                STARTS_WITH(key, #{pattern})
+            </foreach>
+            )
+        </if>
+        ORDER BY key
+    </select>
+
+    <delete id="deleteByPlayerIdAndTenantId">
+        DELETE
+        FROM gsync_player_storage_entry
+        WHERE player_id = #{playerId}
+        AND tenant_id = #{tenantId}
+        <if test="!exactKeyMatch.isEmpty() || !forwardKeyMatch.isEmpty()">
+            AND (
+            <foreach item="pattern" index="index" collection="exactKeyMatch" separator="OR">
+                key = #{pattern}
+            </foreach>
+
+            <if test="!exactKeyMatch.isEmpty() and !forwardKeyMatch.isEmpty()">
+                OR
+            </if>
+            <foreach item="pattern" index="index" collection="forwardKeyMatch" separator="OR">
+                STARTS_WITH(key, #{pattern})
+            </foreach>
+            )
+        </if>
+    </delete>
+
+    <insert id="bulkInsert">
+        INSERT INTO gsync_player_storage_entry
+        (player_id, tenant_id, key, value, created_at, updated_at)
+        VALUES
+        <foreach item="dto" index="index" collection="dtos" separator=",">
+            (#{dto.playerId}, #{dto.tenantId}, #{dto.key}, #{dto.value}, #{dto.createdAt,jdbcType=TIMESTAMP}, #{dto.updatedAt,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+</mapper>

@@ -4,12 +4,12 @@ import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.testkit.Faker
 import org.springframework.beans.factory.annotation.Autowired
 
-class EchoUsecase_UT extends AbstractUsecase_UT {
+class EchoUsecase_echo_UT extends AbstractUsecase_UT {
 
     @Autowired
     EchoUsecase sut
 
-    def "echo: 正常系 Echoを作成できる"() {
+    def "正常系: Echoを作成できる"() {
         given:
         final gctx = Faker.fake(GameContext)
         final message = Faker.alphanumeric()

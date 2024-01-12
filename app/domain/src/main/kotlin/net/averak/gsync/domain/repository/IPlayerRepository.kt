@@ -6,7 +6,7 @@ import java.util.*
 
 interface IPlayerRepository {
 
-    fun findByID(gctx: GameContext, id: UUID): Player?
+    fun get(gctx: GameContext, id: UUID): Player?
 
     fun save(gctx: GameContext, player: Player)
 }
