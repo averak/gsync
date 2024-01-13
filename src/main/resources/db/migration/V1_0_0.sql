@@ -34,7 +34,7 @@ CREATE TABLE gsync_master_version
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
 ) PRIMARY KEY (version);
-CREATE INDEX gsync_master_version__is_enabled ON gsync_master_version (is_enabled);
+CREATE INDEX idx__gsync_master_version__is_enabled ON gsync_master_version (is_enabled);
 
 CREATE TABLE gsync_required_client_version
 (
@@ -53,7 +53,7 @@ CREATE TABLE gsync_player
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
 ) PRIMARY KEY (player_id);
-CREATE UNIQUE INDEX gsync_player__friend_id ON gsync_player (friend_id);
+CREATE UNIQUE INDEX idx__gsync_player__friend_id ON gsync_player (friend_id);
 
 CREATE TABLE gsync_player_profile
 (
@@ -86,7 +86,7 @@ CREATE TABLE gsync_player_friend
     become_friend_at TIMESTAMP NOT NULL,
     created_at       TIMESTAMP NOT NULL,
     updated_at       TIMESTAMP NOT NULL,
-    CONSTRAINT fk__gsync_player_friend__friend_player_id FOREIGN KEY (friend_player_id) REFERENCES gsync_player (friend_id),
+    CONSTRAINT fk__gsync_player_friend__friend_player_id FOREIGN KEY (friend_player_id) REFERENCES gsync_player (player_id),
 ) PRIMARY KEY (player_id, friend_player_id),
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
@@ -99,7 +99,7 @@ CREATE TABLE gsync_player_friend_request
     sent_at            TIMESTAMP NOT NULL,
     created_at         TIMESTAMP NOT NULL,
     updated_at         TIMESTAMP NOT NULL,
-    CONSTRAINT fk__gsync_player_friend_request__receiver_player_id FOREIGN KEY (receiver_player_id) REFERENCES gsync_player (friend_id),
+    CONSTRAINT fk__gsync_player_friend_request__receiver_player_id FOREIGN KEY (receiver_player_id) REFERENCES gsync_player (player_id),
 ) PRIMARY KEY (player_id, receiver_player_id),
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
@@ -139,8 +139,8 @@ CREATE TABLE gsync_player_storage_revision
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
-CREATE INDEX gsync_player_storage_revision__player_id__game_id__created_at ON gsync_player_storage_revision (player_id, game_id, created_at DESC);
-CREATE UNIQUE INDEX gsync_player_storage_revision__idempotency_key ON gsync_player_storage_revision (idempotency_key);
+CREATE INDEX idx__gsync_player_storage_revision__player_id__game_id__created_at ON gsync_player_storage_revision (player_id, game_id, created_at DESC);
+CREATE UNIQUE INDEX uq__gsync_player_storage_revision__idempotency_key ON gsync_player_storage_revision (idempotency_key);
 
 CREATE TABLE gsync_echo
 (
