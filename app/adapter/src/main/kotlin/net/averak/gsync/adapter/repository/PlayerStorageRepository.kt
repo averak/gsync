@@ -61,7 +61,6 @@ open class PlayerStorageRepository(
         )
     }
 
-    @Throws(AlreadyDoneException::class)
     override fun save(gctx: GameContext, playerStorage: PlayerStorage) {
         // 冪等性を保証するために、リビジョンの更新時には idempotencyKey を検証する
         if (playerStorageRevisionMapper.countByExample(
