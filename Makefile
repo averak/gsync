@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	./gradlew build -x test
+	./gradlew bootJar
 
 .PHONY: test
 test:

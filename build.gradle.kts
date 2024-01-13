@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     kotlin("jvm") version "1.9.20"
 
+    alias(libs.plugins.springboot)
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
     alias(libs.plugins.flyway)
@@ -96,6 +97,10 @@ allprojects {
     tasks {
         test {
             useJUnitPlatform()
+        }
+
+        javadoc {
+            (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
         }
 
         processResources {
