@@ -288,4 +288,21 @@
       order by ${orderByClause}
     </if>
   </select>
+  <insert id="bulkInsert">
+    INSERT INTO `gsync_player_profile`
+    (
+    player_id,
+    nickname,
+    icon_id,
+    created_at,
+    updated_at
+    ) VALUES
+    <foreach close=")" collection="dtos" item="dto" open="(" separator=",">
+      #{dto.playerId, jdbcType=NVARCHAR},
+      #{dto.nickname, jdbcType=NVARCHAR},
+      #{dto.iconId, jdbcType=NVARCHAR},
+      #{dto.createdAt, jdbcType=TIMESTAMP},
+      #{dto.updatedAt, jdbcType=TIMESTAMP}
+    </foreach>
+  </insert>
 </mapper>

@@ -247,6 +247,11 @@ tasks {
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
     register("mbgenerate", Task::class) {
+        doFirst {
+            fileTree("$rootDir/src/main/resources/dao/base").matching {
+                include("*.xml")
+            }.forEach { it.delete() }
+        }
         doLast {
             ant.withGroovyBuilder {
                 "taskdef"(
