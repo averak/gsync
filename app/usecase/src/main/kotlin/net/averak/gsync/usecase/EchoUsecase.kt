@@ -13,10 +13,10 @@ class EchoUsecase(
 ) {
 
     fun echo(gctx: GameContext, message: String): Echo {
-        return transaction.beginRwTransaction {
+        return transaction.rwTx {
             val echo = Echo(message, gctx.currentTime)
             echoRepository.save(gctx, echo)
-            return@beginRwTransaction echo
+            return@rwTx echo
         }
     }
 }

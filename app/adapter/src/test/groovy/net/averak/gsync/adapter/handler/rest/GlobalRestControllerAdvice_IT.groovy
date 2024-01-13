@@ -1,17 +1,21 @@
 package net.averak.gsync.adapter.handler.rest
 
-import net.averak.gsync.core.exception.ErrorCode
-import net.averak.gsync.core.exception.GsyncException
+import net.averak.gsync.testkit.AbstractDatabaseSpec
+import net.averak.gsync.testkit.Faker
 import org.springframework.http.HttpStatus
 
-class GlobalRestControllerAdvice_IT extends AbstractController_IT {
+class GlobalRestControllerAdvice_IT extends AbstractDatabaseSpec {
 
     def "異常系 存在しないパスの場合はエラーを返す"() {
         given:
         final path = "/api/xxx"
 
-        expect:
-        final request = this.getRequest(path)
-        execute(request, HttpStatus.NOT_FOUND, new GsyncException(ErrorCode.NOT_FOUND_API))
+        when:
+        final response = this.restTester.get(path)
+            .spoofingMasterVersion(Faker.uuidv5("active"))
+            .execute()
+
+        then:
+        response.status == HttpStatus.NOT_FOUND
     }
 }

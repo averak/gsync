@@ -26,13 +26,13 @@ class Fixture {
          * テストフィクスチャをセットアップする
          */
         @JvmStatic
-        fun <T> setup(entity: T): T {
-            require(entity != null) {
-                "entity must not be null"
+        fun <T> setup(dto: T): T {
+            require(dto != null) {
+                "dto must not be null"
             }
 
-            sql.dataSet(extractTableName(entity)).add(extractColumns(entity))
-            return entity
+            sql.dataSet(extractTableName(dto)).add(extractColumns(dto))
+            return dto
         }
 
         /**
@@ -44,18 +44,18 @@ class Fixture {
             return entities.toList()
         }
 
-        private fun extractTableName(entity: Any): String {
-            val tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, entity.javaClass.simpleName).replace("_entity", "")
+        private fun extractTableName(dto: Any): String {
+            val tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, dto.javaClass.simpleName).replace("_dto", "")
             return "`gsync_$tableName`"
         }
 
-        private fun extractColumns(entity: Any): Map<String, Any> {
+        private fun extractColumns(dto: Any): Map<String, Any> {
             val result = LinkedHashMap<String, Any>()
-            entity.javaClass.declaredFields.forEach {
+            dto.javaClass.declaredFields.forEach {
                 val columnName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, it.name)
                 it.isAccessible = true
 
-                when (val value = it[entity]) {
+                when (val value = it[dto]) {
                     is LocalDateTime -> {
                         result["`$columnName`"] = Timestamp.valueOf(value)
                     }

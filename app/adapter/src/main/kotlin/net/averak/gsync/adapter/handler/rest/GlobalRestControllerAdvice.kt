@@ -21,7 +21,7 @@ class GlobalRestControllerAdvice(
 
     @RequestMapping("/**")
     fun handleApiNotFound(): ResponseEntity<Any> {
-        return makeResponseAfterLogging(GsyncException(ErrorCode.NOT_FOUND_API))
+        return ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler(Exception::class)
@@ -48,16 +48,19 @@ class GlobalRestControllerAdvice(
             GsyncException(ex)
         }
 
-        val body = ErrorResponse(e)
         when (e.errorCode) {
-            ErrorCode.NOT_FOUND_API -> {
-                this.customLogger.warn(requestScope.getGameContext(), e)
-                return ResponseEntity(body, HttpStatus.NOT_FOUND)
+            ErrorCode.CLIENT_VERSION_IS_NOT_SUPPORTED -> {
+                return ResponseEntity(ErrorResponse(e), HttpStatus.BAD_REQUEST)
             }
 
             else -> {
-                this.customLogger.error(requestScope.getGameContext(), e)
-                return ResponseEntity(body, HttpStatus.INTERNAL_SERVER_ERROR)
+                try {
+                    this.customLogger.error(requestScope.getGameContext(), e)
+                } catch (_: HttpMetadataNotFoundException) {
+                    // ゲームコンテキストの取得に失敗する場合でも確実にログを吐く
+                    this.customLogger.error(e)
+                }
+                return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
             }
         }
     }

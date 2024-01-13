@@ -1,17 +1,19 @@
 # gsync
 
 ![CI](https://github.com/averak/gsync/workflows/CI/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=averak_gsync&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=averak_gsync)
 
-This is a multi-tenancy game server for MO games.
+This is a multi-tenancy game server for multiplayer online games.
 
 This component provides only reusable features that can be used across various games, and individual logic cannot be embedded.
 
 ## Features
 
 * Player authentication / authorization
-* Friend
 * Match making
 * Realtime messaging
+* Friend
+* Generic Storage
 * And more
 
 ## Develop

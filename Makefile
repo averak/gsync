@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	./gradlew build -x test
+	./gradlew bootJar
 
 .PHONY: test
 test:
@@ -19,8 +19,8 @@ codegen:
 	./gradlew mbGenerate
 	./gradlew spotlessApply
 
-.PHONY: db-migrate
-db-migrate:
+.PHONY: db-apply
+db-apply:
 	./gradlew flywayMigrate
 
 .PHONY: db-clean

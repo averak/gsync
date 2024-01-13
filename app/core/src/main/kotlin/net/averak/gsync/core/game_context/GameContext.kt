@@ -9,7 +9,7 @@ import java.util.*
  * 機能によらずアプリケーション横断的なコンテキスト
  */
 data class GameContext(
-    val serverVersion: String,
+    val masterVersion: UUID,
     val idempotencyKey: UUID,
     val dateline: Dateline,
     val currentTime: LocalDateTime,

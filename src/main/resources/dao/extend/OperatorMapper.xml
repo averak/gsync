@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.averak.gsync.adapter.dao.mapper.extend.OperatorMapper">
+    <resultMap id="ResultMap"
+               type="net.averak.gsync.adapter.dao.dto.extend.OperatorILDto"
+               extends="net.averak.gsync.adapter.dao.mapper.base.OperatorBaseMapper.BaseResultMap">
+        <association property="rTenantOperators"
+                     resultMap="net.averak.gsync.adapter.dao.mapper.base.RTenantOperatorBaseMapper.BaseResultMap"
+                     columnPrefix="RTO__">
+        </association>
+    </resultMap>
+
+    <select id="selectByOperatorId" resultMap="ResultMap">
+        SELECT o.*,
+
+               rto.operator_id AS RTO__operator_id,
+               rto.tenant_id   AS RTO__tenant_id,
+               rto.is_admin    AS RTO__is_admin,
+               rto.created_at  AS RTO__created_at,
+               rto.updated_at  AS RTO__updated_at
+
+        FROM gsync_operator o
+                 LEFT JOIN gsync_r_tenant_operator rto ON o.operator_id = rto.operator_id
+        WHERE o.operator_id = #{operatorId}
+    </select>
+
+    <select id="selectByTenantId" resultMap="ResultMap">
+        SELECT o.*,
+
+               rto.operator_id AS RTO__operator_id,
+               rto.tenant_id   AS RTO__tenant_id,
+               rto.is_admin    AS RTO__is_admin,
+               rto.created_at  AS RTO__created_at,
+               rto.updated_at  AS RTO__updated_at
+
+        FROM gsync_operator o
+                 LEFT JOIN gsync_r_tenant_operator rto ON o.operator_id = rto.operator_id
+        WHERE rto.tenant_id = #{tenantId}
+    </select>
+</mapper>

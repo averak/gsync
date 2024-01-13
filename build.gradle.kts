@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     kotlin("jvm") version "1.9.20"
 
+    alias(libs.plugins.springboot)
     alias(libs.plugins.versions)
     alias(libs.plugins.version.catalog.update)
     alias(libs.plugins.flyway)
@@ -89,13 +90,17 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/*,**/entity/base/*,**/mapper/base/*")
+            property("sonar.exclusions", "testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
     tasks {
         test {
             useJUnitPlatform()
+        }
+
+        javadoc {
+            (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
         }
 
         processResources {
@@ -139,8 +144,6 @@ project(":adapter") {
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
-
-        testImplementation(rootProject.libs.spring.boot.starter.test)
     }
 }
 
@@ -186,10 +189,11 @@ project(":testkit") {
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
         implementation(rootProject.libs.spring.boot.starter.test)
+        implementation(rootProject.libs.spring.boot.starter.web)
+        implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
-        implementation(rootProject.libs.flyway.core)
 
         api(rootProject.libs.spock.core)
         api(rootProject.libs.spock.spring)

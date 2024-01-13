@@ -67,5 +67,4 @@ class DateRange_UT extends AbstractSpec {
         0  || new DateRange(LocalDate.of(2000, 1, 1), LocalDateTime.of(2000, 1, 1, 13, 0, 0), LocalDateTime.of(2000, 1, 2, 13, 0, 0))
         1  || new DateRange(LocalDate.of(2000, 1, 2), LocalDateTime.of(2000, 1, 2, 13, 0, 0), LocalDateTime.of(2000, 1, 3, 13, 0, 0))
     }
-
 }

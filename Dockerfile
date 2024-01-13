@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app/
 
 RUN yum install -y git
-RUN ./gradlew build -x test
+RUN ./gradlew bootJar
 
 FROM public.ecr.aws/docker/library/amazoncorretto:17
 

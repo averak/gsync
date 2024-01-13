@@ -68,11 +68,7 @@ class Faker {
          */
         @JvmStatic
         fun email(): String {
-            return "${
-                RandomStringUtils.randomAlphanumeric(
-                    10,
-                )
-            }@${RandomStringUtils.randomAlphanumeric(5)}.com".lowercase(Locale.getDefault())
+            return "${alphanumeric(10)}@gsync.com".lowercase()
         }
 
         /**
@@ -143,6 +139,14 @@ class Faker {
         @JvmStatic
         fun <T> dice(elements: List<T>): T {
             return elements[integer(0, elements.size - 1)]
+        }
+
+        /**
+         * セマンティックバージョンを v0.0.0 ~ v9.9.9 の範囲で生成する
+         */
+        @JvmStatic
+        fun semver(): String {
+            return "v${integer(0, 9)}.${integer(0, 9)}.${integer(0, 9)}"
         }
 
         /**

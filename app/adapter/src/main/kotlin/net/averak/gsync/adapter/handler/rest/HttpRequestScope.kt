@@ -3,6 +3,7 @@ package net.averak.gsync.adapter.handler.rest
 import jakarta.servlet.http.HttpServletRequest
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.game_context.GameContext
+import net.averak.gsync.domain.model.Platform
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -25,12 +26,14 @@ class HttpRequestScope(
     /**
      * カスタムヘッダー名
      */
-    private enum class HeaderName(val key: String) {
+    enum class HeaderName(val key: String) {
 
         CLIENT_VERSION("x-client-version"),
+        PLATFORM("x-platform"),
         IDEMPOTENCY_KEY("x-idempotency-key"),
 
         // 以下はデバッグモードの場合のみ有効になる
+        SPOOFING_MASTER_VERSION("x-spoofing-master-version"),
         SPOOFING_CURRENT_TIME("x-spoofing-current-time"),
     }
 
@@ -51,9 +54,29 @@ class HttpRequestScope(
         return httpServletRequest.getHeader(HeaderName.CLIENT_VERSION.key)
     }
 
+    fun getPlatform(): Platform? {
+        val value = httpServletRequest.getHeader(HeaderName.PLATFORM.key)
+        return if (value == null) {
+            null
+        } else {
+            // HTTP ヘッダーは大文字小文字を区別しないので、大文字に変換する必要がある
+            Platform.valueOf(value.uppercase())
+        }
+    }
+
     fun getIdempotencyKey(): UUID? {
         return httpServletRequest.getHeader(HeaderName.IDEMPOTENCY_KEY.key)?.let {
             UUID.fromString(it)
+        }
+    }
+
+    fun getSpoofingMasterVersion(): UUID? {
+        return if (config.debug) {
+            httpServletRequest.getHeader(HeaderName.SPOOFING_MASTER_VERSION.key)?.let {
+                UUID.fromString(it)
+            }
+        } else {
+            null
         }
     }
 

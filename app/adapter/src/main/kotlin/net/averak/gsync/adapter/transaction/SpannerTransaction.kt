@@ -10,7 +10,7 @@ class SpannerTransaction(
     private val transactionManager: PlatformTransactionManager,
 ) : ITransaction {
 
-    override fun <T> beginRoTransaction(block: () -> T): T {
+    override fun <T> roTx(block: () -> T): T {
         val tx = TransactionTemplate(transactionManager)
         tx.isReadOnly = true
 
@@ -19,7 +19,7 @@ class SpannerTransaction(
         }!!
     }
 
-    override fun <T> beginRwTransaction(block: () -> T): T {
+    override fun <T> rwTx(block: () -> T): T {
         val tx = TransactionTemplate(transactionManager)
         tx.isReadOnly = false
 
