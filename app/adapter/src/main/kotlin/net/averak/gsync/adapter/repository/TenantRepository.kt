@@ -32,25 +32,13 @@ open class TenantRepository(
     }
 
     override fun save(gctx: GameContext, tenant: Tenant) {
-        val dto = tenantMapper.selectByPrimaryKey(tenant.id.toString())
-        if (dto == null) {
-            tenantMapper.insert(
-                TenantDto(
-                    tenant.id.toString(),
-                    tenant.name,
-                    gctx.currentTime,
-                    gctx.currentTime,
-                ),
-            )
-        } else {
-            tenantMapper.updateByPrimaryKey(
-                TenantDto(
-                    tenant.id.toString(),
-                    tenant.name,
-                    dto.createdAt,
-                    gctx.currentTime,
-                ),
-            )
-        }
+        val dto = TenantDto(
+            tenant.id.toString(),
+            tenant.name,
+            gctx.currentTime,
+            gctx.currentTime,
+        )
+        tenantMapper.syncOriginal(dto)
+        tenantMapper.insertOrUpdate(dto)
     }
 }

@@ -11,9 +11,12 @@
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 
-        <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.RenameGeneratedFilesPlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.BulkInsertPlugin"/>
         <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.IgnoreTablePlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.InsertOrUpdatePlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.RenameGeneratedFilesPlugin"/>
         <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.ResolveNullPlugin"/>
+        <plugin type="net.averak.gsync.infrastructure.mybatis.plugin.SuppressWarningsPlugin"/>
 
         <commentGenerator>
             <property name="suppressDate" value="true"/>

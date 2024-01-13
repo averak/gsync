@@ -14,28 +14,15 @@ open class EchoRepository(
 ) : IEchoRepository {
 
     override fun save(gctx: GameContext, echo: Echo) {
-        val dto = echoMapper.selectByPrimaryKey(echo.id.toString())
-        if (dto == null) {
-            echoMapper.insert(
-                EchoDto(
-                    echo.id.toString(),
-                    echo.message,
-                    echo.timestamp,
-                    gctx.currentTime,
-                    gctx.currentTime,
-                ),
-            )
-        } else {
-            echoMapper.updateByPrimaryKey(
-                EchoDto(
-                    echo.id.toString(),
-                    echo.message,
-                    echo.timestamp,
-                    dto.createdAt,
-                    gctx.currentTime,
-                ),
-            )
-        }
+        val dto = EchoDto(
+            echo.id.toString(),
+            echo.message,
+            echo.timestamp,
+            gctx.currentTime,
+            gctx.currentTime,
+        )
+        echoMapper.syncOriginal(dto)
+        echoMapper.insertOrUpdate(dto)
     }
 
     override fun findByID(gctx: GameContext, id: UUID): Echo? {

@@ -71,80 +71,35 @@ open class PlayerStorageRepository(
         ) {
             throw AlreadyDoneException()
         }
-        val revisionDto = playerStorageRevisionMapper.selectByPrimaryKey(
+        val revisionDto = PlayerStorageRevisionDto(
             playerStorage.playerID.toString(),
             playerStorage.tenantID.toString(),
             playerStorage.revision.toString(),
+            gctx.idempotencyKey.toString(),
+            gctx.currentTime,
+            gctx.currentTime,
         )
-        if (revisionDto == null) {
-            playerStorageRevisionMapper.insert(
-                PlayerStorageRevisionDto(
-                    playerStorage.playerID.toString(),
-                    playerStorage.tenantID.toString(),
-                    playerStorage.revision.toString(),
-                    gctx.idempotencyKey.toString(),
-                    gctx.currentTime,
-                    gctx.currentTime,
-                ),
-            )
-        } else {
-            playerStorageRevisionMapper.updateByPrimaryKey(
-                PlayerStorageRevisionDto(
-                    playerStorage.playerID.toString(),
-                    playerStorage.tenantID.toString(),
-                    playerStorage.revision.toString(),
-                    gctx.idempotencyKey.toString(),
-                    revisionDto.createdAt,
-                    gctx.currentTime,
-                ),
-            )
-        }
+        playerStorageRevisionMapper.syncOriginal(revisionDto)
+        playerStorageRevisionMapper.insertOrUpdate(revisionDto)
 
         // 値が空のエントリは削除する
-        val clearedEntryKeys = playerStorage.entries.filter { it.isCleared() }.map { it.key }
-        if (clearedEntryKeys.isNotEmpty()) {
+        val clearedEntries = playerStorage.entries.filter { it.isCleared() }
+        if (clearedEntries.isNotEmpty()) {
             playerStorageEntryMapper.deleteByExample(
                 PlayerStorageEntryExample().apply {
                     createCriteria().andPlayerIdEqualTo(playerStorage.playerID.toString())
                         .andTenantIdEqualTo(playerStorage.tenantID.toString())
-                        .andKeyIn(clearedEntryKeys)
+                        .andKeyIn(clearedEntries.map { it.key })
                 },
             )
         }
 
         val notClearedEntries = playerStorage.entries.filter { !it.isCleared() }
-        val entryDtos = playerStorageEntryMapper.selectByPlayerIdAndTenantId(
-            playerStorage.playerID.toString(),
-            playerStorage.tenantID.toString(),
-            notClearedEntries.map { it.key },
-            listOf(),
-        )
-        val insertEntries = notClearedEntries.filter { entry ->
-            entryDtos.none { it.key == entry.key }
+        val entryDtos = notClearedEntries.map {
+            convertModelToDto(it, playerStorage.playerID, playerStorage.tenantID, gctx.currentTime, gctx.currentTime)
         }
-        if (insertEntries.isNotEmpty()) {
-            playerStorageEntryMapper.bulkInsert(
-                insertEntries.map {
-                    convertModelToDto(it, playerStorage.playerID, playerStorage.tenantID, gctx.currentTime, gctx.currentTime)
-                },
-            )
-        }
-        val updateEntries = notClearedEntries.filter { entry ->
-            entryDtos.any { it.key == entry.key }
-        }
-        if (updateEntries.isNotEmpty()) {
-            updateEntries.parallelStream().forEach {
-                playerStorageEntryMapper.updateByPrimaryKeyWithBLOBs(
-                    convertModelToDto(
-                        it,
-                        playerStorage.playerID,
-                        playerStorage.tenantID,
-                        entryDtos.first { dto -> dto.key == it.key }.createdAt,
-                        gctx.currentTime,
-                    ),
-                )
-            }
-        }
+        playerStorageEntryMapper.syncOriginal(entryDtos)
+        playerStorageEntryMapper.insertOrUpdate(entryDtos)
     }
 
     private fun convertDtoToModel(playerStorageEntryDto: PlayerStorageEntryDto): PlayerStorageEntry {
