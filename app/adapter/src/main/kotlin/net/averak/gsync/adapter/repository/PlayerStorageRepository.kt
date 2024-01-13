@@ -12,7 +12,6 @@ import net.averak.gsync.domain.model.PlayerStorageEntry
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
 import net.averak.gsync.domain.repository.exception.AlreadyDoneException
 import org.springframework.stereotype.Repository
-import java.time.LocalDateTime
 import java.util.*
 
 @Repository
@@ -46,18 +45,18 @@ open class PlayerStorageRepository(
                 entries = mutableListOf(),
             )
         }
-        val entries = playerStorageEntryMapper.selectByPlayerIdAndGameId(
+        val entryDtos = playerStorageEntryMapper.selectByPlayerIdAndGameId(
             playerID.toString(),
             gameID.toString(),
             criteria.exactMatch,
             criteria.forwardMatch,
-        ).map { convertDtoToModel(it) }.toMutableList()
+        )
 
-        return PlayerStorage(
-            playerID = playerID,
-            gameID = gameID,
-            revision = UUID.fromString(revisionDto.playerStorageRevisionId),
-            entries = entries,
+        return convertDtoToModel(
+            playerID,
+            gameID,
+            revisionDto,
+            entryDtos,
         )
     }
 
@@ -96,33 +95,40 @@ open class PlayerStorageRepository(
 
         val notClearedEntries = playerStorage.entries.filter { !it.isCleared() }
         val entryDtos = notClearedEntries.map {
-            convertModelToDto(it, playerStorage.playerID, playerStorage.gameID, gctx.currentTime, gctx.currentTime)
+            PlayerStorageEntryDto(
+                playerStorage.playerID.toString(),
+                playerStorage.gameID.toString(),
+                it.key,
+                gctx.currentTime,
+                gctx.currentTime,
+                it.value,
+            )
         }
         playerStorageEntryMapper.syncOriginal(entryDtos)
         playerStorageEntryMapper.insertOrUpdate(entryDtos)
     }
 
-    private fun convertDtoToModel(playerStorageEntryDto: PlayerStorageEntryDto): PlayerStorageEntry {
-        return PlayerStorageEntry(
-            key = playerStorageEntryDto.key,
-            value = playerStorageEntryDto.value,
-        )
-    }
+    companion object {
 
-    private fun convertModelToDto(
-        playerStorageEntry: PlayerStorageEntry,
-        playerID: UUID,
-        gameID: UUID,
-        createdAt: LocalDateTime,
-        updatedAt: LocalDateTime,
-    ): PlayerStorageEntryDto {
-        return PlayerStorageEntryDto(
-            playerID.toString(),
-            gameID.toString(),
-            playerStorageEntry.key,
-            createdAt,
-            updatedAt,
-            playerStorageEntry.value,
-        )
+        fun convertDtoToModel(
+            playerID: UUID,
+            gameID: UUID,
+            revisionDto: PlayerStorageRevisionDto,
+            entryDtos: List<PlayerStorageEntryDto>,
+        ): PlayerStorage {
+            return PlayerStorage(
+                playerID = playerID,
+                gameID = gameID,
+                revision = UUID.fromString(revisionDto.playerStorageRevisionId),
+                entries = entryDtos.map { convertDtoToModel(it) }.toMutableList(),
+            )
+        }
+
+        fun convertDtoToModel(dto: PlayerStorageEntryDto): PlayerStorageEntry {
+            return PlayerStorageEntry(
+                key = dto.key,
+                value = dto.value,
+            )
+        }
     }
 }

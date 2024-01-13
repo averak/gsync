@@ -24,16 +24,19 @@ open class OperatorRepository(
         }
     }
 
-    private fun convertDtoToModel(dto: OperatorILDto): Operator {
-        return Operator(
-            id = UUID.fromString(dto.operatorId),
-            email = dto.email,
-            authorities = dto.rGameOperators.map { rGameOperator ->
-                GameOperationAuthority(
-                    gameID = UUID.fromString(rGameOperator.gameId),
-                    isAdmin = rGameOperator.isAdmin,
-                )
-            },
-        )
+    companion object {
+
+        fun convertDtoToModel(dto: OperatorILDto): Operator {
+            return Operator(
+                id = UUID.fromString(dto.operatorId),
+                email = dto.email,
+                authorities = dto.rGameOperators.map { rGameOperator ->
+                    GameOperationAuthority(
+                        gameID = UUID.fromString(rGameOperator.gameId),
+                        isAdmin = rGameOperator.isAdmin,
+                    )
+                },
+            )
+        }
     }
 }

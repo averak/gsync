@@ -24,10 +24,7 @@ open class GameRepository(
                 createCriteria().andGameIdIn(ids.map { it.toString() })
             },
         ).map {
-            Game(
-                id = UUID.fromString(it.gameId),
-                name = it.name,
-            )
+            convertDtoToModel(it)
         }
     }
 
@@ -40,5 +37,15 @@ open class GameRepository(
         )
         gameMapper.syncOriginal(dto)
         gameMapper.insertOrUpdate(dto)
+    }
+
+    companion object {
+
+        fun convertDtoToModel(dto: GameDto): Game {
+            return Game(
+                id = UUID.fromString(dto.gameId),
+                name = dto.name,
+            )
+        }
     }
 }
