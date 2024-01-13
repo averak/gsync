@@ -405,6 +405,76 @@ public class PlayerStorageRevisionExample {
 			return (Criteria) this;
 		}
 
+		public Criteria andIdempotencyKeyIsNull() {
+			addCriterion("`idempotency_key` is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyIsNotNull() {
+			addCriterion("`idempotency_key` is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyEqualTo(String value) {
+			addCriterion("`idempotency_key` =", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyNotEqualTo(String value) {
+			addCriterion("`idempotency_key` <>", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyGreaterThan(String value) {
+			addCriterion("`idempotency_key` >", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyGreaterThanOrEqualTo(String value) {
+			addCriterion("`idempotency_key` >=", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyLessThan(String value) {
+			addCriterion("`idempotency_key` <", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyLessThanOrEqualTo(String value) {
+			addCriterion("`idempotency_key` <=", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyLike(String value) {
+			addCriterion("`idempotency_key` like", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyNotLike(String value) {
+			addCriterion("`idempotency_key` not like", value, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyIn(List<String> values) {
+			addCriterion("`idempotency_key` in", values, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyNotIn(List<String> values) {
+			addCriterion("`idempotency_key` not in", values, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyBetween(String value1, String value2) {
+			addCriterion("`idempotency_key` between", value1, value2, "idempotencyKey");
+			return (Criteria) this;
+		}
+
+		public Criteria andIdempotencyKeyNotBetween(String value1, String value2) {
+			addCriterion("`idempotency_key` not between", value1, value2, "idempotencyKey");
+			return (Criteria) this;
+		}
+
 		public Criteria andCreatedAtIsNull() {
 			addCriterion("`created_at` is null");
 			return (Criteria) this;
