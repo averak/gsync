@@ -1,15 +1,17 @@
 package net.averak.gsync.adapter.dao.dto.extend;
 
-import net.averak.gsync.adapter.dao.dto.base.PlayerDto;
-import net.averak.gsync.adapter.dao.dto.base.PlayerLoginDto;
-import net.averak.gsync.adapter.dao.dto.base.PlayerProfileDto;
-import org.jetbrains.annotations.NotNull;
+import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.LocalDateTime;
 
-@SuppressWarnings("NotNullFieldNotInitialized")
+import org.jetbrains.annotations.NotNull;
+
+import net.averak.gsync.adapter.dao.dto.base.PlayerDto;
+import net.averak.gsync.adapter.dao.dto.base.PlayerLoginDto;
+import net.averak.gsync.adapter.dao.dto.base.PlayerProfileDto;
+
+@SuppressWarnings({"NotNullFieldNotInitialized", "java:S2637"})
 public class PlayerILDto extends PlayerDto {
 
 	@Nonnull
