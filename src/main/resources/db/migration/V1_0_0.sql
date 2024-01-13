@@ -79,6 +79,32 @@ INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
 
+CREATE TABLE gsync_player_storage_entry
+(
+    player_id  STRING(36) NOT NULL,
+    tenant_id  STRING(36) NOT NULL,
+    key        STRING( MAX) NOT NULL,
+    value      BYTES( MAX) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+) PRIMARY KEY (player_id, tenant_id, key),
+INTERLEAVE IN PARENT gsync_player ON
+DELETE
+CASCADE;
+
+CREATE TABLE gsync_player_storage_revision
+(
+    player_id                  STRING(36) NOT NULL,
+    tenant_id                  STRING(36) NOT NULL,
+    player_storage_revision_id STRING(36) NOT NULL,
+    created_at                 TIMESTAMP NOT NULL,
+    updated_at                 TIMESTAMP NOT NULL,
+) PRIMARY KEY (player_id, tenant_id, player_storage_revision_id),
+INTERLEAVE IN PARENT gsync_player ON
+DELETE
+CASCADE;
+CREATE INDEX gsync_player_storage_revision__player_id__tenant_id__created_at ON gsync_player_storage_revision (player_id, tenant_id, created_at DESC);
+
 CREATE TABLE gsync_echo
 (
     echo_id    STRING(36) NOT NULL,
@@ -86,6 +112,5 @@ CREATE TABLE gsync_echo
     timestamp  TIMESTAMP NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
-) PRIMARY KEY (echo_id);
-ALTER TABLE gsync_echo
-    ADD ROW DELETION POLICY (OLDER_THAN(timestamp, INTERVAL 1 DAY));
+) PRIMARY KEY (echo_id),
+    ROW DELETION POLICY (OLDER_THAN(timestamp, INTERVAL 1 DAY));

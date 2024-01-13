@@ -116,6 +116,43 @@ class PlayerProfileDtoRandomizer implements IRandomizer {
 }
 
 @Component
+class PlayerStorageEntryDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = PlayerStorageEntryDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new PlayerStorageEntryDto(
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            now,
+            now,
+            Faker.fake(byte[]),
+        )
+    }
+}
+
+@Component
+class PlayerStorageRevisionDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = PlayerStorageRevisionDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new PlayerStorageRevisionDto(
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            now,
+            now,
+        )
+    }
+}
+
+@Component
 class RequiredClientVersionDtoRandomizer implements IRandomizer {
 
     final Class typeToGenerate = RequiredClientVersionDto.class

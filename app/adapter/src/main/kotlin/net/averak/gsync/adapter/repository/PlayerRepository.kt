@@ -21,7 +21,7 @@ open class PlayerRepository(
     private val playerLoginMapper: PlayerLoginBaseMapper,
 ) : IPlayerRepository {
 
-    override fun findByID(gctx: GameContext, id: UUID): Player? {
+    override fun get(gctx: GameContext, id: UUID): Player? {
         val dto = playerMapper.selectByPlayerId(id.toString())
         return if (dto == null) {
             null

@@ -23,7 +23,7 @@ class PlayerRepository_UT extends AbstractRepository_UT {
     @Shared
     LocalDateTime now = LocalDateTime.now()
 
-    def "findByID: idから検索できる"() {
+    def "get: プレイヤーを取得できる"() {
         given:
         Fixture.setup(Faker.fake(PlayerDto, [
             playerId: Faker.uuidv5("p1").toString(),
@@ -35,7 +35,7 @@ class PlayerRepository_UT extends AbstractRepository_UT {
         testcase.given()
 
         when:
-        final result = this.sut.findByID(Faker.fake(GameContext), testcase.when.id)
+        final result = this.sut.get(Faker.fake(GameContext), testcase.when.id)
 
         then:
         testcase.then(result)
