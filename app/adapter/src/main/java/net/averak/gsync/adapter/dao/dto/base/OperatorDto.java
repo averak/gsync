@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings({"all"})
 public class OperatorDto extends AbstractDto<OperatorDto> {
 	/**
 	 *

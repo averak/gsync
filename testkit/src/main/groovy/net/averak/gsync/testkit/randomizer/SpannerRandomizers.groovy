@@ -172,14 +172,14 @@ class RequiredClientVersionDtoRandomizer implements IRandomizer {
 }
 
 @Component
-class RTenantOperatorDtoRandomizer implements IRandomizer {
+class RGameOperatorDtoRandomizer implements IRandomizer {
 
-    final Class typeToGenerate = RTenantOperatorDto.class
+    final Class typeToGenerate = RGameOperatorDto.class
 
     @Override
     Object getRandomValue() {
         final now = LocalDateTime.now()
-        return new RTenantOperatorDto(
+        return new RGameOperatorDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.fake(Boolean),
@@ -190,14 +190,14 @@ class RTenantOperatorDtoRandomizer implements IRandomizer {
 }
 
 @Component
-class TenantDtoRandomizer implements IRandomizer {
+class GameDtoRandomizer implements IRandomizer {
 
-    final Class typeToGenerate = TenantDto.class
+    final Class typeToGenerate = GameDto.class
 
     @Override
     Object getRandomValue() {
         final now = LocalDateTime.now()
-        return new TenantDto(
+        return new GameDto(
             Faker.uuidv4().toString(),
             Faker.alphanumeric(),
             now,

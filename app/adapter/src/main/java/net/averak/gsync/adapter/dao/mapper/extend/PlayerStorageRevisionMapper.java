@@ -1,18 +1,20 @@
 package net.averak.gsync.adapter.dao.mapper.extend;
 
-import net.averak.gsync.adapter.dao.dto.base.PlayerStorageRevisionDto;
-import net.averak.gsync.adapter.dao.mapper.base.PlayerStorageRevisionBaseMapper;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import javax.annotation.Nonnull;
-import java.util.List;
+import net.averak.gsync.adapter.dao.dto.base.PlayerStorageRevisionDto;
+import net.averak.gsync.adapter.dao.mapper.base.PlayerStorageRevisionBaseMapper;
 
 @Mapper
 public interface PlayerStorageRevisionMapper extends PlayerStorageRevisionBaseMapper {
 
 	@Nonnull
-	List<PlayerStorageRevisionDto> selectByPlayerIdAndTenantIdOrderByCreatedAt(@Param("playerId") String playerId,
-			@Param("tenantId") String tenantId, @Param("limit") int limit);
+	List<PlayerStorageRevisionDto> selectByPlayerIdAndGameIdOrderByCreatedAt(@Param("playerId") String playerId,
+			@Param("gameId") String gameId, @Param("limit") int limit);
 
 }

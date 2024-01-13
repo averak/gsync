@@ -2,7 +2,7 @@ package net.averak.gsync.adapter.dao.dto.base;
 
 import javax.annotation.Nullable;
 
-public class AbstractDto<T> {
+public abstract class AbstractDto<T> {
 
 	@Nullable
 	private T original = null;

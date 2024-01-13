@@ -8,5 +8,5 @@ interface IOperatorRepository {
 
     fun findByID(gctx: GameContext, id: UUID): Operator?
 
-    fun findByTenantID(gctx: GameContext, tenantID: UUID): List<Operator>
+    fun findByGameID(gctx: GameContext, gameID: UUID): List<Operator>
 }
