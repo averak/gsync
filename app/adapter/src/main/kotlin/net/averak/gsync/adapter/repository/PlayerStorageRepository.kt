@@ -3,13 +3,14 @@ package net.averak.gsync.adapter.repository
 import net.averak.gsync.adapter.dao.dto.base.PlayerStorageEntryDto
 import net.averak.gsync.adapter.dao.dto.base.PlayerStorageEntryExample
 import net.averak.gsync.adapter.dao.dto.base.PlayerStorageRevisionDto
+import net.averak.gsync.adapter.dao.dto.base.PlayerStorageRevisionExample
 import net.averak.gsync.adapter.dao.mapper.extend.PlayerStorageEntryMapper
 import net.averak.gsync.adapter.dao.mapper.extend.PlayerStorageRevisionMapper
 import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.PlayerStorage
 import net.averak.gsync.domain.model.PlayerStorageEntry
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
-import net.averak.gsync.domain.repository.PlayerStorageCriteria
+import net.averak.gsync.domain.repository.exception.AlreadyDoneException
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 import java.util.*
@@ -20,7 +21,12 @@ open class PlayerStorageRepository(
     private val playerStorageRevisionMapper: PlayerStorageRevisionMapper,
 ) : IPlayerStorageRepository {
 
-    override fun get(gctx: GameContext, playerID: UUID, tenantID: UUID, criteria: PlayerStorageCriteria): PlayerStorage {
+    override fun get(
+        gctx: GameContext,
+        playerID: UUID,
+        tenantID: UUID,
+        criteria: IPlayerStorageRepository.PlayerStorageCriteria,
+    ): PlayerStorage {
         // リビジョンが存在しない場合は初期リビジョンを返却する必要があるので、まず最新のリビジョンを取得する
         val revisionDto = playerStorageRevisionMapper.selectByPlayerIdAndTenantIdOrderByCreatedAt(
             playerID.toString(),
@@ -45,7 +51,7 @@ open class PlayerStorageRepository(
             tenantID.toString(),
             criteria.exactMatch,
             criteria.forwardMatch,
-        ).map { it.toModel() }.toMutableList()
+        ).map { convertDtoToModel(it) }.toMutableList()
 
         return PlayerStorage(
             playerID = playerID,
@@ -55,7 +61,46 @@ open class PlayerStorageRepository(
         )
     }
 
+    @Throws(AlreadyDoneException::class)
     override fun save(gctx: GameContext, playerStorage: PlayerStorage) {
+        // 冪等性を保証するために、リビジョンの更新時には idempotencyKey を検証する
+        if (playerStorageRevisionMapper.countByExample(
+                PlayerStorageRevisionExample().apply {
+                    createCriteria().andIdempotencyKeyEqualTo(gctx.idempotencyKey.toString())
+                },
+            ) > 0
+        ) {
+            throw AlreadyDoneException()
+        }
+        val revisionDto = playerStorageRevisionMapper.selectByPrimaryKey(
+            playerStorage.playerID.toString(),
+            playerStorage.tenantID.toString(),
+            playerStorage.revision.toString(),
+        )
+        if (revisionDto == null) {
+            playerStorageRevisionMapper.insert(
+                PlayerStorageRevisionDto(
+                    playerStorage.playerID.toString(),
+                    playerStorage.tenantID.toString(),
+                    playerStorage.revision.toString(),
+                    gctx.idempotencyKey.toString(),
+                    gctx.currentTime,
+                    gctx.currentTime,
+                ),
+            )
+        } else {
+            playerStorageRevisionMapper.updateByPrimaryKey(
+                PlayerStorageRevisionDto(
+                    playerStorage.playerID.toString(),
+                    playerStorage.tenantID.toString(),
+                    playerStorage.revision.toString(),
+                    gctx.idempotencyKey.toString(),
+                    revisionDto.createdAt,
+                    gctx.currentTime,
+                ),
+            )
+        }
+
         // 値が空のエントリは削除する
         val clearedEntryKeys = playerStorage.entries.filter { it.isCleared() }.map { it.key }
         if (clearedEntryKeys.isNotEmpty()) {
@@ -101,39 +146,12 @@ open class PlayerStorageRepository(
                 )
             }
         }
-
-        val revisionDto = playerStorageRevisionMapper.selectByPrimaryKey(
-            playerStorage.playerID.toString(),
-            playerStorage.tenantID.toString(),
-            playerStorage.revision.toString(),
-        )
-        if (revisionDto == null) {
-            playerStorageRevisionMapper.insert(
-                PlayerStorageRevisionDto(
-                    playerStorage.playerID.toString(),
-                    playerStorage.tenantID.toString(),
-                    playerStorage.revision.toString(),
-                    gctx.currentTime,
-                    gctx.currentTime,
-                ),
-            )
-        } else {
-            playerStorageRevisionMapper.updateByPrimaryKey(
-                PlayerStorageRevisionDto(
-                    playerStorage.playerID.toString(),
-                    playerStorage.tenantID.toString(),
-                    playerStorage.revision.toString(),
-                    revisionDto.createdAt,
-                    gctx.currentTime,
-                ),
-            )
-        }
     }
 
-    private fun PlayerStorageEntryDto.toModel(): PlayerStorageEntry {
+    private fun convertDtoToModel(playerStorageEntryDto: PlayerStorageEntryDto): PlayerStorageEntry {
         return PlayerStorageEntry(
-            key = this.key,
-            value = this.value,
+            key = playerStorageEntryDto.key,
+            value = playerStorageEntryDto.value,
         )
     }
 

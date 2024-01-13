@@ -15,7 +15,7 @@ data class PlayerStorage(
     val tenantID: UUID,
     var revision: UUID,
     /**
-     * [net.averak.gsync.domain.repository.PlayerStorageCriteria] による検索結果が格納されるので、全エントリーが入っているとは限らない
+     * [net.averak.gsync.domain.repository.IPlayerStorageRepository.PlayerStorageCriteria] による検索結果が格納されるので、全エントリーが入っているとは限らない
      */
     val entries: MutableList<PlayerStorageEntry>,
 ) {

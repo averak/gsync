@@ -15,20 +15,20 @@ open class OperatorRepository(
 ) : IOperatorRepository {
 
     override fun findByID(gctx: GameContext, id: UUID): Operator? {
-        return operatorMapper.selectByOperatorId(id.toString())?.toModel()
+        return operatorMapper.selectByOperatorId(id.toString())?.let { convertDtoToModel(it) }
     }
 
     override fun findByTenantID(gctx: GameContext, tenantID: UUID): List<Operator> {
         return operatorMapper.selectByTenantId(tenantID.toString()).map {
-            it.toModel()
+            convertDtoToModel(it)
         }
     }
 
-    private fun OperatorILDto.toModel(): Operator {
+    private fun convertDtoToModel(dto: OperatorILDto): Operator {
         return Operator(
-            id = UUID.fromString(operatorId),
-            email = email,
-            authorities = rTenantOperators.map { rTenantOperator ->
+            id = UUID.fromString(dto.operatorId),
+            email = dto.email,
+            authorities = dto.rTenantOperators.map { rTenantOperator ->
                 OperatorAuthority(
                     tenantID = UUID.fromString(rTenantOperator.tenantId),
                     isAdmin = rTenantOperator.isAdmin,
