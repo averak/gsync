@@ -9,14 +9,14 @@ interface IPlayerStorageRepository {
     fun get(gctx: GameContext, playerID: UUID, tenantID: UUID, criteria: PlayerStorageCriteria): PlayerStorage
 
     fun save(gctx: GameContext, playerStorage: PlayerStorage)
-}
 
-data class PlayerStorageCriteria(
-    val exactMatch: List<String>,
-    val forwardMatch: List<String>,
-) {
+    data class PlayerStorageCriteria(
+        val exactMatch: List<String>,
+        val forwardMatch: List<String>,
+    ) {
 
-    fun isEmpty(): Boolean {
-        return exactMatch.isEmpty() && forwardMatch.isEmpty()
+        fun isEmpty(): Boolean {
+            return exactMatch.isEmpty() && forwardMatch.isEmpty()
+        }
     }
 }

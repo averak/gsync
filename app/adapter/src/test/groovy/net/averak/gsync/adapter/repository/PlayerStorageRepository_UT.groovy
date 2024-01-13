@@ -6,7 +6,8 @@ import net.averak.gsync.adapter.dao.dto.base.PlayerStorageRevisionDto
 import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.PlayerStorage
 import net.averak.gsync.domain.model.PlayerStorageEntry
-import net.averak.gsync.domain.repository.PlayerStorageCriteria
+import net.averak.gsync.domain.repository.IPlayerStorageRepository
+import net.averak.gsync.domain.repository.exception.AlreadyDoneException
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
@@ -78,17 +79,17 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
         actual == expected
 
         where:
-        playerID           | tenantID           | criteria                                                      || expected
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria(["group1#key1"], [])                || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes)])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria(["group1#key1", "group1#key2"], []) || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes), new PlayerStorageEntry("group1#key2", "value2".bytes)])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria([], ["group2"])                     || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group2#key1", "value3".bytes), new PlayerStorageEntry("group2#key2", "value4".bytes)])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria(["group1#key1"], ["group2"])        || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes), new PlayerStorageEntry("group2#key1", "value3".bytes), new PlayerStorageEntry("group2#key2", "value4".bytes)])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria(["group3#key1"], [])                || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria([], ["group3"])                     || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
-        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
+        playerID           | tenantID           | criteria                                                                               || expected
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria(["group1#key1"], [])                || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes)])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria(["group1#key1", "group1#key2"], []) || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes), new PlayerStorageEntry("group1#key2", "value2".bytes)])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria([], ["group2"])                     || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group2#key1", "value3".bytes), new PlayerStorageEntry("group2#key2", "value4".bytes)])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria(["group1#key1"], ["group2"])        || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [new PlayerStorageEntry("group1#key1", "value1".bytes), new PlayerStorageEntry("group2#key1", "value3".bytes), new PlayerStorageEntry("group2#key2", "value4".bytes)])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria(["group3#key1"], [])                || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria([], ["group3"])                     || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
+        Faker.uuidv5("p1") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t1"), Faker.uuidv5("latest revision"), [])
         // 以下、リビジョンが存在しないケース
-        Faker.uuidv5("p2") | Faker.uuidv5("t1") | new PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p2"), Faker.uuidv5("t1"), UUID.fromString("00000000-0000-0000-0000-000000000000"), [])
-        Faker.uuidv5("p1") | Faker.uuidv5("t2") | new PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t2"), UUID.fromString("00000000-0000-0000-0000-000000000000"), [])
+        Faker.uuidv5("p2") | Faker.uuidv5("t1") | new IPlayerStorageRepository.PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p2"), Faker.uuidv5("t1"), UUID.fromString("00000000-0000-0000-0000-000000000000"), [])
+        Faker.uuidv5("p1") | Faker.uuidv5("t2") | new IPlayerStorageRepository.PlayerStorageCriteria([], [])                             || new PlayerStorage(Faker.uuidv5("p1"), Faker.uuidv5("t2"), UUID.fromString("00000000-0000-0000-0000-000000000000"), [])
     }
 
     def "save: プレイヤーストレージを保存できる"() {
@@ -103,6 +104,7 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
                 "playerId"               : Faker.uuidv5("p1").toString(),
                 "tenantId"               : Faker.uuidv5("t1").toString(),
                 "playerStorageRevisionId": Faker.uuidv5("r1").toString(),
+                "idempotencyKey"         : Faker.uuidv5("i1").toString(),
                 "createdAt"              : LocalDateTime.of(2000, 1, 1, 0, 0, 0),
                 "updatedAt"              : LocalDateTime.of(2000, 1, 1, 0, 0, 0),
             ]),
@@ -129,7 +131,10 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
             [
                 name: "レコードが存在しない場合、作成される",
                 when: [
-                    gctx         : Faker.fake(GameContext, [currentTime: now]),
+                    gctx         : Faker.fake(GameContext, [
+                        currentTime   : now,
+                        idempotencyKey: Faker.uuidv5("i2"),
+                    ]),
                     playerStorage: Faker.fake(PlayerStorage, [
                         playerID: Faker.uuidv5("p1"),
                         tenantID: Faker.uuidv5("t1"),
@@ -160,7 +165,10 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
             [
                 name: "レコードが存在する場合、更新される",
                 when: [
-                    gctx         : Faker.fake(GameContext, [currentTime: now]),
+                    gctx         : Faker.fake(GameContext, [
+                        currentTime   : now,
+                        idempotencyKey: Faker.uuidv5("i2"),
+                    ]),
                     playerStorage: Faker.fake(PlayerStorage, [
                         playerID: Faker.uuidv5("p1"),
                         tenantID: Faker.uuidv5("t1"),
@@ -193,7 +201,10 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
             [
                 name: "バイナリが空のエントリは削除される",
                 when: [
-                    gctx         : Faker.fake(GameContext, [currentTime: now]),
+                    gctx         : Faker.fake(GameContext, [
+                        currentTime   : now,
+                        idempotencyKey: Faker.uuidv5("i2"),
+                    ]),
                     playerStorage: Faker.fake(PlayerStorage, [
                         playerID: Faker.uuidv5("p1"),
                         tenantID: Faker.uuidv5("t1"),
@@ -219,5 +230,40 @@ class PlayerStorageRepository_UT extends AbstractRepository_UT {
                 },
             ],
         ]
+    }
+
+    def "save: 同じ冪等キーの更新履歴が存在する場合はエラーを返す"() {
+        given:
+        Fixture.setup(
+            Faker.fake(PlayerDto, [
+                "playerId": Faker.uuidv5("p1").toString(),
+            ]),
+        )
+        Fixture.setup(
+            Faker.fake(PlayerStorageRevisionDto, [
+                "playerId"               : Faker.uuidv5("p1").toString(),
+                "tenantId"               : Faker.uuidv5("t1").toString(),
+                "playerStorageRevisionId": Faker.uuidv5("r1").toString(),
+                "idempotencyKey"         : Faker.uuidv5("i1").toString(),
+            ]),
+        )
+
+        when:
+        final gctx = Faker.fake(GameContext, [idempotencyKey: Faker.uuidv5("i1"),])
+        final playerStorage = Faker.fake(PlayerStorage, [
+            playerID: Faker.uuidv5("p1"),
+            tenantID: Faker.uuidv5("t1"),
+            revision: Faker.uuidv5("r1"),
+            entries : [
+                Faker.fake(PlayerStorageEntry, [
+                    key  : "key1",
+                    value: "new value".bytes,
+                ]),
+            ],
+        ])
+        sut.save(gctx, playerStorage)
+
+        then:
+        thrown(AlreadyDoneException)
     }
 }

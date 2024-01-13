@@ -146,6 +146,7 @@ class PlayerStorageRevisionDtoRandomizer implements IRandomizer {
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
             now,
             now,
         )
