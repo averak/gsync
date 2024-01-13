@@ -1,14 +1,16 @@
 package net.averak.gsync.adapter.dao.dto.extend;
 
-import net.averak.gsync.adapter.dao.dto.base.OperatorDto;
-import net.averak.gsync.adapter.dao.dto.base.RTenantOperatorDto;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@SuppressWarnings("NotNullFieldNotInitialized")
+import javax.annotation.Nonnull;
+
+import org.jetbrains.annotations.NotNull;
+
+import net.averak.gsync.adapter.dao.dto.base.OperatorDto;
+import net.averak.gsync.adapter.dao.dto.base.RTenantOperatorDto;
+
+@SuppressWarnings({"NotNullFieldNotInitialized", "java:S2637"})
 public class OperatorILDto extends OperatorDto {
 
 	@Nonnull
