@@ -14,7 +14,7 @@ import net.averak.gsync.adapter.dao.mapper.base.PlayerStorageEntryBaseMapper;
 public interface PlayerStorageEntryMapper extends PlayerStorageEntryBaseMapper {
 
 	@Nonnull
-	List<PlayerStorageEntryDto> selectByPlayerIdAndTenantId(@Param("playerId") String playerId,
-			@Param("tenantId") String tenantId, @Param("exactKeyMatch") List<String> exactKeyMatch,
+	List<PlayerStorageEntryDto> selectByPlayerIdAndGameId(@Param("playerId") String playerId,
+			@Param("gameId") String gameId, @Param("exactKeyMatch") List<String> exactKeyMatch,
 			@Param("forwardKeyMatch") List<String> forwardKeyMatch);
 }

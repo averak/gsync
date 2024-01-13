@@ -1,22 +1,22 @@
 package net.averak.gsync.adapter.repository
 
-import net.averak.gsync.adapter.dao.dto.base.TenantDto
+import net.averak.gsync.adapter.dao.dto.base.GameDto
 import net.averak.gsync.core.game_context.GameContext
-import net.averak.gsync.domain.model.Tenant
+import net.averak.gsync.domain.model.Game
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
 import org.springframework.beans.factory.annotation.Autowired
 
-class TenantRepository_UT extends AbstractRepository_UT {
+class GameRepository_UT extends AbstractRepository_UT {
 
     @Autowired
-    TenantRepository sut
+    GameRepository sut
 
-    def "findByIDs: IDリストからテナントIDリストを取得できる"() {
+    def "findByIDs: IDリストからゲームリストを取得できる"() {
         given:
         Fixture.setup(
-            Faker.fake(TenantDto, [tenantId: Faker.uuidv5("t1").toString()]),
-            Faker.fake(TenantDto, [tenantId: Faker.uuidv5("t2").toString()]),
+            Faker.fake(GameDto, [gameId: Faker.uuidv5("g1").toString()]),
+            Faker.fake(GameDto, [gameId: Faker.uuidv5("g2").toString()]),
         )
 
         when:
@@ -28,17 +28,17 @@ class TenantRepository_UT extends AbstractRepository_UT {
         where:
         ids                                                          || expectedIDs
         []                                                           || []
-        [Faker.uuidv5("t1")]                                         || [Faker.uuidv5("t1")]
-        [Faker.uuidv5("t1"), Faker.uuidv5("t2")]                     || [Faker.uuidv5("t1"), Faker.uuidv5("t2")]
-        [Faker.uuidv5("t1"), Faker.uuidv5("t2"), Faker.uuidv5("t3")] || [Faker.uuidv5("t1"), Faker.uuidv5("t2")]
+        [Faker.uuidv5("g1")]                                         || [Faker.uuidv5("g1")]
+        [Faker.uuidv5("g1"), Faker.uuidv5("g2")]                     || [Faker.uuidv5("g1"), Faker.uuidv5("g2")]
+        [Faker.uuidv5("g1"), Faker.uuidv5("g2"), Faker.uuidv5("g3")] || [Faker.uuidv5("g1"), Faker.uuidv5("g2")]
     }
 
-    def "save: テナントを保存できる"() {
+    def "save: ゲームを保存できる"() {
         given:
         testcase.given()
 
         when:
-        this.sut.save(Faker.fake(GameContext), testcase.when.tenant)
+        this.sut.save(Faker.fake(GameContext), testcase.when.game)
 
         then:
         testcase.then()
@@ -49,16 +49,16 @@ class TenantRepository_UT extends AbstractRepository_UT {
                 name : "レコードが存在する場合、更新される",
                 given: () -> {
                     Fixture.setup(
-                        Faker.fake(TenantDto, [tenantId: Faker.uuidv5("t1").toString()]),
+                        Faker.fake(GameDto, [gameId: Faker.uuidv5("g1").toString()]),
                     )
                 },
                 when : [
-                    tenant: Faker.fake(Tenant, [id: Faker.uuidv5("t1"), name: "updated"]),
+                    game: Faker.fake(Game, [id: Faker.uuidv5("g1"), name: "updated"]),
                 ],
                 then : () -> {
-                    with(sql.rows("SELECT * FROM gsync_tenant")) {
+                    with(sql.rows("SELECT * FROM gsync_game")) {
                         assert it.size() == 1
-                        assert it[0].tenant_id == Faker.uuidv5("t1").toString()
+                        assert it[0].game_id == Faker.uuidv5("g1").toString()
                         assert it[0].name == "updated"
                     }
                     return true
@@ -68,12 +68,12 @@ class TenantRepository_UT extends AbstractRepository_UT {
                 name : "レコードが存在しない場合、作成される",
                 given: () -> { },
                 when : [
-                    tenant: Faker.fake(Tenant, [id: Faker.uuidv5("t1"), name: "created"]),
+                    game: Faker.fake(Game, [id: Faker.uuidv5("g1"), name: "created"]),
                 ],
                 then : () -> {
-                    with(sql.rows("SELECT * FROM gsync_tenant")) {
+                    with(sql.rows("SELECT * FROM gsync_game")) {
                         assert it.size() == 1
-                        assert it[0].tenant_id == Faker.uuidv5("t1").toString()
+                        assert it[0].game_id == Faker.uuidv5("g1").toString()
                         assert it[0].name == "created"
                     }
                     return true

@@ -4,8 +4,8 @@
     <resultMap id="ResultMap"
                type="net.averak.gsync.adapter.dao.dto.extend.OperatorILDto"
                extends="net.averak.gsync.adapter.dao.mapper.base.OperatorBaseMapper.BaseResultMap">
-        <association property="rTenantOperators"
-                     resultMap="net.averak.gsync.adapter.dao.mapper.base.RTenantOperatorBaseMapper.BaseResultMap"
+        <association property="rGameOperators"
+                     resultMap="net.averak.gsync.adapter.dao.mapper.base.RGameOperatorBaseMapper.BaseResultMap"
                      columnPrefix="RTO__">
         </association>
     </resultMap>
@@ -14,27 +14,27 @@
         SELECT o.*,
 
                rto.operator_id AS RTO__operator_id,
-               rto.tenant_id   AS RTO__tenant_id,
+               rto.game_id     AS RTO__game_id,
                rto.is_admin    AS RTO__is_admin,
                rto.created_at  AS RTO__created_at,
                rto.updated_at  AS RTO__updated_at
 
         FROM gsync_operator o
-                 LEFT JOIN gsync_r_tenant_operator rto ON o.operator_id = rto.operator_id
+                 LEFT JOIN gsync_r_game_operator rto ON o.operator_id = rto.operator_id
         WHERE o.operator_id = #{operatorId}
     </select>
 
-    <select id="selectByTenantId" resultMap="ResultMap">
+    <select id="selectByGameId" resultMap="ResultMap">
         SELECT o.*,
 
                rto.operator_id AS RTO__operator_id,
-               rto.tenant_id   AS RTO__tenant_id,
+               rto.game_id     AS RTO__game_id,
                rto.is_admin    AS RTO__is_admin,
                rto.created_at  AS RTO__created_at,
                rto.updated_at  AS RTO__updated_at
 
         FROM gsync_operator o
-                 LEFT JOIN gsync_r_tenant_operator rto ON o.operator_id = rto.operator_id
-        WHERE rto.tenant_id = #{tenantId}
+                 LEFT JOIN gsync_r_game_operator rto ON o.operator_id = rto.operator_id
+        WHERE rto.game_id = #{gameId}
     </select>
 </mapper>

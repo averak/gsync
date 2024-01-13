@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 import net.averak.gsync.adapter.dao.dto.base.OperatorDto;
-import net.averak.gsync.adapter.dao.dto.base.RTenantOperatorDto;
+import net.averak.gsync.adapter.dao.dto.base.RGameOperatorDto;
 
 @SuppressWarnings({"NotNullFieldNotInitialized", "java:S2637"})
 public class OperatorILDto extends OperatorDto {
 
 	@Nonnull
-	List<RTenantOperatorDto> rTenantOperators;
+	List<RGameOperatorDto> rGameOperators;
 
 	public OperatorILDto(@NotNull String operatorId, @NotNull String email, @NotNull LocalDateTime createdAt,
 			@NotNull LocalDateTime updatedAt) {
@@ -22,11 +22,11 @@ public class OperatorILDto extends OperatorDto {
 	}
 
 	@Nonnull
-	public List<RTenantOperatorDto> getRTenantOperators() {
-		return rTenantOperators;
+	public List<RGameOperatorDto> getRGameOperators() {
+		return rGameOperators;
 	}
 
-	public void setRTenantOperators(@Nonnull List<RTenantOperatorDto> rTenantOperators) {
-		this.rTenantOperators = rTenantOperators;
+	public void setRGameOperators(@Nonnull List<RGameOperatorDto> rGameOperators) {
+		this.rGameOperators = rGameOperators;
 	}
 }

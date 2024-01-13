@@ -38,7 +38,7 @@ class BulkInsertPlugin : PluginAdapter() {
 
         interfaze.addMethod(method)
 
-        return true
+        return super.clientGenerated(interfaze, introspectedTable)
     }
 
     override fun sqlMapDocumentGenerated(document: Document, introspectedTable: IntrospectedTable): Boolean {
@@ -74,6 +74,6 @@ class BulkInsertPlugin : PluginAdapter() {
 
         document.rootElement.addElement(element)
 
-        return true
+        return super.sqlMapDocumentGenerated(document, introspectedTable)
     }
 }

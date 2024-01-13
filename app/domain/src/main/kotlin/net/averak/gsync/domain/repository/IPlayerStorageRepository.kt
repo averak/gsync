@@ -7,7 +7,7 @@ import java.util.*
 
 interface IPlayerStorageRepository {
 
-    fun get(gctx: GameContext, playerID: UUID, tenantID: UUID, criteria: PlayerStorageCriteria): PlayerStorage
+    fun get(gctx: GameContext, playerID: UUID, gameID: UUID, criteria: PlayerStorageCriteria): PlayerStorage
 
     @Throws(AlreadyDoneException::class)
     fun save(gctx: GameContext, playerStorage: PlayerStorage)

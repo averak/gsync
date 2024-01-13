@@ -247,6 +247,18 @@ tasks {
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
     register("mbgenerate", Task::class) {
+        doFirst {
+            fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base") {
+                include("**/*.java")
+                exclude("**/AbstractDto.java")
+            }.files.forEach { it.delete() }
+            fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/mapper/base") {
+                include("**/*.java")
+            }.files.forEach { it.delete() }
+            fileTree("$rootDir/src/main/resources/dao/base") {
+                include("**/*.xml")
+            }.files.forEach { it.delete() }
+        }
         doLast {
             ant.withGroovyBuilder {
                 "taskdef"(

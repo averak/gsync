@@ -3,9 +3,9 @@ package net.averak.gsync.domain.model
 import java.util.*
 
 /**
- * テナント (＝ゲームタイトル)
+ * ゲーム
  */
-data class Tenant(
+data class Game(
     val id: UUID,
     val name: String,
 )

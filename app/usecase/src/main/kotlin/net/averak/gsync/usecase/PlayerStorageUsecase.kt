@@ -15,20 +15,20 @@ class PlayerStorageUsecase(
     private val playerStorageRepository: IPlayerStorageRepository,
 ) {
 
-    fun search(gctx: GameContext, playerID: UUID, tenantID: UUID, criteria: IPlayerStorageRepository.PlayerStorageCriteria): PlayerStorage {
+    fun search(gctx: GameContext, playerID: UUID, gameID: UUID, criteria: IPlayerStorageRepository.PlayerStorageCriteria): PlayerStorage {
         return transaction.roTx {
-            return@roTx playerStorageRepository.get(gctx, playerID, tenantID, criteria)
+            return@roTx playerStorageRepository.get(gctx, playerID, gameID, criteria)
         }
     }
 
-    fun set(gctx: GameContext, playerID: UUID, tenantID: UUID, entry: PlayerStorageEntry, revision: UUID): SetResult {
+    fun set(gctx: GameContext, playerID: UUID, gameID: UUID, entry: PlayerStorageEntry, revision: UUID): SetResult {
         val criteria = IPlayerStorageRepository.PlayerStorageCriteria(
             listOf(entry.key),
             listOf(),
         )
 
         return transaction.rwTx {
-            val playerStorage = playerStorageRepository.get(gctx, playerID, tenantID, criteria)
+            val playerStorage = playerStorageRepository.get(gctx, playerID, gameID, criteria)
             playerStorage.validate(revision)
             playerStorage.set(entry)
             try {
@@ -43,12 +43,12 @@ class PlayerStorageUsecase(
     fun clear(
         gctx: GameContext,
         playerID: UUID,
-        tenantID: UUID,
+        gameID: UUID,
         revision: UUID,
         criteria: IPlayerStorageRepository.PlayerStorageCriteria,
     ): UUID {
         return transaction.rwTx {
-            val playerStorage = playerStorageRepository.get(gctx, playerID, tenantID, criteria)
+            val playerStorage = playerStorageRepository.get(gctx, playerID, gameID, criteria)
             playerStorage.validate(revision)
             playerStorage.clearAll()
             try {

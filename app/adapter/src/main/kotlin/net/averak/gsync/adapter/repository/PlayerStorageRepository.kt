@@ -24,38 +24,38 @@ open class PlayerStorageRepository(
     override fun get(
         gctx: GameContext,
         playerID: UUID,
-        tenantID: UUID,
+        gameID: UUID,
         criteria: IPlayerStorageRepository.PlayerStorageCriteria,
     ): PlayerStorage {
         // リビジョンが存在しない場合は初期リビジョンを返却する必要があるので、まず最新のリビジョンを取得する
-        val revisionDto = playerStorageRevisionMapper.selectByPlayerIdAndTenantIdOrderByCreatedAt(
+        val revisionDto = playerStorageRevisionMapper.selectByPlayerIdAndGameIdOrderByCreatedAt(
             playerID.toString(),
-            tenantID.toString(),
+            gameID.toString(),
             1,
         ).firstOrNull()
         if (revisionDto == null) {
             // Repository の取得系メソッドが RW トランザクションを要求するのは認知コストが高まるので、リビジョンの初期値を INSERT せず固定値のリビジョンを返す
-            return PlayerStorage.ofFirstRevision(playerID, tenantID)
+            return PlayerStorage.ofFirstRevision(playerID, gameID)
         }
 
         if (criteria.isEmpty()) {
             return PlayerStorage(
                 playerID = playerID,
-                tenantID = tenantID,
+                gameID = gameID,
                 revision = UUID.fromString(revisionDto.playerStorageRevisionId),
                 entries = mutableListOf(),
             )
         }
-        val entries = playerStorageEntryMapper.selectByPlayerIdAndTenantId(
+        val entries = playerStorageEntryMapper.selectByPlayerIdAndGameId(
             playerID.toString(),
-            tenantID.toString(),
+            gameID.toString(),
             criteria.exactMatch,
             criteria.forwardMatch,
         ).map { convertDtoToModel(it) }.toMutableList()
 
         return PlayerStorage(
             playerID = playerID,
-            tenantID = tenantID,
+            gameID = gameID,
             revision = UUID.fromString(revisionDto.playerStorageRevisionId),
             entries = entries,
         )
@@ -73,7 +73,7 @@ open class PlayerStorageRepository(
         }
         val revisionDto = PlayerStorageRevisionDto(
             playerStorage.playerID.toString(),
-            playerStorage.tenantID.toString(),
+            playerStorage.gameID.toString(),
             playerStorage.revision.toString(),
             gctx.idempotencyKey.toString(),
             gctx.currentTime,
@@ -88,7 +88,7 @@ open class PlayerStorageRepository(
             playerStorageEntryMapper.deleteByExample(
                 PlayerStorageEntryExample().apply {
                     createCriteria().andPlayerIdEqualTo(playerStorage.playerID.toString())
-                        .andTenantIdEqualTo(playerStorage.tenantID.toString())
+                        .andGameIdEqualTo(playerStorage.gameID.toString())
                         .andKeyIn(clearedEntries.map { it.key })
                 },
             )
@@ -96,7 +96,7 @@ open class PlayerStorageRepository(
 
         val notClearedEntries = playerStorage.entries.filter { !it.isCleared() }
         val entryDtos = notClearedEntries.map {
-            convertModelToDto(it, playerStorage.playerID, playerStorage.tenantID, gctx.currentTime, gctx.currentTime)
+            convertModelToDto(it, playerStorage.playerID, playerStorage.gameID, gctx.currentTime, gctx.currentTime)
         }
         playerStorageEntryMapper.syncOriginal(entryDtos)
         playerStorageEntryMapper.insertOrUpdate(entryDtos)
@@ -112,13 +112,13 @@ open class PlayerStorageRepository(
     private fun convertModelToDto(
         playerStorageEntry: PlayerStorageEntry,
         playerID: UUID,
-        tenantID: UUID,
+        gameID: UUID,
         createdAt: LocalDateTime,
         updatedAt: LocalDateTime,
     ): PlayerStorageEntryDto {
         return PlayerStorageEntryDto(
             playerID.toString(),
-            tenantID.toString(),
+            gameID.toString(),
             playerStorageEntry.key,
             createdAt,
             updatedAt,

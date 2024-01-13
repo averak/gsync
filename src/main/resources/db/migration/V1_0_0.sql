@@ -1,10 +1,10 @@
-CREATE TABLE gsync_tenant
+CREATE TABLE gsync_game
 (
-    tenant_id  STRING(36) NOT NULL,
+    game_id    STRING(36) NOT NULL,
     name       STRING( MAX) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
-) PRIMARY KEY (tenant_id);
+) PRIMARY KEY (game_id);
 
 CREATE TABLE gsync_operator
 (
@@ -14,14 +14,14 @@ CREATE TABLE gsync_operator
     updated_at  TIMESTAMP NOT NULL,
 ) PRIMARY KEY (operator_id);
 
-CREATE TABLE gsync_r_tenant_operator
+CREATE TABLE gsync_r_game_operator
 (
     operator_id STRING(36) NOT NULL,
-    tenant_id   STRING(36) NOT NULL,
+    game_id     STRING(36) NOT NULL,
     is_admin    BOOL      NOT NULL,
     created_at  TIMESTAMP NOT NULL,
     updated_at  TIMESTAMP NOT NULL,
-) PRIMARY KEY (operator_id, tenant_id),
+) PRIMARY KEY (operator_id, game_id),
 INTERLEAVE IN PARENT gsync_operator ON
 DELETE
 CASCADE;
@@ -117,12 +117,12 @@ CREATE TABLE gsync_friend_setting_master
 CREATE TABLE gsync_player_storage_entry
 (
     player_id  STRING(36) NOT NULL,
-    tenant_id  STRING(36) NOT NULL,
+    game_id    STRING(36) NOT NULL,
     key        STRING( MAX) NOT NULL,
     value      BYTES( MAX) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
-) PRIMARY KEY (player_id, tenant_id, key),
+) PRIMARY KEY (player_id, game_id, key),
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
@@ -130,16 +130,16 @@ CASCADE;
 CREATE TABLE gsync_player_storage_revision
 (
     player_id                  STRING(36) NOT NULL,
-    tenant_id                  STRING(36) NOT NULL,
+    game_id                    STRING(36) NOT NULL,
     player_storage_revision_id STRING(36) NOT NULL,
     idempotency_key            STRING(36) NOT NULL,
     created_at                 TIMESTAMP NOT NULL,
     updated_at                 TIMESTAMP NOT NULL,
-) PRIMARY KEY (player_id, tenant_id, player_storage_revision_id),
+) PRIMARY KEY (player_id, game_id, player_storage_revision_id),
 INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
-CREATE INDEX gsync_player_storage_revision__player_id__tenant_id__created_at ON gsync_player_storage_revision (player_id, tenant_id, created_at DESC);
+CREATE INDEX gsync_player_storage_revision__player_id__game_id__created_at ON gsync_player_storage_revision (player_id, game_id, created_at DESC);
 CREATE UNIQUE INDEX gsync_player_storage_revision__idempotency_key ON gsync_player_storage_revision (idempotency_key);
 
 CREATE TABLE gsync_echo
