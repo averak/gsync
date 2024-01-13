@@ -70,7 +70,8 @@ class Dateline_UT extends AbstractSpec {
         new Dateline(false, 0, 0, 0) | LocalDateTime.of(2000, 1, 1, 0, 0, 0)    || new DateRange(LocalDate.of(2000, 1, 1), LocalDateTime.of(2000, 1, 1, 0, 0, 0), LocalDateTime.of(2000, 1, 2, 0, 0, 0))
         new Dateline(false, 0, 0, 0) | LocalDateTime.of(2000, 1, 1, 23, 59, 59) || new DateRange(LocalDate.of(2000, 1, 1), LocalDateTime.of(2000, 1, 1, 0, 0, 0), LocalDateTime.of(2000, 1, 2, 0, 0, 0))
         new Dateline(false, 0, 0, 0) | LocalDateTime.of(2000, 1, 2, 0, 0, 0)    || new DateRange(LocalDate.of(2000, 1, 2), LocalDateTime.of(2000, 1, 2, 0, 0, 0), LocalDateTime.of(2000, 1, 3, 0, 0, 0))
+        new Dateline(false, 1, 0, 0) | LocalDateTime.of(2000, 1, 1, 0, 59, 59)  || new DateRange(LocalDate.of(1999, 12, 31), LocalDateTime.of(1999, 12, 31, 1, 0, 0), LocalDateTime.of(2000, 1, 1, 1, 0, 0))
         new Dateline(true, 1, 0, 0)  | LocalDateTime.of(2000, 1, 1, 0, 0, 0)    || new DateRange(LocalDate.of(2000, 1, 1), LocalDateTime.of(1999, 12, 31, 23, 0, 0), LocalDateTime.of(2000, 1, 1, 23, 0, 0))
+        new Dateline(true, 1, 0, 0)  | LocalDateTime.of(2000, 1, 1, 23, 0, 1)   || new DateRange(LocalDate.of(2000, 1, 2), LocalDateTime.of(2000, 1, 1, 23, 0, 0), LocalDateTime.of(2000, 1, 2, 23, 0, 0))
     }
-
 }
