@@ -79,6 +79,41 @@ INTERLEAVE IN PARENT gsync_player ON
 DELETE
 CASCADE;
 
+CREATE TABLE gsync_player_friend
+(
+    player_id        STRING(36) NOT NULL,
+    friend_player_id STRING(36) NOT NULL,
+    become_friend_at TIMESTAMP NOT NULL,
+    created_at       TIMESTAMP NOT NULL,
+    updated_at       TIMESTAMP NOT NULL,
+    CONSTRAINT fk__gsync_player_friend__friend_player_id FOREIGN KEY (friend_player_id) REFERENCES gsync_player (friend_id),
+) PRIMARY KEY (player_id, friend_player_id),
+INTERLEAVE IN PARENT gsync_player ON
+DELETE
+CASCADE;
+
+CREATE TABLE gsync_player_friend_request
+(
+    player_id          STRING(36) NOT NULL,
+    receiver_player_id STRING(36) NOT NULL,
+    sent_at            TIMESTAMP NOT NULL,
+    created_at         TIMESTAMP NOT NULL,
+    updated_at         TIMESTAMP NOT NULL,
+    CONSTRAINT fk__gsync_player_friend_request__receiver_player_id FOREIGN KEY (receiver_player_id) REFERENCES gsync_player (friend_id),
+) PRIMARY KEY (player_id, receiver_player_id),
+INTERLEAVE IN PARENT gsync_player ON
+DELETE
+CASCADE;
+
+CREATE TABLE gsync_friend_setting_master
+(
+    master_version           STRING(36) NOT NULL,
+    max_friend_count         INT64     NOT NULL,
+    max_friend_request_count INT64     NOT NULL,
+    created_at               TIMESTAMP NOT NULL,
+    updated_at               TIMESTAMP NOT NULL,
+) PRIMARY KEY (master_version);
+
 CREATE TABLE gsync_player_storage_entry
 (
     player_id  STRING(36) NOT NULL,

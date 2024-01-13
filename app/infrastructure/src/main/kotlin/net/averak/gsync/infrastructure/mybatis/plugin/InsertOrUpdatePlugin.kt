@@ -141,7 +141,9 @@ class InsertOrUpdatePlugin : PluginAdapter() {
         method.bodyLines += "    if (dto.getOriginal() == null) {"
         method.bodyLines += "        return;"
         method.bodyLines += "    }"
-        method.bodyLines += "    dto.setCreatedAt(dto.getOriginal().getCreatedAt());"
+        if (introspectedTable.allColumns.any { it.javaProperty == "createdAt" }) {
+            method.bodyLines += "    dto.setCreatedAt(dto.getOriginal().getCreatedAt());"
+        }
         method.bodyLines += "    $updateMethodName(dto);"
         method.bodyLines += "});"
 
