@@ -4,11 +4,12 @@ import net.averak.gsync.adapter.dao.dto.base.OperatorDto
 import net.averak.gsync.adapter.dao.dto.base.RGameOperatorDto
 import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Operator
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
 import org.springframework.beans.factory.annotation.Autowired
 
-class OperatorRepository_UT extends AbstractRepository_UT {
+class OperatorRepository_UT extends AbstractDatabaseSpec {
 
     @Autowired
     OperatorRepository sut

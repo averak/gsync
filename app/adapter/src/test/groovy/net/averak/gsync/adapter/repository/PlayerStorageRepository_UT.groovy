@@ -8,6 +8,7 @@ import net.averak.gsync.domain.model.PlayerStorage
 import net.averak.gsync.domain.model.PlayerStorageEntry
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
 import net.averak.gsync.domain.repository.exception.AlreadyDoneException
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
@@ -16,7 +17,7 @@ import spock.lang.Shared
 
 import java.time.LocalDateTime
 
-class PlayerStorageRepository_UT extends AbstractRepository_UT {
+class PlayerStorageRepository_UT extends AbstractDatabaseSpec {
 
     @Autowired
     PlayerStorageRepository sut

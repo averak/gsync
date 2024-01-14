@@ -3,6 +3,7 @@ package net.averak.gsync.adapter.repository
 import net.averak.gsync.adapter.dao.dto.base.EchoDto
 import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Echo
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
@@ -11,7 +12,7 @@ import spock.lang.Shared
 
 import java.time.LocalDateTime
 
-class EchoRepository_UT extends AbstractRepository_UT {
+class EchoRepository_UT extends AbstractDatabaseSpec {
 
     @Autowired
     EchoRepository sut

@@ -90,7 +90,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/**,**/mapper/base/**")
+            property("sonar.exclusions", "protobuf/**,testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
@@ -140,6 +140,7 @@ project(":adapter") {
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
@@ -188,6 +189,7 @@ project(":testkit") {
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.test)
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
@@ -206,6 +208,17 @@ project(":testkit") {
             dependsOn("compileKotlin")
             classpath += files("build/classes/kotlin/main")
         }
+    }
+}
+
+project(":protobuf") {
+    dependencies {
+        compileOnly(rootProject.libs.javax.annotation.api)
+        api(rootProject.libs.io.grpc.netty)
+        api(rootProject.libs.io.grpc.netty.shaded)
+        api(rootProject.libs.io.grpc.protobuf)
+        api(rootProject.libs.io.grpc.services)
+        api(rootProject.libs.io.grpc.stub)
     }
 }
 

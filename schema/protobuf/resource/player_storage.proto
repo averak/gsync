@@ -1,0 +1,21 @@
+syntax = "proto3";
+package gsync.resource.player_storage;
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.resource.player_storage";
+
+message Entry {
+  string key = 1;
+  // 最大 100 KiB まで格納できる
+  bytes value = 2;
+}
+
+message Criteria {
+  enum MatchingType {
+    EXACT_MATCH   = 0;
+    FORWARD_MATCH = 1;
+  }
+
+  string       pattern          = 1;
+  MatchingType matching_pattern = 2;
+}

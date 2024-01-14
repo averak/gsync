@@ -7,6 +7,7 @@ import net.averak.gsync.domain.model.FriendSetting
 import net.averak.gsync.domain.model.FriendStatus
 import net.averak.gsync.domain.model.Friendship
 import net.averak.gsync.domain.repository.exception.MasterDataNotFoundException
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
@@ -14,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime
 
-class FriendRepository_UT extends AbstractRepository_UT {
+class FriendRepository_UT extends AbstractDatabaseSpec {
 
     @Autowired
     FriendRepository sut

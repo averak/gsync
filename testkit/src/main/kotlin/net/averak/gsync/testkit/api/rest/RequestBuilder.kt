@@ -1,7 +1,7 @@
 package net.averak.gsync.testkit.api.rest
 
-import net.averak.gsync.adapter.handler.rest.GlobalRestControllerAdvice
-import net.averak.gsync.adapter.handler.rest.HttpRequestScope
+import net.averak.gsync.adapter.handler.admin_api.GlobalRestControllerAdvice
+import net.averak.gsync.adapter.handler.admin_api.HttpRequestScope
 import net.averak.gsync.domain.model.Platform
 import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.http.HttpStatus
@@ -15,7 +15,7 @@ data class RequestBuilder(
     private val builder: MockHttpServletRequestBuilder,
 ) {
 
-    fun <T> execute(responseType: Class<T>? = null): Response<T> {
+    fun <T> invoke(responseType: Class<T>? = null): Response<T> {
         val result = mockMvc.perform(builder).andReturn()
         val status = HttpStatus.valueOf(result.response.status)
 

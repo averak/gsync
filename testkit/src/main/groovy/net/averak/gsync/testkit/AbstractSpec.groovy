@@ -1,6 +1,7 @@
 package net.averak.gsync.testkit
 
 import net.averak.gsync.Entrypoint
+import net.averak.gsync.testkit.api.grpc.GrpcTester
 import net.averak.gsync.testkit.api.rest.RestTester
 import org.spockframework.spring.EnableSharedInjection
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,4 +19,7 @@ abstract class AbstractSpec extends Specification {
     @Shared
     RestTester restTester
 
+    @Autowired
+    @Shared
+    GrpcTester grpcTester
 }
