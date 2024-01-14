@@ -9,11 +9,11 @@ import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSearchV1
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSetV1
 import net.averak.gsync.usecase.PlayerStorageUsecase
-import org.lognet.springboot.grpc.GRpcService
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
-@GRpcService
+@Service
 class PlayerStorageHandler(
     private val playerStorageUsecase: PlayerStorageUsecase,
 ) : PlayerStorageGrpc.PlayerStorageImplBase() {

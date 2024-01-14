@@ -23,7 +23,6 @@ jobs:
           distribution: corretto
           java-version: 17
           cache: gradle
-      - uses: google-github-actions/setup-gcloud@v1
 
       - name: cache sonar packages
         uses: actions/cache@v3

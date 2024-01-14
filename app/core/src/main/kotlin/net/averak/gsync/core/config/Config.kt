@@ -11,4 +11,15 @@ open class Config {
     var version: String = ""
 
     var debug: Boolean = false
+
+    lateinit var grpc: Grpc
+
+    @Configuration
+    @ConfigurationProperties("gsync.grpc")
+    open class Grpc {
+
+        var port: Int = 0
+
+        var enableReflection = false
+    }
 }

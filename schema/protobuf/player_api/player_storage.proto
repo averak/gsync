@@ -1,7 +1,6 @@
 syntax = "proto3";
 package gsync.player_api;
 
-import "google/protobuf/timestamp.proto";
 import "resource/player_storage.proto";
 
 option java_multiple_files = true;

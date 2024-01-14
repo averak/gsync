@@ -5,12 +5,8 @@ import jakarta.annotation.PostConstruct
 import net.averak.gsync.infrastructure.redis.RedisClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.transaction.annotation.Transactional
 import spock.lang.Shared
 
-// @Transactional を付けるとテストケースがトランザクション内で実行され、テストケース実行後にロールバックされる
-// https://spring.pleiades.io/spring-framework/reference/testing/testcontext-framework/tx.html#testcontext-tx-enabling-transactions
-@Transactional
 @EnableAutoConfiguration
 abstract class AbstractDatabaseSpec extends AbstractSpec {
 
@@ -29,5 +25,15 @@ abstract class AbstractDatabaseSpec extends AbstractSpec {
 
     void cleanup() {
         redis.flushdb()
+
+        // テストクラスに @Transactional を付けても何故かテストケース実行後にロールバックされないので、手動でクリーンアップする
+        // https://spring.pleiades.io/spring-framework/reference/testing/testcontext-framework/tx.html#testcontext-tx-enabling-transactions
+        sql.execute("DELETE FROM gsync_echo WHERE TRUE")
+        sql.execute("DELETE FROM gsync_friend_setting_master WHERE TRUE")
+        sql.execute("DELETE FROM gsync_game WHERE TRUE")
+        sql.execute("DELETE FROM gsync_master_version WHERE TRUE")
+        sql.execute("DELETE FROM gsync_operator WHERE TRUE")
+        sql.execute("DELETE FROM gsync_player WHERE TRUE")
+        sql.execute("DELETE FROM gsync_required_client_version WHERE TRUE")
     }
 }

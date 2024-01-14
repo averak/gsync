@@ -2,7 +2,9 @@ package net.averak.gsync.infrastructure.redis
 
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 class RedisClient_UT extends AbstractDatabaseSpec {
 
     @Autowired

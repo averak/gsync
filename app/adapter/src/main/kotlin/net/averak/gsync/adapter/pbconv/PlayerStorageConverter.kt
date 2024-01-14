@@ -14,6 +14,7 @@ class PlayerStorageConverter {
 
     companion object {
 
+        @JvmStatic
         fun fromPb(criteria: Criteria): IPlayerStorageRepository.PlayerStorageCriteria {
             when (criteria.matchingPattern) {
                 Criteria.MatchingType.EXACT_MATCH -> {
@@ -40,6 +41,7 @@ class PlayerStorageConverter {
             }
         }
 
+        @JvmStatic
         fun fromPb(entry: Entry): PlayerStorageEntry {
             return PlayerStorageEntry(
                 key = entry.key,
@@ -47,13 +49,15 @@ class PlayerStorageConverter {
             )
         }
 
-        private fun toPb(entry: PlayerStorageEntry): Entry {
+        @JvmStatic
+        fun toPb(entry: PlayerStorageEntry): Entry {
             return Entry.newBuilder()
                 .setKey(entry.key)
                 .setValue(ByteString.copyFrom(entry.value))
                 .build()
         }
 
+        @JvmStatic
         fun toPb(result: PlayerStorageUsecase.SetResult): PlayerStorageSetV1.Response {
             return PlayerStorageSetV1.Response.newBuilder()
                 .setEntry(toPb(result.entry))
@@ -61,6 +65,7 @@ class PlayerStorageConverter {
                 .build()
         }
 
+        @JvmStatic
         fun toPb(playerStorage: PlayerStorage): PlayerStorageSearchV1.Response {
             return PlayerStorageSearchV1.Response.newBuilder()
                 .addAllEntries(playerStorage.entries.map { toPb(it) })

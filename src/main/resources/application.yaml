@@ -22,6 +22,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
     time-zone: UTC
+
   main:
     allow-bean-definition-overriding: true
   flyway:
@@ -41,10 +42,6 @@ server:
       charset: UTF-8
       force: true
 
-grpc:
-  port: 6565
-  enable-reflection: ${gsync.debug:false}
-
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
@@ -56,3 +53,6 @@ mybatis:
 gsync:
   version: ${git.commit.id.describe}
   debug: ${IS_DEBUG:false}
+  grpc:
+    enable-reflection: ${gsync.debug}
+    port: ${GRPC_PORT:6565}

@@ -7,6 +7,7 @@ import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Player
 import net.averak.gsync.domain.model.PlayerLogin
 import net.averak.gsync.domain.model.PlayerProfile
+import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
@@ -15,7 +16,7 @@ import spock.lang.Shared
 
 import java.time.LocalDateTime
 
-class PlayerRepository_UT extends AbstractRepository_UT {
+class PlayerRepository_UT extends AbstractDatabaseSpec {
 
     @Autowired
     PlayerRepository sut

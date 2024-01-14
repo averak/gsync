@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.gradle.git.properties)
     alias(libs.plugins.spotless)
     alias(libs.plugins.sonarqube)
-    alias(libs.plugins.lognet.grpc.spring.boot)
 
     groovy
     jacoco
@@ -91,7 +90,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/**,**/mapper/base/**")
+            property("sonar.exclusions", "protobuf/**,testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
@@ -136,25 +135,16 @@ subprojects {
 }
 
 project(":adapter") {
-    apply {
-        plugin(rootProject.libs.plugins.lognet.grpc.spring.boot.get().pluginId)
-    }
-
     dependencies {
         implementation(project(":core"))
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
-    }
-
-    tasks {
-        compileKotlin {
-            dependsOn(":adapter:generateProto")
-        }
     }
 }
 
@@ -199,6 +189,7 @@ project(":testkit") {
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.test)
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
@@ -220,6 +211,17 @@ project(":testkit") {
     }
 }
 
+project(":protobuf") {
+    dependencies {
+        compileOnly(rootProject.libs.javax.annotation.api)
+        api(rootProject.libs.io.grpc.netty)
+        api(rootProject.libs.io.grpc.netty.shaded)
+        api(rootProject.libs.io.grpc.protobuf)
+        api(rootProject.libs.io.grpc.services)
+        api(rootProject.libs.io.grpc.stub)
+    }
+}
+
 dependencies {
     implementation(project(":adapter"))
     implementation(project(":core"))
@@ -231,10 +233,6 @@ dependencies {
     implementation(libs.google.cloud.spanner.jdbc)
     implementation(libs.flyway.core)
     implementation(libs.flyway.spanner)
-}
-
-grpcSpringBoot {
-    grpcVersion = "1.61.0"
 }
 
 flyway {

@@ -2,8 +2,8 @@ spring:
   data:
     redis:
       database: 1
-  flyway:
-    clean-disabled: false
 
 gsync:
   debug: true
+  grpc:
+    port: ${random.int[49152,65535]}
