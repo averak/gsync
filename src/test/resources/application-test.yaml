@@ -5,5 +5,5 @@ spring:
 
 gsync:
   debug: true
-  grpc:
+  player-api:
     port: ${random.int[49152,65535]}

@@ -21,7 +21,7 @@ class GrpcTester(
 
     @PostConstruct
     fun init() {
-        channel = ManagedChannelBuilder.forAddress("localhost", config.grpc.port).usePlaintext().build()
+        channel = ManagedChannelBuilder.forAddress("localhost", config.playerApi.port).usePlaintext().build()
         echo = EchoGrpc.newBlockingStub(channel)
         playerStorage = PlayerStorageGrpc.newBlockingStub(channel)
     }

@@ -12,14 +12,21 @@ open class Config {
 
     var debug: Boolean = false
 
-    lateinit var grpc: Grpc
+    lateinit var playerApi: PlayerApi
+
+    lateinit var adminApi: AdminApi
 
     @Configuration
-    @ConfigurationProperties("gsync.grpc")
-    open class Grpc {
+    @ConfigurationProperties("gsync.player-api")
+    open class PlayerApi {
 
         var port: Int = 0
+    }
 
-        var enableReflection = false
+    @Configuration
+    @ConfigurationProperties("gsync.admin-api")
+    open class AdminApi {
+
+        var port: Int = 0
     }
 }

@@ -8,15 +8,15 @@ import net.averak.gsync.core.config.Config
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-open class GrpcServerConfig(
+open class PlayerApiServerConfig(
     private val config: Config,
     private val handlers: List<BindableService>,
 ) {
 
     @PostConstruct
     fun start() {
-        val serverBuilder = ServerBuilder.forPort(config.grpc.port)
-        if (config.grpc.enableReflection) {
+        val serverBuilder = ServerBuilder.forPort(config.playerApi.port)
+        if (config.debug) {
             serverBuilder.addService(ProtoReflectionService.newInstance())
         }
         handlers.forEach {

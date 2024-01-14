@@ -22,7 +22,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd'T'HH:mm:ss'Z'
     time-zone: UTC
-
   main:
     allow-bean-definition-overriding: true
   flyway:
@@ -36,7 +35,7 @@ spring:
     connect-retries: 5
 
 server:
-  port: ${PORT:8080}
+  port: ${gsync.admin-api.port}
   servlet:
     encoding:
       charset: UTF-8
@@ -53,6 +52,7 @@ mybatis:
 gsync:
   version: ${git.commit.id.describe}
   debug: ${IS_DEBUG:false}
-  grpc:
-    enable-reflection: ${gsync.debug}
-    port: ${GRPC_PORT:6565}
+  player-api:
+    port: ${PLAYER_API_PORT:8080}
+  admin-api:
+    port: ${ADMIN_API_PORT:8081}
