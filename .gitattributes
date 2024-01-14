@@ -1,4 +1,4 @@
-app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base linguist-generated=true
-app/adapter/src/main/java/net/averak/gsync/adapter/dao/mapper/base linguist-generated=true
-src/main/resources/dao/base linguist-generated=true
-protobuf linguist-generated=true
+app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base/*.java linguist-generated=true
+app/adapter/src/main/java/net/averak/gsync/adapter/dao/mapper/base/*.java linguist-generated=true
+src/main/resources/dao/base/*.xml linguist-generated=true
+protobuf/** linguist-generated=true
