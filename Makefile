@@ -16,6 +16,8 @@ format:
 
 .PHONY: codegen
 codegen:
+	rm -r app/adapter/build/protoGen
+	./gradlew generateProto
 	./gradlew mbGenerate
 	./gradlew spotlessApply
 
