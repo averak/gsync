@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.admin_api.interceptor
+package net.averak.gsync.adapter.handler.utils
 
 import net.averak.gsync.adapter.dao.dto.base.MasterVersionDto
 import net.averak.gsync.core.exception.ErrorCode
@@ -9,10 +9,10 @@ import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
 import org.springframework.beans.factory.annotation.Autowired
 
-class GameContextInterceptor_UT extends AbstractDatabaseSpec {
+class MasterVersionUtils_UT extends AbstractDatabaseSpec {
 
     @Autowired
-    GameContextInterceptor sut
+    MasterVersionUtils sut
 
     def "getEnabledMasterVersion: 正常系 - 有効なマスターバージョンを取得できる"() {
         given:

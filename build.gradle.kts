@@ -191,7 +191,6 @@ project(":testkit") {
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
-        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.test)
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
@@ -199,6 +198,7 @@ project(":testkit") {
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
 
+        api(project(":protobuf"))
         api(rootProject.libs.spock.core)
         api(rootProject.libs.spock.spring)
         api(rootProject.libs.groovy.sql)

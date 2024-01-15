@@ -18,7 +18,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 	}
 	private Criteria() {
 		pattern_ = "";
-		matchingPattern_ = 0;
+		matchingType_ = 0;
 	}
 
 	@java.lang.Override
@@ -176,26 +176,26 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		}
 	}
 
-	public static final int MATCHING_PATTERN_FIELD_NUMBER = 2;
-	private int matchingPattern_ = 0;
+	public static final int MATCHING_TYPE_FIELD_NUMBER = 2;
+	private int matchingType_ = 0;
 	/**
-	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 	 * 
-	 * @return The enum numeric value on the wire for matchingPattern.
+	 * @return The enum numeric value on the wire for matchingType.
 	 */
 	@java.lang.Override
-	public int getMatchingPatternValue() {
-		return matchingPattern_;
+	public int getMatchingTypeValue() {
+		return matchingType_;
 	}
 	/**
-	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 	 * 
-	 * @return The matchingPattern.
+	 * @return The matchingType.
 	 */
 	@java.lang.Override
-	public net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingPattern() {
+	public net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingType() {
 		net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType result = net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType
-				.forNumber(matchingPattern_);
+				.forNumber(matchingType_);
 		return result == null
 				? net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.UNRECOGNIZED
 				: result;
@@ -219,9 +219,9 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pattern_)) {
 			com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pattern_);
 		}
-		if (matchingPattern_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
+		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
 				.getNumber()) {
-			output.writeEnum(2, matchingPattern_);
+			output.writeEnum(2, matchingType_);
 		}
 		getUnknownFields().writeTo(output);
 	}
@@ -236,9 +236,9 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pattern_)) {
 			size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pattern_);
 		}
-		if (matchingPattern_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
+		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
 				.getNumber()) {
-			size += com.google.protobuf.CodedOutputStream.computeEnumSize(2, matchingPattern_);
+			size += com.google.protobuf.CodedOutputStream.computeEnumSize(2, matchingType_);
 		}
 		size += getUnknownFields().getSerializedSize();
 		memoizedSize = size;
@@ -257,7 +257,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 
 		if (!getPattern().equals(other.getPattern()))
 			return false;
-		if (matchingPattern_ != other.matchingPattern_)
+		if (matchingType_ != other.matchingType_)
 			return false;
 		if (!getUnknownFields().equals(other.getUnknownFields()))
 			return false;
@@ -273,8 +273,8 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		hash = (19 * hash) + getDescriptor().hashCode();
 		hash = (37 * hash) + PATTERN_FIELD_NUMBER;
 		hash = (53 * hash) + getPattern().hashCode();
-		hash = (37 * hash) + MATCHING_PATTERN_FIELD_NUMBER;
-		hash = (53 * hash) + matchingPattern_;
+		hash = (37 * hash) + MATCHING_TYPE_FIELD_NUMBER;
+		hash = (53 * hash) + matchingType_;
 		hash = (29 * hash) + getUnknownFields().hashCode();
 		memoizedHashCode = hash;
 		return hash;
@@ -390,7 +390,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 			super.clear();
 			bitField0_ = 0;
 			pattern_ = "";
-			matchingPattern_ = 0;
+			matchingType_ = 0;
 			return this;
 		}
 
@@ -430,7 +430,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 				result.pattern_ = pattern_;
 			}
 			if (((from_bitField0_ & 0x00000002) != 0)) {
-				result.matchingPattern_ = matchingPattern_;
+				result.matchingType_ = matchingType_;
 			}
 		}
 
@@ -477,8 +477,8 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 				bitField0_ |= 0x00000001;
 				onChanged();
 			}
-			if (other.matchingPattern_ != 0) {
-				setMatchingPatternValue(other.getMatchingPatternValue());
+			if (other.matchingType_ != 0) {
+				setMatchingTypeValue(other.getMatchingTypeValue());
 			}
 			this.mergeUnknownFields(other.getUnknownFields());
 			onChanged();
@@ -510,7 +510,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 							break;
 						} // case 10
 						case 16 : {
-							matchingPattern_ = input.readEnum();
+							matchingType_ = input.readEnum();
 							bitField0_ |= 0x00000002;
 							break;
 						} // case 16
@@ -608,67 +608,67 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 			return this;
 		}
 
-		private int matchingPattern_ = 0;
+		private int matchingType_ = 0;
 		/**
-		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 		 * 
-		 * @return The enum numeric value on the wire for matchingPattern.
+		 * @return The enum numeric value on the wire for matchingType.
 		 */
 		@java.lang.Override
-		public int getMatchingPatternValue() {
-			return matchingPattern_;
+		public int getMatchingTypeValue() {
+			return matchingType_;
 		}
 		/**
-		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 		 * 
 		 * @param value
-		 *            The enum numeric value on the wire for matchingPattern to set.
+		 *            The enum numeric value on the wire for matchingType to set.
 		 * @return This builder for chaining.
 		 */
-		public Builder setMatchingPatternValue(int value) {
-			matchingPattern_ = value;
+		public Builder setMatchingTypeValue(int value) {
+			matchingType_ = value;
 			bitField0_ |= 0x00000002;
 			onChanged();
 			return this;
 		}
 		/**
-		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 		 * 
-		 * @return The matchingPattern.
+		 * @return The matchingType.
 		 */
 		@java.lang.Override
-		public net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingPattern() {
+		public net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingType() {
 			net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType result = net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType
-					.forNumber(matchingPattern_);
+					.forNumber(matchingType_);
 			return result == null
 					? net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.UNRECOGNIZED
 					: result;
 		}
 		/**
-		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 		 * 
 		 * @param value
-		 *            The matchingPattern to set.
+		 *            The matchingType to set.
 		 * @return This builder for chaining.
 		 */
-		public Builder setMatchingPattern(
+		public Builder setMatchingType(
 				net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType value) {
 			if (value == null) {
 				throw new NullPointerException();
 			}
 			bitField0_ |= 0x00000002;
-			matchingPattern_ = value.getNumber();
+			matchingType_ = value.getNumber();
 			onChanged();
 			return this;
 		}
 		/**
-		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+		 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 		 * 
 		 * @return This builder for chaining.
 		 */
-		public Builder clearMatchingPattern() {
+		public Builder clearMatchingType() {
 			bitField0_ = (bitField0_ & ~0x00000002);
-			matchingPattern_ = 0;
+			matchingType_ = 0;
 			onChanged();
 			return this;
 		}

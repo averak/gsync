@@ -49,6 +49,17 @@ class GrpcTester(
         return response
     }
 
+    fun withSession(playerID: UUID, gameID: UUID) {
+        metadata[IncomingMD.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
+        metadata[IncomingMD.GAME_ID] = gameID.toString()
+        initStubs()
+    }
+
+    fun withGameID(value: UUID) {
+        metadata[IncomingMD.GAME_ID] = value.toString()
+        initStubs()
+    }
+
     fun withSpoofingPlayerID(value: UUID) {
         metadata[IncomingMD.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
         initStubs()

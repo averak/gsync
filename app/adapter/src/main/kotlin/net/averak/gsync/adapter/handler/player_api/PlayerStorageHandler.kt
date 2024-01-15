@@ -54,6 +54,6 @@ class PlayerStorageHandler(
         responseObserver.onNext(
             PlayerStorageClearV1.Response.newBuilder().setNextRevision(result.toString()).build(),
         )
-        super.clearV1(request, responseObserver)
+        responseObserver.onCompleted()
     }
 }

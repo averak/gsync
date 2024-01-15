@@ -16,7 +16,7 @@ class PlayerStorageConverter {
 
         @JvmStatic
         fun fromPb(criteria: Criteria): IPlayerStorageRepository.PlayerStorageCriteria {
-            when (criteria.matchingPattern) {
+            when (criteria.matchingType) {
                 Criteria.MatchingType.EXACT_MATCH -> {
                     return IPlayerStorageRepository.PlayerStorageCriteria(
                         exactMatch = listOf(criteria.pattern),
