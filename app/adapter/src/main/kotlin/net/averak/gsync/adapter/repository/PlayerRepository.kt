@@ -3,6 +3,7 @@ package net.averak.gsync.adapter.repository
 import net.averak.gsync.adapter.dao.dto.base.PlayerDto
 import net.averak.gsync.adapter.dao.dto.base.PlayerLoginDto
 import net.averak.gsync.adapter.dao.dto.base.PlayerProfileDto
+import net.averak.gsync.adapter.dao.dto.extend.PlayerILDto
 import net.averak.gsync.adapter.dao.mapper.base.PlayerLoginBaseMapper
 import net.averak.gsync.adapter.dao.mapper.base.PlayerProfileBaseMapper
 import net.averak.gsync.adapter.dao.mapper.extend.PlayerMapper
@@ -26,22 +27,7 @@ open class PlayerRepository(
         return if (dto == null) {
             null
         } else {
-            val loginDto = dto.playerLogin
-            Player(
-                id = UUID.fromString(dto.playerId),
-                friendID = UUID.fromString(dto.friendId),
-                isBanned = dto.isBanned,
-                profile = PlayerProfile(
-                    nickname = dto.playerProfile.nickname,
-                    iconID = dto.playerProfile.iconId,
-                ),
-                login = loginDto?.let {
-                    PlayerLogin(
-                        totalLoginDays = loginDto.totalLoginDays.toInt(),
-                        lastLoggedInAt = loginDto.lastLoggedInAt,
-                    )
-                },
-            )
+            convertDtoToModel(dto)
         }
     }
 
@@ -69,7 +55,10 @@ open class PlayerRepository(
 
         // player.login が null の場合はログイン履歴を削除するのが適切な永続化の振る舞いだが、
         // ログイン履歴を削除するようなユースケースはない & プレイヤーには見れない情報であり多少の誤差は許容されるため、削除処理はスキップする (実装が面倒なのもある)
-        val login = player.login ?: return
+        val login = player.login
+        if (login == null) {
+            return
+        }
         val loginDto = PlayerLoginDto(
             player.id.toString(),
             login.totalLoginDays.toLong(),
@@ -79,5 +68,30 @@ open class PlayerRepository(
         )
         playerLoginMapper.syncOriginal(loginDto)
         playerLoginMapper.insertOrUpdate(loginDto)
+    }
+
+    companion object {
+
+        fun convertDtoToModel(dto: PlayerILDto): Player {
+            return Player(
+                id = UUID.fromString(dto.playerId),
+                friendID = UUID.fromString(dto.friendId),
+                isBanned = dto.isBanned,
+                profile = convertDtoToModel(dto.playerProfile),
+                login = dto.playerLogin?.let {
+                    PlayerLogin(
+                        totalLoginDays = it.totalLoginDays.toInt(),
+                        lastLoggedInAt = it.lastLoggedInAt,
+                    )
+                },
+            )
+        }
+
+        fun convertDtoToModel(dto: PlayerProfileDto): PlayerProfile {
+            return PlayerProfile(
+                nickname = dto.nickname,
+                iconID = dto.iconId,
+            )
+        }
     }
 }

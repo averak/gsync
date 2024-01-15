@@ -27,10 +27,17 @@ open class EchoRepository(
 
     override fun findByID(gctx: GameContext, id: UUID): Echo? {
         return echoMapper.selectByPrimaryKey(id.toString())?.let {
-            Echo(
-                id = UUID.fromString(it.echoId),
-                message = it.message,
-                timestamp = it.timestamp,
+            convertDtoToModel(it)
+        }
+    }
+
+    companion object {
+
+        fun convertDtoToModel(dto: EchoDto): Echo {
+            return Echo(
+                id = UUID.fromString(dto.echoId),
+                message = dto.message,
+                timestamp = dto.timestamp,
             )
         }
     }

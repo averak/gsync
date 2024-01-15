@@ -16,15 +16,7 @@ class ResolveNullPlugin : PluginAdapter() {
 
     override fun modelBaseRecordClassGenerated(topLevelClass: TopLevelClass, introspectedTable: IntrospectedTable): Boolean {
         resolveNullable(topLevelClass, introspectedTable)
-        return true
-    }
-
-    override fun modelPrimaryKeyClassGenerated(topLevelClass: TopLevelClass, introspectedTable: IntrospectedTable): Boolean {
-        return modelBaseRecordClassGenerated(topLevelClass, introspectedTable)
-    }
-
-    override fun modelRecordWithBLOBsClassGenerated(topLevelClass: TopLevelClass, introspectedTable: IntrospectedTable): Boolean {
-        return modelBaseRecordClassGenerated(topLevelClass, introspectedTable)
+        return super.modelBaseRecordClassGenerated(topLevelClass, introspectedTable)
     }
 
     private fun resolveNullable(topLevelClass: TopLevelClass, introspectedTable: IntrospectedTable) {
@@ -32,9 +24,8 @@ class ResolveNullPlugin : PluginAdapter() {
         topLevelClass.addImportedType(FullyQualifiedJavaType("javax.annotation.Nonnull"))
 
         val columnNullableMap = HashMap<String, Boolean>()
-        for (i in 0..<topLevelClass.fields.size) {
-            val column = introspectedTable.allColumns[i]
-            columnNullableMap[topLevelClass.fields[i].name] = column.isNullable || column.isAutoIncrement
+        introspectedTable.allColumns.forEach { column ->
+            columnNullableMap[column.javaProperty] = column.isNullable || column.isAutoIncrement
         }
 
         columnNullableMap.forEach { (columnName, isNullable) ->

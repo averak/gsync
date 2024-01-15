@@ -16,5 +16,5 @@ public interface OperatorMapper extends OperatorBaseMapper {
 	OperatorILDto selectByOperatorId(@Param("operatorId") String operatorId);
 
 	@Nonnull
-	List<OperatorILDto> selectByTenantId(@Param("tenantId") String tenantId);
+	List<OperatorILDto> selectByGameId(@Param("gameId") String gameId);
 }

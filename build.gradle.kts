@@ -90,7 +90,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "testkit/**,**/dto/**,**/mapper/base/**")
+            property("sonar.exclusions", "protobuf/**,testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
@@ -140,6 +140,7 @@ project(":adapter") {
         implementation(project(":domain"))
         implementation(project(":infrastructure"))
         implementation(project(":usecase"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.jpa)
@@ -163,6 +164,8 @@ project(":domain") {
 
 project(":infrastructure") {
     dependencies {
+        implementation(project(":core"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
@@ -195,6 +198,7 @@ project(":testkit") {
         implementation(rootProject.libs.spring.boot.starter.data.redis)
         implementation(rootProject.libs.commons.lang3)
 
+        api(project(":protobuf"))
         api(rootProject.libs.spock.core)
         api(rootProject.libs.spock.spring)
         api(rootProject.libs.groovy.sql)
@@ -206,6 +210,17 @@ project(":testkit") {
             dependsOn("compileKotlin")
             classpath += files("build/classes/kotlin/main")
         }
+    }
+}
+
+project(":protobuf") {
+    dependencies {
+        compileOnly(rootProject.libs.javax.annotation.api)
+        api(rootProject.libs.io.grpc.netty)
+        api(rootProject.libs.io.grpc.netty.shaded)
+        api(rootProject.libs.io.grpc.protobuf)
+        api(rootProject.libs.io.grpc.services)
+        api(rootProject.libs.io.grpc.stub)
     }
 }
 
@@ -247,6 +262,18 @@ tasks {
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
     register("mbgenerate", Task::class) {
+        doFirst {
+            fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base") {
+                include("**/*.java")
+                exclude("**/AbstractDto.java")
+            }.files.forEach { it.delete() }
+            fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/mapper/base") {
+                include("**/*.java")
+            }.files.forEach { it.delete() }
+            fileTree("$rootDir/src/main/resources/dao/base") {
+                include("**/*.xml")
+            }.files.forEach { it.delete() }
+        }
         doLast {
             ant.withGroovyBuilder {
                 "taskdef"(

@@ -18,7 +18,7 @@ class PlayerStorageUsecase_search_UT extends AbstractUsecase_UT {
     UUID playerID = Faker.uuidv4()
 
     @Shared
-    UUID tenantID = Faker.uuidv4()
+    UUID gameID = Faker.uuidv4()
 
     def "正常系: プレイヤーストレージを検索する"() {
         given:
@@ -26,10 +26,10 @@ class PlayerStorageUsecase_search_UT extends AbstractUsecase_UT {
         final criteria = Faker.fake(IPlayerStorageRepository.PlayerStorageCriteria)
 
         final playerStorage = Faker.fake(PlayerStorage)
-        1 * playerStorageRepository.get(gctx, playerID, tenantID, criteria) >> playerStorage
+        1 * playerStorageRepository.get(gctx, playerID, gameID, criteria) >> playerStorage
 
         when:
-        final result = this.sut.search(gctx, playerID, tenantID, criteria)
+        final result = this.sut.search(gctx, playerID, gameID, criteria)
 
         then:
         result == playerStorage
@@ -45,7 +45,7 @@ class PlayerStorageUsecase_set_UT extends AbstractUsecase_UT {
     UUID playerID = Faker.uuidv4()
 
     @Shared
-    UUID tenantID = Faker.uuidv4()
+    UUID gameID = Faker.uuidv4()
 
     @Shared
     UUID revision = Faker.uuidv4()
@@ -56,10 +56,10 @@ class PlayerStorageUsecase_set_UT extends AbstractUsecase_UT {
         final entry = Faker.fake(PlayerStorageEntry)
 
         final playerStorage = Faker.fake(PlayerStorage, [revision: revision])
-        1 * playerStorageRepository.get(gctx, playerID, tenantID, _) >> playerStorage
+        1 * playerStorageRepository.get(gctx, playerID, gameID, _) >> playerStorage
 
         when:
-        final result = this.sut.set(gctx, playerID, tenantID, entry, revision)
+        final result = this.sut.set(gctx, playerID, gameID, entry, revision)
 
         then:
         result == new PlayerStorageUsecase.SetResult(entry, playerStorage.revision)
@@ -73,10 +73,10 @@ class PlayerStorageUsecase_set_UT extends AbstractUsecase_UT {
         final playerStorage = Faker.fake(PlayerStorage, [
             revision: revision,
         ])
-        1 * playerStorageRepository.get(gctx, playerID, tenantID, _) >> playerStorage
+        1 * playerStorageRepository.get(gctx, playerID, gameID, _) >> playerStorage
 
         when:
-        final result = this.sut.set(gctx, playerID, tenantID, entry, revision)
+        final result = this.sut.set(gctx, playerID, gameID, entry, revision)
 
         then:
         1 * playerStorageRepository.save(gctx, playerStorage) >> { throw new AlreadyDoneException() }
@@ -93,7 +93,7 @@ class PlayerStorageUsecase_clear_UT extends AbstractUsecase_UT {
     UUID playerID = Faker.uuidv4()
 
     @Shared
-    UUID tenantID = Faker.uuidv4()
+    UUID gameID = Faker.uuidv4()
 
     @Shared
     UUID revision = Faker.uuidv4()
@@ -107,10 +107,10 @@ class PlayerStorageUsecase_clear_UT extends AbstractUsecase_UT {
             revision: revision,
             entries : Faker.fakes(PlayerStorageEntry, 2),
         ])
-        1 * playerStorageRepository.get(gctx, playerID, tenantID, criteria) >> playerStorage
+        1 * playerStorageRepository.get(gctx, playerID, gameID, criteria) >> playerStorage
 
         when:
-        final result = this.sut.clear(gctx, playerID, tenantID, revision, criteria)
+        final result = this.sut.clear(gctx, playerID, gameID, revision, criteria)
 
         then:
         1 * playerStorageRepository.save(gctx, playerStorage)
@@ -127,10 +127,10 @@ class PlayerStorageUsecase_clear_UT extends AbstractUsecase_UT {
         final playerStorage = Faker.fake(PlayerStorage, [
             revision: revision,
         ])
-        1 * playerStorageRepository.get(gctx, playerID, tenantID, criteria) >> playerStorage
+        1 * playerStorageRepository.get(gctx, playerID, gameID, criteria) >> playerStorage
 
         when:
-        final result = this.sut.clear(gctx, playerID, tenantID, revision, criteria)
+        final result = this.sut.clear(gctx, playerID, gameID, revision, criteria)
 
         then:
         1 * playerStorageRepository.save(gctx, playerStorage) >> { throw new AlreadyDoneException() }

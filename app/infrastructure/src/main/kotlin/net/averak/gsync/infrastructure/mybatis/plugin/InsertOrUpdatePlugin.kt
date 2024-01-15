@@ -31,7 +31,7 @@ class InsertOrUpdatePlugin : PluginAdapter() {
         method.bodyLines += "return ${expressions.joinToString(" && ")};"
         topLevelClass.addMethod(method)
 
-        return true
+        return super.modelBaseRecordClassGenerated(topLevelClass, introspectedTable)
     }
 
     override fun clientGenerated(interfaze: Interface, introspectedTable: IntrospectedTable): Boolean {
@@ -41,7 +41,7 @@ class InsertOrUpdatePlugin : PluginAdapter() {
             addInsertOrUpdateMethod(interfaze, introspectedTable)
             addInsertOrUpdateMultiMethod(interfaze, introspectedTable)
         }
-        return true
+        return super.clientGenerated(interfaze, introspectedTable)
     }
 
     private fun addSyncOriginalMethod(interfaze: Interface, introspectedTable: IntrospectedTable) {
@@ -141,7 +141,9 @@ class InsertOrUpdatePlugin : PluginAdapter() {
         method.bodyLines += "    if (dto.getOriginal() == null) {"
         method.bodyLines += "        return;"
         method.bodyLines += "    }"
-        method.bodyLines += "    dto.setCreatedAt(dto.getOriginal().getCreatedAt());"
+        if (introspectedTable.allColumns.any { it.javaProperty == "createdAt" }) {
+            method.bodyLines += "    dto.setCreatedAt(dto.getOriginal().getCreatedAt());"
+        }
         method.bodyLines += "    $updateMethodName(dto);"
         method.bodyLines += "});"
 

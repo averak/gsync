@@ -5,14 +5,14 @@ import net.averak.gsync.core.exception.GsyncException
 import java.util.*
 
 /**
- * プレイヤーデータを格納する汎用的な Key-Value 形式のストレージ
+ * 任意のプレイヤーデータを格納できる Key-Value ストア
  *
  * サーバはストレージの中身について一切感知しないため、クライアントで独自にチート対策を行う必要がある。
  * サーバ開発コストを抑えたい場合、もしくは複数端末で同じプレイヤーデータを共有する必要がある場合に利用すること。
  */
 data class PlayerStorage(
     val playerID: UUID,
-    val tenantID: UUID,
+    val gameID: UUID,
     var revision: UUID,
     /**
      * [net.averak.gsync.domain.repository.IPlayerStorageRepository.PlayerStorageCriteria] による検索結果が格納されるので、全エントリーが入っているとは限らない
@@ -25,10 +25,10 @@ data class PlayerStorage(
         private val FIRST_REVISION = UUID.fromString("00000000-0000-0000-0000-000000000000")
 
         @JvmStatic
-        fun ofFirstRevision(playerID: UUID, tenantID: UUID): PlayerStorage {
+        fun ofFirstRevision(playerID: UUID, gameID: UUID): PlayerStorage {
             return PlayerStorage(
                 playerID = playerID,
-                tenantID = tenantID,
+                gameID = gameID,
                 revision = FIRST_REVISION,
                 entries = mutableListOf(),
             )

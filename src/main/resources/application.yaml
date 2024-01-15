@@ -35,7 +35,7 @@ spring:
     connect-retries: 5
 
 server:
-  port: ${PORT:8080}
+  port: ${gsync.admin-api.port}
   servlet:
     encoding:
       charset: UTF-8
@@ -52,3 +52,7 @@ mybatis:
 gsync:
   version: ${git.commit.id.describe}
   debug: ${IS_DEBUG:false}
+  player-api:
+    port: ${PLAYER_API_PORT:8080}
+  admin-api:
+    port: ${ADMIN_API_PORT:8081}

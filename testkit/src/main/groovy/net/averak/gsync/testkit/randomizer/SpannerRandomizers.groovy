@@ -27,6 +27,41 @@ class EchoDtoRandomizer implements IRandomizer {
 }
 
 @Component
+class FriendSettingMasterDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = FriendSettingMasterDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new FriendSettingMasterDto(
+            Faker.uuidv4().toString(),
+            Faker.integer(1, 100),
+            Faker.integer(1, 100),
+            now,
+            now,
+        )
+    }
+}
+
+@Component
+class GameDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = GameDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new GameDto(
+            Faker.uuidv4().toString(),
+            Faker.alphanumeric(),
+            now,
+            now,
+        )
+    }
+}
+
+@Component
 class MasterVersionDtoRandomizer implements IRandomizer {
 
     final Class typeToGenerate = MasterVersionDto.class
@@ -73,6 +108,42 @@ class PlayerDtoRandomizer implements IRandomizer {
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             false,
+            now,
+            now,
+        )
+    }
+}
+
+@Component
+class PlayerFriendDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = PlayerFriendDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new PlayerFriendDto(
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            Faker.fake(LocalDateTime),
+            now,
+            now,
+        )
+    }
+}
+
+@Component
+class PlayerFriendRequestDtoRandomizer implements IRandomizer {
+
+    final Class typeToGenerate = PlayerFriendRequestDto.class
+
+    @Override
+    Object getRandomValue() {
+        final now = LocalDateTime.now()
+        return new PlayerFriendRequestDto(
+            Faker.uuidv4().toString(),
+            Faker.uuidv4().toString(),
+            Faker.fake(LocalDateTime),
             now,
             now,
         )
@@ -172,14 +243,14 @@ class RequiredClientVersionDtoRandomizer implements IRandomizer {
 }
 
 @Component
-class RTenantOperatorDtoRandomizer implements IRandomizer {
+class RGameOperatorDtoRandomizer implements IRandomizer {
 
-    final Class typeToGenerate = RTenantOperatorDto.class
+    final Class typeToGenerate = RGameOperatorDto.class
 
     @Override
     Object getRandomValue() {
         final now = LocalDateTime.now()
-        return new RTenantOperatorDto(
+        return new RGameOperatorDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.fake(Boolean),
@@ -189,19 +260,3 @@ class RTenantOperatorDtoRandomizer implements IRandomizer {
     }
 }
 
-@Component
-class TenantDtoRandomizer implements IRandomizer {
-
-    final Class typeToGenerate = TenantDto.class
-
-    @Override
-    Object getRandomValue() {
-        final now = LocalDateTime.now()
-        return new TenantDto(
-            Faker.uuidv4().toString(),
-            Faker.alphanumeric(),
-            now,
-            now,
-        )
-    }
-}

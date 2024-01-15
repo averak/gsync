@@ -8,10 +8,10 @@ import java.util.*
 data class Operator(
     val id: UUID,
     val email: String,
-    val authorities: List<OperatorAuthority>,
+    val authorities: List<GameOperationAuthority>,
 )
 
-data class OperatorAuthority(
-    val tenantID: UUID,
+data class GameOperationAuthority(
+    val gameID: UUID,
     val isAdmin: Boolean,
 )
