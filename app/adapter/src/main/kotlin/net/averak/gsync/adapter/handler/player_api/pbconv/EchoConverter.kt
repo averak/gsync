@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.pbconv
+package net.averak.gsync.adapter.handler.player_api.pbconv
 
 import net.averak.gsync.domain.model.Echo
 import net.averak.gsync.schema.protobuf.player_api.EchoEchoV1

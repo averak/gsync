@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.pbconv
+package net.averak.gsync.adapter.handler.player_api.pbconv
 
 import com.google.protobuf.ByteString
 import net.averak.gsync.domain.model.PlayerStorage

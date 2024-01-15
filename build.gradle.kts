@@ -164,6 +164,8 @@ project(":domain") {
 
 project(":infrastructure") {
     dependencies {
+        implementation(project(":core"))
+        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
