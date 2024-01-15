@@ -1,34 +1,27 @@
 package net.averak.gsync.adapter.handler.player_api
 
 import io.grpc.stub.StreamObserver
-import net.averak.gsync.adapter.pbconv.PlayerStorageConverter
-import net.averak.gsync.core.daterange.Dateline
-import net.averak.gsync.core.game_context.GameContext
+import net.averak.gsync.adapter.handler.player_api.pbconv.PlayerStorageConverter
+import net.averak.gsync.adapter.handler.player_api.scope.RequestScope
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageClearV1
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSearchV1
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSetV1
 import net.averak.gsync.usecase.PlayerStorageUsecase
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
 import java.util.*
 
 @Service
 class PlayerStorageHandler(
+    private val requestScope: RequestScope,
     private val playerStorageUsecase: PlayerStorageUsecase,
 ) : PlayerStorageGrpc.PlayerStorageImplBase() {
 
     override fun searchV1(request: PlayerStorageSearchV1.Request, responseObserver: StreamObserver<PlayerStorageSearchV1.Response>) {
-        val gctx = GameContext(
-            masterVersion = UUID.randomUUID(),
-            idempotencyKey = UUID.randomUUID(),
-            dateline = Dateline.DEFAULT,
-            currentTime = LocalDateTime.now(),
-        )
         val result = playerStorageUsecase.search(
-            gctx,
-            UUID.randomUUID(),
-            UUID.randomUUID(),
+            requestScope.gctx,
+            requestScope.playerID,
+            requestScope.gameID,
             PlayerStorageConverter.fromPb(request.criteria),
         )
 
@@ -37,16 +30,10 @@ class PlayerStorageHandler(
     }
 
     override fun setV1(request: PlayerStorageSetV1.Request, responseObserver: StreamObserver<PlayerStorageSetV1.Response>) {
-        val gctx = GameContext(
-            masterVersion = UUID.randomUUID(),
-            idempotencyKey = UUID.randomUUID(),
-            dateline = Dateline.DEFAULT,
-            currentTime = LocalDateTime.now(),
-        )
         val result = playerStorageUsecase.set(
-            gctx,
-            UUID.randomUUID(),
-            UUID.randomUUID(),
+            requestScope.gctx,
+            requestScope.playerID,
+            requestScope.gameID,
             PlayerStorageConverter.fromPb(request.entry),
             UUID.fromString(request.previousRevision),
         )
@@ -56,25 +43,17 @@ class PlayerStorageHandler(
     }
 
     override fun clearV1(request: PlayerStorageClearV1.Request, responseObserver: StreamObserver<PlayerStorageClearV1.Response>) {
-        val gctx = GameContext(
-            masterVersion = UUID.randomUUID(),
-            idempotencyKey = UUID.randomUUID(),
-            dateline = Dateline.DEFAULT,
-            currentTime = LocalDateTime.now(),
-        )
         val result = playerStorageUsecase.clear(
-            gctx,
-            UUID.randomUUID(),
-            UUID.randomUUID(),
+            requestScope.gctx,
+            requestScope.playerID,
+            requestScope.gameID,
             UUID.fromString(request.previousRevision),
             PlayerStorageConverter.fromPb(request.criteria),
         )
 
         responseObserver.onNext(
-            PlayerStorageClearV1.Response.newBuilder()
-                .setNextRevision(result.toString())
-                .build(),
+            PlayerStorageClearV1.Response.newBuilder().setNextRevision(result.toString()).build(),
         )
-        super.clearV1(request, responseObserver)
+        responseObserver.onCompleted()
     }
 }

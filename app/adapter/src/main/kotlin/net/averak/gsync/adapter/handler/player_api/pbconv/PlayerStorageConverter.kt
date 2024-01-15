@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.pbconv
+package net.averak.gsync.adapter.handler.player_api.pbconv
 
 import com.google.protobuf.ByteString
 import net.averak.gsync.domain.model.PlayerStorage
@@ -16,7 +16,7 @@ class PlayerStorageConverter {
 
         @JvmStatic
         fun fromPb(criteria: Criteria): IPlayerStorageRepository.PlayerStorageCriteria {
-            when (criteria.matchingPattern) {
+            when (criteria.matchingType) {
                 Criteria.MatchingType.EXACT_MATCH -> {
                     return IPlayerStorageRepository.PlayerStorageCriteria(
                         exactMatch = listOf(criteria.pattern),

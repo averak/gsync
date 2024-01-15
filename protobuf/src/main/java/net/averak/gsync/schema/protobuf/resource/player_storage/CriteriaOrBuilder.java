@@ -23,15 +23,15 @@ public interface CriteriaOrBuilder
 	com.google.protobuf.ByteString getPatternBytes();
 
 	/**
-	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 	 * 
-	 * @return The enum numeric value on the wire for matchingPattern.
+	 * @return The enum numeric value on the wire for matchingType.
 	 */
-	int getMatchingPatternValue();
+	int getMatchingTypeValue();
 	/**
-	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_pattern = 2;</code>
+	 * <code>.gsync.resource.player_storage.Criteria.MatchingType matching_type = 2;</code>
 	 * 
-	 * @return The matchingPattern.
+	 * @return The matchingType.
 	 */
-	net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingPattern();
+	net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType getMatchingType();
 }

@@ -16,6 +16,6 @@ message Criteria {
     FORWARD_MATCH = 1;
   }
 
-  string       pattern          = 1;
-  MatchingType matching_pattern = 2;
+  string       pattern       = 1;
+  MatchingType matching_type = 2;
 }
