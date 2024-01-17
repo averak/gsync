@@ -2,7 +2,6 @@ package net.averak.gsync.testkit.api.rest
 
 import net.averak.gsync.adapter.handler.admin_api.GlobalRestControllerAdvice
 import net.averak.gsync.adapter.handler.admin_api.RequestScope
-import net.averak.gsync.domain.model.Platform
 import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.http.HttpStatus
 import org.springframework.test.web.servlet.MockMvc
@@ -48,14 +47,6 @@ data class RequestBuilder(
 
     fun idempotencyKey(value: UUID): RequestBuilder {
         return header(RequestScope.HeaderName.IDEMPOTENCY_KEY.key, value.toString())
-    }
-
-    fun clientVersion(value: String): RequestBuilder {
-        return header(RequestScope.HeaderName.CLIENT_VERSION.key, value)
-    }
-
-    fun platform(value: Platform): RequestBuilder {
-        return header(RequestScope.HeaderName.PLATFORM.key, value.name)
     }
 
     fun spoofingMasterVersion(value: UUID): RequestBuilder {

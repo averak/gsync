@@ -23,8 +23,8 @@ class EchoHandler_EchoV1_IT extends AbstractDatabaseSpec {
         )
 
         then:
-        response.message == message
-        Assert.timestampIs(response.timestamp, now)
+        response.message.message == message
+        Assert.timestampIs(response.message.timestamp, now)
         with(sql.rows("SELECT * FROM gsync_echo")) {
             it.size() == 1
             it[0].message == message
