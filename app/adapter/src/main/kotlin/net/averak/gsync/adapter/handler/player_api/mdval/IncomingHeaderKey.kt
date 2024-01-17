@@ -1,6 +1,6 @@
-package net.averak.gsync.adapter.handler.player_api.scope
+package net.averak.gsync.adapter.handler.player_api.mdval
 
-enum class IncomingMD(val key: String) {
+enum class IncomingHeaderKey(val key: String) {
 
     CLIENT_VERSION("x-client-version"),
     PLATFORM("x-platform"),

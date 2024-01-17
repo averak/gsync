@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 @RestController
 @RequestMapping(path = ["/api/health"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class HealthCheckController(
-    private val requestScope: HttpRequestScope,
+    private val requestScope: RequestScope,
     private val echoUsecase: EchoUsecase,
 ) {
 

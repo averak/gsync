@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Component
-class HttpRequestScope(
+class RequestScope(
     private val config: Config,
     private val httpServletRequest: HttpServletRequest,
 ) {

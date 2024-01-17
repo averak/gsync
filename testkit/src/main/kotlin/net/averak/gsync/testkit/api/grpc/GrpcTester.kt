@@ -6,7 +6,7 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
 import jakarta.annotation.PostConstruct
-import net.averak.gsync.adapter.handler.player_api.scope.IncomingMD
+import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
@@ -19,7 +19,7 @@ class GrpcTester(
     private val config: Config,
 ) {
 
-    private var metadata: MutableMap<IncomingMD, String> = mutableMapOf()
+    private var metadata: MutableMap<IncomingHeaderKey, String> = mutableMapOf()
 
     private lateinit var channel: ManagedChannel
 
@@ -50,28 +50,28 @@ class GrpcTester(
     }
 
     fun withSession(playerID: UUID, gameID: UUID) {
-        metadata[IncomingMD.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
-        metadata[IncomingMD.GAME_ID] = gameID.toString()
+        metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
+        metadata[IncomingHeaderKey.GAME_ID] = gameID.toString()
         initStubs()
     }
 
     fun withGameID(value: UUID) {
-        metadata[IncomingMD.GAME_ID] = value.toString()
+        metadata[IncomingHeaderKey.GAME_ID] = value.toString()
         initStubs()
     }
 
     fun withSpoofingPlayerID(value: UUID) {
-        metadata[IncomingMD.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
+        metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
         initStubs()
     }
 
     fun withSpoofingMasterVersion(value: UUID) {
-        metadata[IncomingMD.DEBUG_SPOOFING_MASTER_VERSION] = value.toString()
+        metadata[IncomingHeaderKey.DEBUG_SPOOFING_MASTER_VERSION] = value.toString()
         initStubs()
     }
 
     fun withSpoofingCurrentTime(value: LocalDateTime) {
-        metadata[IncomingMD.DEBUG_SPOOFING_CURRENT_TIME] = value.toString()
+        metadata[IncomingHeaderKey.DEBUG_SPOOFING_CURRENT_TIME] = value.toString()
         initStubs()
     }
 }

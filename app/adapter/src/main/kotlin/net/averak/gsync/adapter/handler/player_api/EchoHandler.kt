@@ -1,7 +1,7 @@
 package net.averak.gsync.adapter.handler.player_api
 
+import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
 import net.averak.gsync.adapter.handler.player_api.pbconv.EchoConverter
-import net.averak.gsync.adapter.handler.player_api.scope.RequestScope
 import net.averak.gsync.schema.protobuf.player_api.EchoEchoV1
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
 import net.averak.gsync.usecase.EchoUsecase

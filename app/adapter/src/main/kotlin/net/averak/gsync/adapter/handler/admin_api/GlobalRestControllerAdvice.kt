@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 class GlobalRestControllerAdvice(
     private val customLogger: Logger,
-    private val requestScope: HttpRequestScope,
+    private val requestScope: RequestScope,
 ) : ResponseEntityExceptionHandler() {
 
     @RequestMapping("/**")
