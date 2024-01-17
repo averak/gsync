@@ -63,8 +63,8 @@ class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
         )
 
         then:
-        response.entriesList*.key == ["group1#key1", "group1#key2"]
-        response.entriesList*.value*.toByteArray() == ["value1".bytes, "value2".bytes]
+        response.message.entriesList*.key == ["group1#key1", "group1#key2"]
+        response.message.entriesList*.value*.toByteArray() == ["value1".bytes, "value2".bytes]
     }
 }
 
@@ -92,12 +92,12 @@ class PlayerStorageHandler_SetV1_IT extends AbstractDatabaseSpec {
         )
 
         then:
-        response.entry.key == entry.key
-        response.entry.value.toByteArray() == entry.value
+        response.message.entry.key == entry.key
+        response.message.entry.value.toByteArray() == entry.value
 
         with(sql.rows("SELECT * FROM gsync_player_storage_revision")) {
             it.size() == 1
-            it[0].player_storage_revision_id == response.nextRevision
+            it[0].player_storage_revision_id == response.message.nextRevision
         }
         with(sql.rows("SELECT * FROM gsync_player_storage_entry")) {
             it.size() == 1
@@ -159,10 +159,10 @@ class PlayerStorageHandler_ClearV1_IT extends AbstractDatabaseSpec {
         )
 
         then:
-        response.nextRevision != Faker.uuidv5("current revision").toString()
+        response.message.nextRevision != Faker.uuidv5("current revision").toString()
         with(sql.rows("SELECT * FROM gsync_player_storage_revision")) {
             it.size() == 2
-            it*.player_storage_revision_id.sort() == [Faker.uuidv5("current revision").toString(), response.nextRevision].sort()
+            it*.player_storage_revision_id.sort() == [Faker.uuidv5("current revision").toString(), response.message.nextRevision].sort()
         }
         with(sql.rows("SELECT * FROM gsync_player_storage_entry")) {
             it.size() == 1

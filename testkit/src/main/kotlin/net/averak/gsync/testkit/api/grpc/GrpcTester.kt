@@ -1,13 +1,12 @@
 package net.averak.gsync.testkit.api.grpc
 
 import com.google.protobuf.GeneratedMessageV3
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
-import io.grpc.Metadata
+import io.grpc.*
 import io.grpc.stub.MetadataUtils
 import jakarta.annotation.PostConstruct
 import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
 import net.averak.gsync.core.config.Config
+import net.averak.gsync.domain.model.Platform
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import org.springframework.stereotype.Component
@@ -43,15 +42,26 @@ class GrpcTester(
         playerStorage = PlayerStorageGrpc.newBlockingStub(channel).withInterceptors(interceptor)
     }
 
-    fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(method: (REQ) -> RES, request: REQ): RES {
-        val response = method(request)
-        metadata.clear()
-        return response
+    fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(method: (REQ) -> RES, request: REQ): Response<RES> {
+        try {
+            val response = method(request)
+            return Response(Status.OK, response)
+        } catch (ex: StatusRuntimeException) {
+            return Response(ex.status, null)
+        } finally {
+            metadata.clear()
+        }
     }
 
     fun withSession(playerID: UUID, gameID: UUID) {
         metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
         metadata[IncomingHeaderKey.GAME_ID] = gameID.toString()
+        initStubs()
+    }
+
+    fun withClient(version: String, platform: Platform) {
+        metadata[IncomingHeaderKey.CLIENT_VERSION] = version
+        metadata[IncomingHeaderKey.PLATFORM] = platform.name
         initStubs()
     }
 

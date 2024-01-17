@@ -1,51 +1,68 @@
-package net.averak.gsync.adapter.handler.admin_api.interceptor
+package net.averak.gsync.adapter.handler.player_api.interceptor
 
 import com.google.common.annotations.VisibleForTesting
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
+import io.grpc.Metadata
+import io.grpc.ServerCall
+import io.grpc.ServerCallHandler
+import io.grpc.ServerInterceptor
 import net.averak.gsync.adapter.dao.dto.base.RequiredClientVersionExample
 import net.averak.gsync.adapter.dao.mapper.base.RequiredClientVersionBaseMapper
-import net.averak.gsync.adapter.handler.admin_api.RequestScope
+import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
+import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
+import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.domain.model.Platform
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import org.springframework.web.servlet.ModelAndView
 import java.util.*
 
 @Component
-open class ClientVersionInterceptor(
+@Order(1)
+class ClientVersionInterceptor(
+    private val config: Config,
     private val requestScope: RequestScope,
-    private val requiredClientVersionBaseMapper: RequiredClientVersionBaseMapper,
-) : IRequestInterceptor {
+    private val requiredClientVersionMapper: RequiredClientVersionBaseMapper,
+) : ServerInterceptor {
 
-    override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val clientVersion = requestScope.getClientVersion()
-        val platform = requestScope.getPlatform()
-        val gctx = requestScope.getGameContext()
-        if (!verifyClientVersion(gctx.masterVersion, clientVersion, platform)) {
+    @SuppressWarnings("kotlin:S6518")
+    override fun <ReqT : Any, RespT : Any> interceptCall(
+        call: ServerCall<ReqT, RespT>,
+        headers: Metadata,
+        next: ServerCallHandler<ReqT, RespT>,
+    ): ServerCall.Listener<ReqT> {
+        val clientVersion = headers.get(
+            Metadata.Key.of(IncomingHeaderKey.CLIENT_VERSION.key, Metadata.ASCII_STRING_MARSHALLER),
+        )
+        val platform = headers.get(
+            Metadata.Key.of(IncomingHeaderKey.PLATFORM.key, Metadata.ASCII_STRING_MARSHALLER),
+        )?.let { Platform.valueOf(it) }
+
+        // デバッグモードの場合のみ、不正なクライアントをバイパスする
+        if ((clientVersion == null || platform == null) && config.debug) {
+            return next.startCall(call, headers)
+        }
+
+        if (!verifyClientVersion(requestScope.gctx.masterVersion, clientVersion, platform)) {
             throw GsyncException(ErrorCode.CLIENT_VERSION_IS_NOT_SUPPORTED)
         }
-        return true
+        return next.startCall(call, headers)
     }
 
     @Throws(GsyncException::class)
     @VisibleForTesting
     fun verifyClientVersion(masterVersion: UUID, clientVersion: String?, platform: Platform?): Boolean {
-        // REST API の場合は全ての API がクライアントバージョン、プラットフォームを要求するわけではない
-        // しかし API によっては必須の場合もあるので、そのチェックは個別で行う
         if (clientVersion == null && platform == null) {
             return true
         }
 
-        // クライアントバージョン、プラットフォームが片方でも指定された場合は、要求されるバージョンを満たしていることを判定する (両方未指定の場合のみ判定処理をスキップして良い)
         if (clientVersion == null) {
             throw GsyncException(ErrorCode.CLIENT_VERSION_MUST_BE_SPECIFIED)
         }
         if (platform == null) {
             throw GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
         }
-        val dtos = requiredClientVersionBaseMapper.selectByExample(
+        val dtos = requiredClientVersionMapper.selectByExample(
             RequiredClientVersionExample().apply {
                 createCriteria().andMasterVersionEqualTo(masterVersion.toString()).andPlatformEqualTo(platform.id.toLong())
             },
@@ -58,7 +75,7 @@ open class ClientVersionInterceptor(
     }
 
     /**
-     * ver1 >= ver2 を判定する
+     * semver1 >= semver2 なら true を返す
      *
      * @param semver1 x.y.z 形式のバージョン文字列
      * @param semver2 x.y.z 形式のバージョン文字列
@@ -71,13 +88,5 @@ open class ClientVersionInterceptor(
         val minor2 = semver2.split(".")[1].toInt()
         val patch2 = semver2.split(".")[2].toInt()
         return major1 > major2 || (major1 == major2 && minor1 > minor2) || (major1 == major2 && minor1 == minor2 && patch1 >= patch2)
-    }
-
-    override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any, modelAndView: ModelAndView?) {
-        return
-    }
-
-    override fun getPriority(): InterceptorPriority {
-        return InterceptorPriority.MEDIUM
     }
 }
