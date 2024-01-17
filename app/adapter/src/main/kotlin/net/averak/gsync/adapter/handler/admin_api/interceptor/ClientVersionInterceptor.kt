@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import net.averak.gsync.adapter.dao.dto.base.RequiredClientVersionExample
 import net.averak.gsync.adapter.dao.mapper.base.RequiredClientVersionBaseMapper
-import net.averak.gsync.adapter.handler.admin_api.HttpRequestScope
+import net.averak.gsync.adapter.handler.admin_api.RequestScope
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.domain.model.Platform
@@ -15,7 +15,7 @@ import java.util.*
 
 @Component
 open class ClientVersionInterceptor(
-    private val requestScope: HttpRequestScope,
+    private val requestScope: RequestScope,
     private val requiredClientVersionBaseMapper: RequiredClientVersionBaseMapper,
 ) : IRequestInterceptor {
 

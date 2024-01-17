@@ -2,7 +2,7 @@ package net.averak.gsync.adapter.handler.admin_api.interceptor
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import net.averak.gsync.adapter.handler.admin_api.HttpRequestScope
+import net.averak.gsync.adapter.handler.admin_api.RequestScope
 import net.averak.gsync.core.logger.Logger
 import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Component
@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 @Component
 class AccessLogInterceptor(
     private val logger: Logger,
-    private val requestScope: HttpRequestScope,
+    private val requestScope: RequestScope,
 ) : IRequestInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {

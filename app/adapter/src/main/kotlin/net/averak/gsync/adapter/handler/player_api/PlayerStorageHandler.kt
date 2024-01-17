@@ -1,8 +1,8 @@
 package net.averak.gsync.adapter.handler.player_api
 
 import io.grpc.stub.StreamObserver
+import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
 import net.averak.gsync.adapter.handler.player_api.pbconv.PlayerStorageConverter
-import net.averak.gsync.adapter.handler.player_api.scope.RequestScope
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageClearV1
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSearchV1

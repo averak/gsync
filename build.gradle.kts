@@ -221,6 +221,7 @@ project(":protobuf") {
         api(rootProject.libs.io.grpc.protobuf)
         api(rootProject.libs.io.grpc.services)
         api(rootProject.libs.io.grpc.stub)
+        api(rootProject.libs.google.protobuf.util)
     }
 }
 

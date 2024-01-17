@@ -14,15 +14,15 @@ class Logger(
 
     private val logger = LoggerFactory.getLogger(Logger::class.java)
 
-    fun info(gctx: GameContext, message: String) {
+    fun info(message: String, payload: Map<String, Any?>) {
         this.logger.info(
             message,
             makeServerInfoPayload(),
-            makeGameContextPayload(gctx),
+            StructuredArguments.value("payload", payload),
         )
     }
 
-    fun info(gctx: GameContext, message: String, payload: Map<String, Any>) {
+    fun info(gctx: GameContext, message: String, payload: Map<String, Any?>) {
         this.logger.info(
             message,
             makeServerInfoPayload(),
@@ -61,7 +61,9 @@ class Logger(
         return StructuredArguments.value(
             "game_context",
             mapOf(
+                "master_version" to gctx.masterVersion.toString(),
                 "idempotencyKey" to gctx.idempotencyKey.toString(),
+                "dateline" to gctx.dateline.toString(),
                 "currentTime" to gctx.currentTime.toString(),
             ),
         )
