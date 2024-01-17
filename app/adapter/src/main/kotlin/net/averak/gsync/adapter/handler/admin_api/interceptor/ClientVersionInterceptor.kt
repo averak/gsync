@@ -59,14 +59,17 @@ open class ClientVersionInterceptor(
 
     /**
      * ver1 >= ver2 を判定する
+     *
+     * @param semver1 x.y.z 形式のバージョン文字列
+     * @param semver2 x.y.z 形式のバージョン文字列
      */
-    private fun compareSemver(ver1: String, ver2: String): Boolean {
-        val major1 = ver1.trim('v').split(".")[0].toInt()
-        val minor1 = ver1.trim('v').split(".")[1].toInt()
-        val patch1 = ver1.trim('v').split(".")[2].toInt()
-        val major2 = ver2.trim('v').split(".")[0].toInt()
-        val minor2 = ver2.trim('v').split(".")[1].toInt()
-        val patch2 = ver2.trim('v').split(".")[2].toInt()
+    private fun compareSemver(semver1: String, semver2: String): Boolean {
+        val major1 = semver1.split(".")[0].toInt()
+        val minor1 = semver1.split(".")[1].toInt()
+        val patch1 = semver1.split(".")[2].toInt()
+        val major2 = semver2.split(".")[0].toInt()
+        val minor2 = semver2.split(".")[1].toInt()
+        val patch2 = semver2.split(".")[2].toInt()
         return major1 > major2 || (major1 == major2 && minor1 > minor2) || (major1 == major2 && minor1 == minor2 && patch1 >= patch2)
     }
 

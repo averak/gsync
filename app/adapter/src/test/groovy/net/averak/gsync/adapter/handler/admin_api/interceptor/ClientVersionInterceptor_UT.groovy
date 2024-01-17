@@ -19,13 +19,13 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
     def "不正なクライアントバージョンの場合はエラーを返す"() {
         given:
         Fixture.setup(
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "v1.1.0", platform: Platform.IOS.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.IOS.id.toLong()]),
         )
 
         when:
         final response = this.restTester.get("/api/health")
             .spoofingMasterVersion(Faker.uuidv5("active"))
-            .clientVersion("v1.0.0")
+            .clientVersion("1.0.0")
             .platform(Platform.IOS)
             .invoke()
 
@@ -37,8 +37,8 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
     def "verifyClientVersion: 正常系 - データが存在する場合は正しく判定できる"() {
         given:
         Fixture.setup(
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "v1.0.0", platform: Platform.IOS.id.toLong()]),
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "v1.1.0", platform: Platform.ANDROID.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.0.0", platform: Platform.IOS.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.ANDROID.id.toLong()]),
         )
 
         when:
@@ -49,11 +49,11 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
 
         where:
         masterVersion          | clientVersion | platform         || expected
-        Faker.uuidv5("active") | "v1.0.0"      | Platform.IOS     || true
-        Faker.uuidv5("active") | "v0.0.9"      | Platform.IOS     || false
-        Faker.uuidv5("active") | "v1.1.0"      | Platform.ANDROID || true
-        Faker.uuidv5("active") | "v1.0.9"      | Platform.ANDROID || false
-        Faker.uuidv5("active") | "v0.999.999"  | Platform.IOS     || false
+        Faker.uuidv5("active") | "1.0.0"       | Platform.IOS     || true
+        Faker.uuidv5("active") | "0.0.9"       | Platform.IOS     || false
+        Faker.uuidv5("active") | "1.1.0"       | Platform.ANDROID || true
+        Faker.uuidv5("active") | "1.0.9"       | Platform.ANDROID || false
+        Faker.uuidv5("active") | "0.999.999"   | Platform.IOS     || false
         Faker.uuidv5("active") | null          | null             || true
     }
 
@@ -73,9 +73,9 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
 
         where:
         masterVersion            | clientVersion | platform         || expected
-        Faker.uuidv5("active")   | "v1.0.0"      | null             || new GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
+        Faker.uuidv5("active")   | "1.0.0"       | null             || new GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
         Faker.uuidv5("active")   | null          | Platform.IOS     || new GsyncException(ErrorCode.CLIENT_VERSION_MUST_BE_SPECIFIED)
-        Faker.uuidv5("outdated") | "v1.0.0"      | Platform.IOS     || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
-        Faker.uuidv5("outdated") | "v1.0.0"      | Platform.ANDROID || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
+        Faker.uuidv5("outdated") | "1.0.0"       | Platform.IOS     || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
+        Faker.uuidv5("outdated") | "1.0.0"       | Platform.ANDROID || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
     }
 }
