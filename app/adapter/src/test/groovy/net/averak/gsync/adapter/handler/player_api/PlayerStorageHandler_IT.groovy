@@ -50,8 +50,6 @@ class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
         )
 
         when:
-        grpcTester.withSession(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
         final response = grpcTester.invoke(
             grpcTester.playerStorage.&searchV1,
             PlayerStorageSearchV1.Request.newBuilder()
@@ -59,8 +57,11 @@ class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
                     .setPattern("group1")
                     .setMatchingType(Criteria.MatchingType.FORWARD_MATCH)
                     .build()
-                ).build()
-        )
+                ).build(),
+        ) {
+            it.session(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+            it.spoofingMasterVersion(Faker.uuidv4())
+        }
 
         then:
         response.message.entriesList*.key == ["group1#key1", "group1#key2"]
@@ -77,27 +78,35 @@ class PlayerStorageHandler_SetV1_IT extends AbstractDatabaseSpec {
                 "playerId": Faker.uuidv5("p1").toString(),
             ]),
         )
+        Fixture.setup(
+            Faker.fake(PlayerStorageRevisionDto, [
+                "playerId"               : Faker.uuidv5("p1").toString(),
+                "gameId"                 : Faker.uuidv5("g1").toString(),
+                "playerStorageRevisionId": Faker.uuidv5("r1").toString(),
+            ]),
+        )
 
         final entry = Faker.fake(PlayerStorageEntry)
 
         when:
-        grpcTester.withSession(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
         final response = grpcTester.invoke(
             grpcTester.playerStorage.&setV1,
             PlayerStorageSetV1.Request.newBuilder()
                 .setEntry(PlayerStorageConverter.toPb(entry))
-                .setPreviousRevision("00000000-0000-0000-0000-000000000000")
-                .build()
-        )
+                .setPreviousRevision(Faker.uuidv5("r1").toString())
+                .build(),
+        ) {
+            it.session(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+            it.spoofingMasterVersion(Faker.uuidv4())
+        }
 
         then:
         response.message.entry.key == entry.key
         response.message.entry.value.toByteArray() == entry.value
 
         with(sql.rows("SELECT * FROM gsync_player_storage_revision")) {
-            it.size() == 1
-            it[0].player_storage_revision_id == response.message.nextRevision
+            it.size() == 2
+            it.player_storage_revision_id.sort() == [Faker.uuidv5("r1").toString(), response.message.nextRevision].sort()
         }
         with(sql.rows("SELECT * FROM gsync_player_storage_entry")) {
             it.size() == 1
@@ -145,8 +154,6 @@ class PlayerStorageHandler_ClearV1_IT extends AbstractDatabaseSpec {
         )
 
         when:
-        grpcTester.withSession(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
         final response = grpcTester.invoke(
             grpcTester.playerStorage.&clearV1,
             PlayerStorageClearV1.Request.newBuilder()
@@ -155,8 +162,11 @@ class PlayerStorageHandler_ClearV1_IT extends AbstractDatabaseSpec {
                     .setPattern("group1")
                     .setMatchingType(Criteria.MatchingType.FORWARD_MATCH)
                     .build()
-                ).build()
-        )
+                ).build(),
+        ) {
+            it.session(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+            it.spoofingMasterVersion(Faker.uuidv4())
+        }
 
         then:
         response.message.nextRevision != Faker.uuidv5("current revision").toString()

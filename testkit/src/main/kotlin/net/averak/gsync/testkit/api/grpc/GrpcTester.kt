@@ -2,7 +2,6 @@ package net.averak.gsync.testkit.api.grpc
 
 import com.google.protobuf.GeneratedMessageV3
 import io.grpc.*
-import io.grpc.stub.MetadataUtils
 import jakarta.annotation.PostConstruct
 import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
 import net.averak.gsync.core.config.Config
@@ -18,28 +17,25 @@ class GrpcTester(
     private val config: Config,
 ) {
 
-    private var metadata: MutableMap<IncomingHeaderKey, String> = mutableMapOf()
+    companion object {
 
-    private lateinit var channel: ManagedChannel
+        private var metadata: MutableMap<IncomingHeaderKey, String> = mutableMapOf()
 
-    lateinit var echo: EchoGrpc.EchoBlockingStub
+        private lateinit var channel: ManagedChannel
 
-    lateinit var playerStorage: PlayerStorageGrpc.PlayerStorageBlockingStub
+        lateinit var echo: EchoGrpc.EchoBlockingStub
+
+        lateinit var playerStorage: PlayerStorageGrpc.PlayerStorageBlockingStub
+    }
 
     @PostConstruct
     fun init() {
-        channel = ManagedChannelBuilder.forAddress("localhost", config.playerApi.port).usePlaintext().build()
-    }
-
-    private fun initStubs() {
-        val extraHeaders = Metadata()
-        metadata.forEach { (k, v) ->
-            extraHeaders.put(Metadata.Key.of(k.key, Metadata.ASCII_STRING_MARSHALLER), v)
-        }
-        val interceptor = MetadataUtils.newAttachHeadersInterceptor(extraHeaders)
-
-        echo = EchoGrpc.newBlockingStub(channel).withInterceptors(interceptor)
-        playerStorage = PlayerStorageGrpc.newBlockingStub(channel).withInterceptors(interceptor)
+        channel = ManagedChannelBuilder.forAddress("localhost", config.playerApi.port)
+            .usePlaintext()
+            .intercept(MetadataInterceptor())
+            .build()
+        echo = EchoGrpc.newBlockingStub(channel)
+        playerStorage = PlayerStorageGrpc.newBlockingStub(channel)
     }
 
     fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(method: (REQ) -> RES, request: REQ): Response<RES> {
@@ -53,35 +49,61 @@ class GrpcTester(
         }
     }
 
-    fun withSession(playerID: UUID, gameID: UUID) {
-        metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
-        metadata[IncomingHeaderKey.GAME_ID] = gameID.toString()
-        initStubs()
+    fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(
+        method: (REQ) -> RES,
+        request: REQ,
+        option: MetadataBuilder.() -> Any,
+    ): Response<RES> {
+        option(MetadataBuilder())
+        return invoke(method, request)
     }
 
-    fun withClient(version: String, platform: Platform) {
-        metadata[IncomingHeaderKey.CLIENT_VERSION] = version
-        metadata[IncomingHeaderKey.PLATFORM] = platform.name
-        initStubs()
+    class MetadataBuilder {
+
+        fun session(playerID: UUID, gameID: UUID) {
+            metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = playerID.toString()
+            metadata[IncomingHeaderKey.GAME_ID] = gameID.toString()
+        }
+
+        fun client(version: String, platform: Platform) {
+            metadata[IncomingHeaderKey.CLIENT_VERSION] = version
+            metadata[IncomingHeaderKey.PLATFORM] = platform.name
+        }
+
+        fun gameID(value: UUID) {
+            metadata[IncomingHeaderKey.GAME_ID] = value.toString()
+        }
+
+        fun spoofingPlayerID(value: UUID) {
+            metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
+        }
+
+        fun spoofingMasterVersion(value: UUID) {
+            metadata[IncomingHeaderKey.DEBUG_SPOOFING_MASTER_VERSION] = value.toString()
+        }
+
+        fun spoofingCurrentTime(value: LocalDateTime) {
+            metadata[IncomingHeaderKey.DEBUG_SPOOFING_CURRENT_TIME] = value.toString()
+        }
     }
 
-    fun withGameID(value: UUID) {
-        metadata[IncomingHeaderKey.GAME_ID] = value.toString()
-        initStubs()
-    }
+    private class MetadataInterceptor : ClientInterceptor {
 
-    fun withSpoofingPlayerID(value: UUID) {
-        metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
-        initStubs()
-    }
+        override fun <ReqT : Any, RespT : Any> interceptCall(
+            method: MethodDescriptor<ReqT, RespT>,
+            callOptions: CallOptions,
+            next: Channel,
+        ): ClientCall<ReqT, RespT> {
+            val newCall = next.newCall(method, callOptions)
 
-    fun withSpoofingMasterVersion(value: UUID) {
-        metadata[IncomingHeaderKey.DEBUG_SPOOFING_MASTER_VERSION] = value.toString()
-        initStubs()
-    }
-
-    fun withSpoofingCurrentTime(value: LocalDateTime) {
-        metadata[IncomingHeaderKey.DEBUG_SPOOFING_CURRENT_TIME] = value.toString()
-        initStubs()
+            return object : ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(newCall) {
+                override fun start(responseListener: Listener<RespT>, headers: Metadata) {
+                    metadata.forEach { (k, v) ->
+                        headers.put(Metadata.Key.of(k.key, Metadata.ASCII_STRING_MARSHALLER), v)
+                    }
+                    super.start(responseListener, headers)
+                }
+            }
+        }
     }
 }

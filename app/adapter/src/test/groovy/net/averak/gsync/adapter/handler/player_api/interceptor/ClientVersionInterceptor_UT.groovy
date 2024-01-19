@@ -24,12 +24,14 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
         )
 
         when:
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
-        grpcTester.withClient(clientVersion, platform)
+
         final response = grpcTester.invoke(
             grpcTester.echo.&echoV1,
             EchoEchoV1.Request.newBuilder().setMessage("").build(),
-        )
+        ) {
+            it.spoofingMasterVersion(Faker.uuidv4())
+            it.client(clientVersion, platform)
+        }
 
         then:
         !response.status.isOk()
