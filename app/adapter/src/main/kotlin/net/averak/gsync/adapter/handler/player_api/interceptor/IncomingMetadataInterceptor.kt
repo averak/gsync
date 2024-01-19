@@ -54,7 +54,7 @@ class IncomingMetadataInterceptor(
             }
 
         val gctx = GameContext(
-            masterVersionUtils.getEnabledMasterVersion(spoofingMasterVersion),
+            masterVersionUtils.getValidMasterVersion(spoofingMasterVersion),
             // クライアントが Idempotency-Key を必ず設定してくるとは限らないので、未設定の場合はサーバ側でユニークキーを発行し、毎回異なるリクエストとして扱う
             idempotencyKey ?: UUID.randomUUID(),
             Dateline.DEFAULT,
