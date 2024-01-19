@@ -15,12 +15,13 @@ class EchoHandler_EchoV1_IT extends AbstractDatabaseSpec {
         final message = Faker.alphanumeric()
 
         when:
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
-        grpcTester.withSpoofingCurrentTime(now)
         final response = grpcTester.invoke(
             grpcTester.echo.&echoV1,
             EchoEchoV1.Request.newBuilder().setMessage(message).build(),
-        )
+        ) {
+            it.spoofingMasterVersion(Faker.uuidv4())
+            it.spoofingCurrentTime(now)
+        }
 
         then:
         response.message.message == message
