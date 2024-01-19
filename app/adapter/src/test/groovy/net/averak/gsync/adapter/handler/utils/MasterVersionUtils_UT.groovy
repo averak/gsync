@@ -14,12 +14,12 @@ class MasterVersionUtils_UT extends AbstractDatabaseSpec {
     @Autowired
     MasterVersionUtils sut
 
-    def "getEnabledMasterVersion: 正常系 - 有効なマスターバージョンを取得できる"() {
+    def "getValidMasterVersion: 正常系 - 有効なマスターバージョンを取得できる"() {
         given:
         testcase.given()
 
         when:
-        final actual = this.sut.getEnabledMasterVersion(testcase.when.spoofingMasterVersion)
+        final actual = this.sut.getValidMasterVersion(testcase.when.spoofingMasterVersion)
 
         then:
         testcase.then(actual)
@@ -30,8 +30,8 @@ class MasterVersionUtils_UT extends AbstractDatabaseSpec {
                 name : "有効なマスターバージョンが1つだけ存在する場合、正常に取得できる",
                 given: () -> {
                     Fixture.setup(
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isEnabled: true]),
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isEnabled: false]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isValid: true]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isValid: false]),
                     )
                 },
                 when : [
@@ -56,12 +56,12 @@ class MasterVersionUtils_UT extends AbstractDatabaseSpec {
         ]
     }
 
-    def "getEnabledMasterVersion: 異常系"() {
+    def "getValidMasterVersion: 異常系"() {
         given:
         testcase.given()
 
         when:
-        this.sut.getEnabledMasterVersion(testcase.when.spoofingMasterVersion)
+        this.sut.getValidMasterVersion(testcase.when.spoofingMasterVersion)
 
         then:
         final ex = thrown(GsyncException)
@@ -73,15 +73,15 @@ class MasterVersionUtils_UT extends AbstractDatabaseSpec {
                 name : "有効なマスターバージョンが複数存在する場合",
                 given: () -> {
                     Fixture.setup(
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isEnabled: true]),
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isEnabled: true]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isValid: true]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isValid: true]),
                     )
                 },
                 when : [
                     spoofingMasterVersion: null,
                 ],
                 then : (GsyncException v) -> {
-                    Assert.exceptionIs(v, new GsyncException(ErrorCode.MULTIPLE_ENABLED_MASTER_VERSIONS_ARE_DEFINED))
+                    Assert.exceptionIs(v, new GsyncException(ErrorCode.MULTIPLE_VALID_MASTER_VERSIONS_ARE_DEFINED))
                     return true
                 },
             ],
@@ -89,15 +89,15 @@ class MasterVersionUtils_UT extends AbstractDatabaseSpec {
                 name : "有効なマスターバージョンが1つも存在しない場合",
                 given: () -> {
                     Fixture.setup(
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isEnabled: false]),
-                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isEnabled: false]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m1").toString(), isValid: false]),
+                        Faker.fake(MasterVersionDto, [version: Faker.uuidv5("m2").toString(), isValid: false]),
                     )
                 },
                 when : [
                     spoofingMasterVersion: null,
                 ],
                 then : (GsyncException v) -> {
-                    Assert.exceptionIs(v, new GsyncException(ErrorCode.ENABLED_MASTER_VERSION_DEFINITION_IS_NOT_FOUND))
+                    Assert.exceptionIs(v, new GsyncException(ErrorCode.VALID_MASTER_VERSION_DEFINITION_IS_NOT_FOUND))
                     return true
                 },
             ],
