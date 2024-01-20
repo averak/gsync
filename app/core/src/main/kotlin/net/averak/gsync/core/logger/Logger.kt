@@ -40,6 +40,15 @@ class Logger(
         )
     }
 
+    fun error(message: String, exception: Exception, payload: Map<String, Any?>) {
+        this.logger.error(
+            message,
+            makeServerInfoPayload(),
+            StructuredArguments.value("payload", payload),
+            StructuredArguments.value("exception", exception),
+        )
+    }
+
     fun error(exception: Exception) {
         this.logger.error(
             exception.toString(),
