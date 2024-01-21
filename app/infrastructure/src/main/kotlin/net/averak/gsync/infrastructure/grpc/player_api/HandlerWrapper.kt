@@ -1,8 +1,11 @@
 package net.averak.gsync.infrastructure.grpc.player_api
 
 import com.google.protobuf.AbstractMessage
+import io.grpc.Status
 import io.grpc.stub.StreamObserver
+import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
+import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.stereotype.Component
 
 @Component
@@ -32,10 +35,24 @@ class HandlerWrapper(
         try {
             val response = method(request)
             responseObserver.onNext(response)
+        } catch (ex: GsyncException) {
+            responseObserver.onError(
+                Status.ABORTED.withCause(ex).withDescription(JsonUtils.encode(ErrorResponse(ex))).asRuntimeException(),
+            )
         } catch (ex: Exception) {
-            responseObserver.onError(ex)
+            responseObserver.onError(
+                Status.INTERNAL.withCause(ex).asRuntimeException(),
+            )
         } finally {
             responseObserver.onCompleted()
         }
+    }
+
+    data class ErrorResponse(
+        val code: String,
+        val message: String,
+    ) {
+
+        constructor(ex: GsyncException) : this(ex.errorCode.name, ex.errorCode.summary)
     }
 }

@@ -36,9 +36,9 @@ codegen:
 		--plugin=protoc-gen-grpc-java=${PROTOC_GEN_JAVA_PATH} \
 		--plugin=protoc-gen-java-gsync-server=./protoc-gen-java-gsync-server/protoc-gen-java-gsync-server \
 		--java_out=protobuf/src/main/java \
-		--java-gsync-server_out=protobuf/src/main/java \
-		--grpc-java_out=protobuf/src/main/java {}
-	#./gradlew mbGenerate
+		--grpc-java_out=protobuf/src/main/java \
+		--java-gsync-server_out=protobuf/src/main/java {}
+	./gradlew mbGenerate
 	./gradlew spotlessApply
 
 .PHONY: db-apply

@@ -4,11 +4,11 @@ import com.google.protobuf.GeneratedMessageV3
 import com.google.protobuf.util.JsonFormat
 import io.grpc.*
 import net.averak.gsync.core.logger.Logger
-import net.averak.gsync.infrastructure.grpc.player_api.metadata.OutgoingTrailerKey
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
+import java.time.Duration
 import java.time.LocalDateTime
 
 @Component
@@ -35,14 +35,9 @@ class AccessLogInterceptor(
             next.startCall(
                 object : ForwardingServerCall.SimpleForwardingServerCall<ReqT, RespT>(call) {
 
-                    lateinit var end: LocalDateTime
-
                     @Suppress("kotlin:S108")
                     override fun sendMessage(message: RespT) {
-                        end = LocalDateTime.now()
-                        logMessage["metadata"] = headers.keys().associateWith {
-                            headers[Metadata.Key.of(it, Metadata.ASCII_STRING_MARSHALLER)]
-                        }
+                        logMessage["elapsed_ms"] = Duration.between(begin, LocalDateTime.now()).toMillis()
                         if (message is GeneratedMessageV3) {
                             logMessage["response"] = JsonUtils.decode(
                                 JsonFormat.printer().print(message),
@@ -63,20 +58,13 @@ class AccessLogInterceptor(
                         logger.info("access log", logMessage)
                         super.sendMessage(message)
                     }
-
-                    override fun close(status: Status, trailers: Metadata) {
-                        trailers.put(
-                            Metadata.Key.of(OutgoingTrailerKey.RESPOND_TIMESTAMP.key, Metadata.ASCII_STRING_MARSHALLER),
-                            end.toString(),
-                        )
-                        super.close(status, trailers)
-                    }
                 },
                 headers,
             )
         } catch (e: Exception) {
+            logMessage["elapsed_ms"] = Duration.between(begin, LocalDateTime.now()).toMillis()
             logger.error("access log", e, logMessage)
-            throw Status.INTERNAL.withCause(e).asException()
+            throw e
         }
     }
 }
