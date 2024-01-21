@@ -1,0 +1,20 @@
+syntax = "proto3";
+package gsync.custom_option;
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.custom_option";
+
+import "player_api/error/error_code.proto";
+import "google/protobuf/descriptor.proto";
+
+message PlayerApiMethodOption {
+  message MethodErrorDefinition {
+    player_api.error.ErrorCode.Method code    = 1;
+    string                            message = 2;
+  }
+  repeated MethodErrorDefinition method_error_definitions = 1;
+}
+
+extend google.protobuf.MethodOptions {
+  PlayerApiMethodOption player_api_method_option = 20001;
+}

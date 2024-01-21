@@ -1,0 +1,52 @@
+syntax = "proto3";
+package gsync.player_api.error;
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.player_api.error";
+
+import "google/protobuf/descriptor.proto";
+
+message ErrorCode {
+  enum Common {
+    reserved 1 to 1000;
+    reserved 2000 to max;
+
+    COMMON_UNSPECIFIED = 0;
+
+    INVALID_SESSION = 1001 [(handling_type) = FATAL];
+
+    INVALID_CLIENT = 1002 [(handling_type) = FATAL];
+  }
+
+  enum Method {
+    reserved 1 to 2000;
+    reserved 3000 to max;
+
+    METHOD_UNSPECIFIED = 0;
+
+    ILLEGAL_ARGUMENT = 2001 [(handling_type) = FATAL];
+
+    RESOURCE_NOT_FOUND = 2002 [(handling_type) = RECOVERABLE];
+
+    RESOURCE_CONFLICT = 2003 [(handling_type) = RECOVERABLE];
+
+    RESOURCE_INSUFFICIENT = 2004 [(handling_type) = RECOVERABLE];
+  }
+
+  enum HandlingType {
+    HANDLING_TYPE_UNSPECIFIED = 0;
+    // サバクラ間の前提条件が満たされていない場合に発生する致命的なエラー。
+    // 緊急メンテナンスで修正しなければならない。
+    FATAL = 1;
+    // サーバ側の一時的な不具合により発生したエラー。
+    // リトライすることにより解決する可能性がある。
+    TEMPORARY = 2;
+    // クライアント側の不具合により発生したエラー。
+    // 1つ前の画面に遷移したりタイトルに戻して前提条件を変えることにより、解決する可能性がある。
+    RECOVERABLE = 3;
+  }
+
+  extend google.protobuf.EnumValueOptions {
+    optional HandlingType handling_type = 20000;
+  }
+}

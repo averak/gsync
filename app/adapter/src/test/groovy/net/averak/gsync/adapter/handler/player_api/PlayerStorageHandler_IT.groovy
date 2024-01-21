@@ -55,7 +55,7 @@ class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
             PlayerStorageSearchV1.Request.newBuilder()
                 .setCriteria(Criteria.newBuilder()
                     .setPattern("group1")
-                    .setMatchingType(Criteria.MatchingType.FORWARD_MATCH)
+                    .setMatchingType(Criteria.MatchingType.MATCHING_TYPE_FORWARD_MATCH)
                     .build()
                 ).build(),
         ) {
@@ -160,7 +160,7 @@ class PlayerStorageHandler_ClearV1_IT extends AbstractDatabaseSpec {
                 .setPreviousRevision(Faker.uuidv5("current revision").toString())
                 .setCriteria(Criteria.newBuilder()
                     .setPattern("group1")
-                    .setMatchingType(Criteria.MatchingType.FORWARD_MATCH)
+                    .setMatchingType(Criteria.MatchingType.MATCHING_TYPE_FORWARD_MATCH)
                     .build()
                 ).build(),
         ) {

@@ -7,12 +7,12 @@ import io.grpc.ServerCallHandler
 import io.grpc.ServerInterceptor
 import net.averak.gsync.adapter.dao.dto.base.RequiredClientVersionExample
 import net.averak.gsync.adapter.dao.mapper.base.RequiredClientVersionBaseMapper
-import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
-import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
 import net.averak.gsync.domain.model.Platform
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.util.*

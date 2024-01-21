@@ -1,4 +1,4 @@
-package net.averak.gsync.adapter.handler.player_api.mdval
+package net.averak.gsync.infrastructure.grpc.player_api.metadata
 
 enum class IncomingHeaderKey(val key: String) {
 

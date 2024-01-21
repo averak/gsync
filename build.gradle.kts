@@ -13,6 +13,7 @@ plugins {
 
     groovy
     jacoco
+    application
 }
 
 buildscript {
@@ -90,7 +91,7 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "protobuf/**,testkit/**,**/dto/**,**/mapper/base/**")
+            property("sonar.exclusions", "protobuf/**,/protoc-gen-java-gsync-server/**,testkit/**,**/dto/**,**/mapper/base/**")
         }
     }
 
@@ -165,7 +166,6 @@ project(":domain") {
 project(":infrastructure") {
     dependencies {
         implementation(project(":core"))
-        implementation(project(":protobuf"))
         implementation(rootProject.libs.spring.boot.starter.web)
         implementation(rootProject.libs.spring.boot.starter.webflux)
         implementation(rootProject.libs.spring.boot.starter.data.redis)
@@ -173,6 +173,8 @@ project(":infrastructure") {
         implementation(rootProject.libs.jackson.datatype.jsr310)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
         implementation(rootProject.libs.mybatis.generator.maven.plugin)
+        implementation(rootProject.libs.google.protobuf)
+        implementation(rootProject.libs.io.grpc.stub)
     }
 }
 
@@ -215,6 +217,8 @@ project(":testkit") {
 
 project(":protobuf") {
     dependencies {
+        implementation(project(":infrastructure"))
+
         compileOnly(rootProject.libs.javax.annotation.api)
         api(rootProject.libs.io.grpc.netty)
         api(rootProject.libs.io.grpc.netty.shaded)
@@ -222,6 +226,40 @@ project(":protobuf") {
         api(rootProject.libs.io.grpc.services)
         api(rootProject.libs.io.grpc.stub)
         api(rootProject.libs.google.protobuf.util)
+    }
+}
+
+project("protoc-gen-java-gsync-server") {
+    apply {
+        plugin("application")
+    }
+
+    dependencies {
+        implementation(project(":protobuf"))
+        implementation(rootProject.libs.google.protobuf)
+    }
+
+    application {
+        mainClass = "net.averak.gsync.protoc.MainKt"
+    }
+
+    tasks {
+        jar {
+            manifest {
+                attributes["Main-Class"] = application.mainClass
+            }
+
+            from(sourceSets.main.get().output)
+            from({
+                configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
+            }) {
+                exclude("META-INF/*.SF")
+                exclude("META-INF/*.DSA")
+                exclude("META-INF/*.RSA")
+                exclude("META-INF/*.MF")
+            }
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
     }
 }
 
