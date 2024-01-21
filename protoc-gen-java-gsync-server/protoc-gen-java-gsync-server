@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# build/scripts/protoc-gen-java-gsync-server だと実行時にエラーが出るので、仕方なくこのスクリプトを使用している
+java -jar protoc-gen-java-gsync-server/build/libs/protoc-gen-java-gsync-server.jar

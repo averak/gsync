@@ -17,25 +17,21 @@ class PlayerStorageConverter {
         @JvmStatic
         fun fromPb(criteria: Criteria): IPlayerStorageRepository.PlayerStorageCriteria {
             when (criteria.matchingType) {
-                Criteria.MatchingType.EXACT_MATCH -> {
+                Criteria.MatchingType.MATCHING_TYPE_EXACT_MATCH -> {
                     return IPlayerStorageRepository.PlayerStorageCriteria(
                         exactMatch = listOf(criteria.pattern),
                         forwardMatch = listOf(),
                     )
                 }
 
-                Criteria.MatchingType.FORWARD_MATCH -> {
+                Criteria.MatchingType.MATCHING_TYPE_FORWARD_MATCH -> {
                     return IPlayerStorageRepository.PlayerStorageCriteria(
                         exactMatch = listOf(),
                         forwardMatch = listOf(criteria.pattern),
                     )
                 }
 
-                Criteria.MatchingType.UNRECOGNIZED -> {
-                    throw IllegalArgumentException("MatchingType is not set")
-                }
-
-                null -> {
+                else -> {
                     throw IllegalArgumentException("MatchingType is not set")
                 }
             }

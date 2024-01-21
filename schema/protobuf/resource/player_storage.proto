@@ -12,8 +12,9 @@ message Entry {
 
 message Criteria {
   enum MatchingType {
-    EXACT_MATCH   = 0;
-    FORWARD_MATCH = 1;
+    MATCHING_TYPE_UNSPECIFIED   = 0;
+    MATCHING_TYPE_EXACT_MATCH   = 1;
+    MATCHING_TYPE_FORWARD_MATCH = 2;
   }
 
   string       pattern       = 1;

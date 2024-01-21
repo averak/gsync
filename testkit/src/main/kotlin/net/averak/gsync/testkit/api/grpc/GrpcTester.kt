@@ -1,11 +1,11 @@
 package net.averak.gsync.testkit.api.grpc
 
-import com.google.protobuf.GeneratedMessageV3
+import com.google.protobuf.AbstractMessage
 import io.grpc.*
 import jakarta.annotation.PostConstruct
-import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.domain.model.Platform
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import org.springframework.stereotype.Component
@@ -38,7 +38,7 @@ class GrpcTester(
         playerStorage = PlayerStorageGrpc.newBlockingStub(channel)
     }
 
-    fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(method: (REQ) -> RES, request: REQ): Response<RES> {
+    fun <REQ : AbstractMessage, RES : AbstractMessage> invoke(method: (REQ) -> RES, request: REQ): Response<RES> {
         try {
             val response = method(request)
             return Response(Status.OK, response)
@@ -49,7 +49,7 @@ class GrpcTester(
         }
     }
 
-    fun <REQ : GeneratedMessageV3, RES : GeneratedMessageV3> invoke(
+    fun <REQ : AbstractMessage, RES : AbstractMessage> invoke(
         method: (REQ) -> RES,
         request: REQ,
         option: MetadataBuilder.() -> Any,

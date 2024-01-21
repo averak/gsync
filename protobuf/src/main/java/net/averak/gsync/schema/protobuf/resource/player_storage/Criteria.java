@@ -44,22 +44,30 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 	 */
 	public enum MatchingType implements com.google.protobuf.ProtocolMessageEnum {
 		/**
-		 * <code>EXACT_MATCH = 0;</code>
+		 * <code>MATCHING_TYPE_UNSPECIFIED = 0;</code>
 		 */
-		EXACT_MATCH(0),
+		MATCHING_TYPE_UNSPECIFIED(0),
 		/**
-		 * <code>FORWARD_MATCH = 1;</code>
+		 * <code>MATCHING_TYPE_EXACT_MATCH = 1;</code>
 		 */
-		FORWARD_MATCH(1), UNRECOGNIZED(-1),;
+		MATCHING_TYPE_EXACT_MATCH(1),
+		/**
+		 * <code>MATCHING_TYPE_FORWARD_MATCH = 2;</code>
+		 */
+		MATCHING_TYPE_FORWARD_MATCH(2), UNRECOGNIZED(-1),;
 
 		/**
-		 * <code>EXACT_MATCH = 0;</code>
+		 * <code>MATCHING_TYPE_UNSPECIFIED = 0;</code>
 		 */
-		public static final int EXACT_MATCH_VALUE = 0;
+		public static final int MATCHING_TYPE_UNSPECIFIED_VALUE = 0;
 		/**
-		 * <code>FORWARD_MATCH = 1;</code>
+		 * <code>MATCHING_TYPE_EXACT_MATCH = 1;</code>
 		 */
-		public static final int FORWARD_MATCH_VALUE = 1;
+		public static final int MATCHING_TYPE_EXACT_MATCH_VALUE = 1;
+		/**
+		 * <code>MATCHING_TYPE_FORWARD_MATCH = 2;</code>
+		 */
+		public static final int MATCHING_TYPE_FORWARD_MATCH_VALUE = 2;
 
 		public final int getNumber() {
 			if (this == UNRECOGNIZED) {
@@ -87,9 +95,11 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		public static MatchingType forNumber(int value) {
 			switch (value) {
 				case 0 :
-					return EXACT_MATCH;
+					return MATCHING_TYPE_UNSPECIFIED;
 				case 1 :
-					return FORWARD_MATCH;
+					return MATCHING_TYPE_EXACT_MATCH;
+				case 2 :
+					return MATCHING_TYPE_FORWARD_MATCH;
 				default :
 					return null;
 			}
@@ -219,7 +229,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pattern_)) {
 			com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pattern_);
 		}
-		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
+		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.MATCHING_TYPE_UNSPECIFIED
 				.getNumber()) {
 			output.writeEnum(2, matchingType_);
 		}
@@ -236,7 +246,7 @@ public final class Criteria extends com.google.protobuf.GeneratedMessageV3
 		if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pattern_)) {
 			size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pattern_);
 		}
-		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.EXACT_MATCH
+		if (matchingType_ != net.averak.gsync.schema.protobuf.resource.player_storage.Criteria.MatchingType.MATCHING_TYPE_UNSPECIFIED
 				.getNumber()) {
 			size += com.google.protobuf.CodedOutputStream.computeEnumSize(2, matchingType_);
 		}

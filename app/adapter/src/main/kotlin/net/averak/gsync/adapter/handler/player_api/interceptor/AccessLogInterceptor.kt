@@ -3,9 +3,9 @@ package net.averak.gsync.adapter.handler.player_api.interceptor
 import com.google.protobuf.GeneratedMessageV3
 import com.google.protobuf.util.JsonFormat
 import io.grpc.*
-import net.averak.gsync.adapter.handler.player_api.mdval.OutgoingTrailerKey
-import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
 import net.averak.gsync.core.logger.Logger
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.OutgoingTrailerKey
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component

@@ -1,12 +1,12 @@
 package net.averak.gsync.adapter.handler.player_api.interceptor
 
 import io.grpc.*
-import net.averak.gsync.adapter.handler.player_api.mdval.IncomingHeaderKey
-import net.averak.gsync.adapter.handler.player_api.mdval.RequestScope
 import net.averak.gsync.adapter.handler.utils.MasterVersionUtils
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.daterange.Dateline
 import net.averak.gsync.core.game_context.GameContext
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
+import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
