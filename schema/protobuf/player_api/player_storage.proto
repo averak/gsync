@@ -1,14 +1,28 @@
 syntax = "proto3";
 package gsync.player_api;
 
-import "resource/player_storage.proto";
-
 option java_multiple_files = true;
 option java_package        = "net.averak.gsync.schema.protobuf.player_api";
 
+import "custom_option.proto";
+import "resource/player_storage.proto";
+
 service PlayerStorage {
   rpc SearchV1(PlayerStorageSearchV1.Request) returns (PlayerStorageSearchV1.Response);
-  rpc SetV1(PlayerStorageSetV1.Request) returns (PlayerStorageSetV1.Response);
+  rpc SetV1(PlayerStorageSetV1.Request) returns (PlayerStorageSetV1.Response) {
+    option (custom_option.player_api_method_option) = {
+      method_error_definitions: [
+        {
+          code: ILLEGAL_ARGUMENT,
+          message: "value excess max size of 100 KiB.",
+        },
+        {
+          code: RESOURCE_CONFLICT,
+          message: "invalid revision",
+        }
+      ]
+    };
+  }
   rpc ClearV1(PlayerStorageClearV1.Request) returns (PlayerStorageClearV1.Response);
 }
 

@@ -1,5 +1,5 @@
 PROTOC_GEN_JAVA_VERSION=1.61.0
-PROTOC_GEN_JAVA_PATH=tmp/bin/protoc-gen-grpc-java.exe
+PROTOC_GEN_JAVA_PATH=tmp/bin/protoc-gen-grpc-java-${PROTOC_GEN_JAVA_VERSION}.exe
 
 .PHONY: build
 build:
@@ -19,9 +19,13 @@ format:
 
 .PHONY: install-protoc-gen-plugin
 install-protoc-gen-plugin:
+	./gradlew :protoc-gen-java-gsync-server:build
+	chmod +x ./protoc-gen-java-gsync-server/build/scripts/protoc-gen-java-gsync-server
 	mkdir -p tmp/bin
-	wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/${PROTOC_GEN_JAVA_VERSION}/protoc-gen-grpc-java-${PROTOC_GEN_JAVA_VERSION}-osx-x86_64.exe -O ${PROTOC_GEN_JAVA_PATH}
-	chmod +x ${PROTOC_GEN_JAVA_PATH}
+	if [ ! -f ${PROTOC_GEN_JAVA_PATH} ]; then \
+		wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/${PROTOC_GEN_JAVA_VERSION}/protoc-gen-grpc-java-${PROTOC_GEN_JAVA_VERSION}-osx-x86_64.exe -O ${PROTOC_GEN_JAVA_PATH}; \
+		chmod +x ${PROTOC_GEN_JAVA_PATH}; \
+	fi
 
 .PHONY: codegen
 codegen:
@@ -30,9 +34,11 @@ codegen:
 	find ./schema/protobuf -name "*.proto" | xargs -I {} protoc \
 		-I=schema/protobuf \
 		--plugin=protoc-gen-grpc-java=${PROTOC_GEN_JAVA_PATH} \
+		--plugin=protoc-gen-java-gsync-server=./protoc-gen-java-gsync-server/protoc-gen-java-gsync-server \
 		--java_out=protobuf/src/main/java \
+		--java-gsync-server_out=protobuf/src/main/java \
 		--grpc-java_out=protobuf/src/main/java {}
-	./gradlew mbGenerate
+	#./gradlew mbGenerate
 	./gradlew spotlessApply
 
 .PHONY: db-apply

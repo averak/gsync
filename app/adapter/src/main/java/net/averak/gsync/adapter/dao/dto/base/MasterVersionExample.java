@@ -266,63 +266,63 @@ public class MasterVersionExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledIsNull() {
-			addCriterion("`is_enabled` is null");
+		public Criteria andIsValidIsNull() {
+			addCriterion("`is_valid` is null");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledIsNotNull() {
-			addCriterion("`is_enabled` is not null");
+		public Criteria andIsValidIsNotNull() {
+			addCriterion("`is_valid` is not null");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledEqualTo(Boolean value) {
-			addCriterion("`is_enabled` =", value, "isEnabled");
+		public Criteria andIsValidEqualTo(Boolean value) {
+			addCriterion("`is_valid` =", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledNotEqualTo(Boolean value) {
-			addCriterion("`is_enabled` <>", value, "isEnabled");
+		public Criteria andIsValidNotEqualTo(Boolean value) {
+			addCriterion("`is_valid` <>", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledGreaterThan(Boolean value) {
-			addCriterion("`is_enabled` >", value, "isEnabled");
+		public Criteria andIsValidGreaterThan(Boolean value) {
+			addCriterion("`is_valid` >", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledGreaterThanOrEqualTo(Boolean value) {
-			addCriterion("`is_enabled` >=", value, "isEnabled");
+		public Criteria andIsValidGreaterThanOrEqualTo(Boolean value) {
+			addCriterion("`is_valid` >=", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledLessThan(Boolean value) {
-			addCriterion("`is_enabled` <", value, "isEnabled");
+		public Criteria andIsValidLessThan(Boolean value) {
+			addCriterion("`is_valid` <", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledLessThanOrEqualTo(Boolean value) {
-			addCriterion("`is_enabled` <=", value, "isEnabled");
+		public Criteria andIsValidLessThanOrEqualTo(Boolean value) {
+			addCriterion("`is_valid` <=", value, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledIn(List<Boolean> values) {
-			addCriterion("`is_enabled` in", values, "isEnabled");
+		public Criteria andIsValidIn(List<Boolean> values) {
+			addCriterion("`is_valid` in", values, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledNotIn(List<Boolean> values) {
-			addCriterion("`is_enabled` not in", values, "isEnabled");
+		public Criteria andIsValidNotIn(List<Boolean> values) {
+			addCriterion("`is_valid` not in", values, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledBetween(Boolean value1, Boolean value2) {
-			addCriterion("`is_enabled` between", value1, value2, "isEnabled");
+		public Criteria andIsValidBetween(Boolean value1, Boolean value2) {
+			addCriterion("`is_valid` between", value1, value2, "isValid");
 			return (Criteria) this;
 		}
 
-		public Criteria andIsEnabledNotBetween(Boolean value1, Boolean value2) {
-			addCriterion("`is_enabled` not between", value1, value2, "isEnabled");
+		public Criteria andIsValidNotBetween(Boolean value1, Boolean value2) {
+			addCriterion("`is_valid` not between", value1, value2, "isValid");
 			return (Criteria) this;
 		}
 

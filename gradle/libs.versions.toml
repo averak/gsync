@@ -15,6 +15,8 @@ flyway-gradle-plugin = { module = "org.flywaydb:flyway-gradle-plugin", version.r
 flyway-spanner = { module = "org.flywaydb:flyway-gcp-spanner", version.ref = "flyway" }
 google-cloud-spanner-jdbc = "com.google.cloud:google-cloud-spanner-jdbc:2.15.0"
 google-cloud-spanner-spring = "com.google.cloud:spring-cloud-gcp-starter-data-spanner:5.0.0"
+google-protobuf = "com.google.protobuf:protobuf-java:3.25.2"
+google-protobuf-util = "com.google.protobuf:protobuf-java-util:3.25.2"
 groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 groovy-sql = { module = "org.apache.groovy:groovy-sql", version.ref = "groovy" }
 guava = "com.google.guava:guava:33.0.0-jre"

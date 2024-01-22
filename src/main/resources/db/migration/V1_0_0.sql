@@ -29,12 +29,12 @@ CASCADE;
 CREATE TABLE gsync_master_version
 (
     version    STRING(36) NOT NULL,
-    is_enabled BOOL      NOT NULL,
+    is_valid   BOOL      NOT NULL,
     comment    STRING( MAX) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
 ) PRIMARY KEY (version);
-CREATE INDEX idx__gsync_master_version__is_enabled ON gsync_master_version (is_enabled);
+CREATE INDEX idx__gsync_master_version__is_valid ON gsync_master_version (is_valid);
 
 CREATE TABLE gsync_required_client_version
 (

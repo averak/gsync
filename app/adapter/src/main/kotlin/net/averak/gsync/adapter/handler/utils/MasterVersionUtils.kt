@@ -13,18 +13,18 @@ class MasterVersionUtils(
 ) {
 
     @Throws(GsyncException::class)
-    fun getEnabledMasterVersion(spoofingMasterVersion: UUID?): UUID {
+    fun getValidMasterVersion(spoofingMasterVersion: UUID?): UUID {
         return if (spoofingMasterVersion == null) {
             val dtos = masterVersionMapper.selectByExample(
                 MasterVersionExample().apply {
-                    createCriteria().andIsEnabledEqualTo(true)
+                    createCriteria().andIsValidEqualTo(true)
                 },
             )
             if (dtos.isEmpty()) {
-                throw GsyncException(ErrorCode.ENABLED_MASTER_VERSION_DEFINITION_IS_NOT_FOUND)
+                throw GsyncException(ErrorCode.VALID_MASTER_VERSION_DEFINITION_IS_NOT_FOUND)
             }
             if (dtos.size > 1) {
-                throw GsyncException(ErrorCode.MULTIPLE_ENABLED_MASTER_VERSIONS_ARE_DEFINED)
+                throw GsyncException(ErrorCode.MULTIPLE_VALID_MASTER_VERSIONS_ARE_DEFINED)
             }
             UUID.fromString(dtos[0].version)
         } else {

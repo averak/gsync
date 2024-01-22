@@ -15,16 +15,17 @@ class EchoHandler_EchoV1_IT extends AbstractDatabaseSpec {
         final message = Faker.alphanumeric()
 
         when:
-        grpcTester.withSpoofingMasterVersion(Faker.uuidv4())
-        grpcTester.withSpoofingCurrentTime(now)
         final response = grpcTester.invoke(
             grpcTester.echo.&echoV1,
             EchoEchoV1.Request.newBuilder().setMessage(message).build(),
-        )
+        ) {
+            it.spoofingMasterVersion(Faker.uuidv4())
+            it.spoofingCurrentTime(now)
+        }
 
         then:
-        response.message == message
-        Assert.timestampIs(response.timestamp, now)
+        response.message.message == message
+        Assert.timestampIs(response.message.timestamp, now)
         with(sql.rows("SELECT * FROM gsync_echo")) {
             it.size() == 1
             it[0].message == message

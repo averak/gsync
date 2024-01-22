@@ -4,7 +4,6 @@ import net.averak.gsync.testkit.AbstractDatabaseSpec
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
 class RedisClient_UT extends AbstractDatabaseSpec {
 
     @Autowired
@@ -191,6 +190,7 @@ class RedisClient_UT extends AbstractDatabaseSpec {
         this.redis.get("k2") == null
     }
 
+    @Transactional
     def "transaction: トランザクション内で処理を実行する"() {
         when:
         final result = this.sut.transaction {
