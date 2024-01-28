@@ -56,3 +56,7 @@ check_dependencies:
 .PHONY: update_dependencies
 update_dependencies:
 	./gradlew versionCatalogUpdate
+
+.PHONY: run-battle-server
+run-battle-server:
+	kubectl create -f ./infra/k8s/battle-server.yaml
