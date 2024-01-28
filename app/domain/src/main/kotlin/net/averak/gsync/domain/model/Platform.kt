@@ -1,7 +1,10 @@
 package net.averak.gsync.domain.model
 
+/**
+ * アプリ配信ストア
+ */
 enum class Platform(val id: Int) {
 
-    IOS(0),
-    ANDROID(1),
+    APPLE(0),
+    GOOGLE(1),
 }

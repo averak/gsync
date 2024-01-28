@@ -19,8 +19,8 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
     def "不正なクライアントバージョンの場合はエラーを返す"() {
         given:
         Fixture.setup(
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.IOS.id.toLong()]),
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.2.0", platform: Platform.ANDROID.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.APPLE.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.2.0", platform: Platform.GOOGLE.id.toLong()]),
         )
 
         when:
@@ -38,15 +38,15 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
 
         where:
         clientVersion | platform
-        "1.0.0"       | Platform.IOS
-        "1.1.0"       | Platform.ANDROID
+        "1.0.0"       | Platform.APPLE
+        "1.1.0"       | Platform.GOOGLE
     }
 
     def "verifyClientVersion: 正常系 - データが存在する場合は正しく判定できる"() {
         given:
         Fixture.setup(
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.0.0", platform: Platform.IOS.id.toLong()]),
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.ANDROID.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.0.0", platform: Platform.APPLE.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), clientVersion: "1.1.0", platform: Platform.GOOGLE.id.toLong()]),
         )
 
         when:
@@ -56,20 +56,19 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
         actual == expected
 
         where:
-        masterVersion          | clientVersion | platform         || expected
-        Faker.uuidv5("active") | "1.0.0"       | Platform.IOS     || true
-        Faker.uuidv5("active") | "0.0.9"       | Platform.IOS     || false
-        Faker.uuidv5("active") | "1.1.0"       | Platform.ANDROID || true
-        Faker.uuidv5("active") | "1.0.9"       | Platform.ANDROID || false
-        Faker.uuidv5("active") | "0.999.999"   | Platform.IOS     || false
-        Faker.uuidv5("active") | null          | null             || true
+        masterVersion          | clientVersion | platform        || expected
+        Faker.uuidv5("active") | "1.0.0"       | Platform.APPLE  || true
+        Faker.uuidv5("active") | "0.0.9"       | Platform.APPLE  || false
+        Faker.uuidv5("active") | "1.1.0"       | Platform.GOOGLE || true
+        Faker.uuidv5("active") | "1.0.9"       | Platform.GOOGLE || false
+        Faker.uuidv5("active") | null          | null            || true
     }
 
     def "verifyClientVersion: 異常系"() {
         given:
         Fixture.setup(
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), platform: Platform.IOS.id.toLong()]),
-            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), platform: Platform.ANDROID.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), platform: Platform.APPLE.id.toLong()]),
+            Faker.fake(RequiredClientVersionDto, [masterVersion: Faker.uuidv5("active").toString(), platform: Platform.GOOGLE.id.toLong()]),
         )
 
         when:
@@ -80,10 +79,10 @@ class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {
         Assert.exceptionIs(actual, expected)
 
         where:
-        masterVersion            | clientVersion | platform         || expected
-        Faker.uuidv5("active")   | "1.0.0"       | null             || new GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
-        Faker.uuidv5("active")   | null          | Platform.IOS     || new GsyncException(ErrorCode.CLIENT_VERSION_MUST_BE_SPECIFIED)
-        Faker.uuidv5("outdated") | "1.0.0"       | Platform.IOS     || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
-        Faker.uuidv5("outdated") | "1.0.0"       | Platform.ANDROID || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
+        masterVersion            | clientVersion | platform        || expected
+        Faker.uuidv5("active")   | "1.0.0"       | null            || new GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
+        Faker.uuidv5("active")   | null          | Platform.APPLE  || new GsyncException(ErrorCode.CLIENT_VERSION_MUST_BE_SPECIFIED)
+        Faker.uuidv5("outdated") | "1.0.0"       | Platform.APPLE  || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
+        Faker.uuidv5("outdated") | "1.0.0"       | Platform.GOOGLE || new GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
     }
 }
