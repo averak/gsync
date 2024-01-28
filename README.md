@@ -29,6 +29,7 @@ For more information, see [Makefile](./Makefile).
 * Spring Boot 3.2
 * Cloud Spanner
 * Redis
+* Agones
 
 ### Running the application in dev mode
 

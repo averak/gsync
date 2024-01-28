@@ -1,0 +1,25 @@
+apiVersion: agones.dev/v1
+kind: GameServer
+metadata:
+  name: battle-server
+spec:
+  ports:
+    - name: default
+      container: simple-game-server
+      portPolicy: Dynamic
+      containerPort: 7654
+      protocol: UDP
+  health:
+    disabled: false
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    failureThreshold: 3
+  sdkServer:
+    logLevel: Info
+    grpcPort: 9357
+    httpPort: 9358
+  template:
+    spec:
+      containers:
+        - name: simple-game-server
+          image: us-docker.pkg.dev/agones-images/examples/simple-game-server:0.25
