@@ -336,63 +336,63 @@ public class RequiredClientVersionExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformIsNull() {
-			addCriterion("`platform` is null");
+		public Criteria andOsIsNull() {
+			addCriterion("`os` is null");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformIsNotNull() {
-			addCriterion("`platform` is not null");
+		public Criteria andOsIsNotNull() {
+			addCriterion("`os` is not null");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformEqualTo(Long value) {
-			addCriterion("`platform` =", value, "platform");
+		public Criteria andOsEqualTo(Long value) {
+			addCriterion("`os` =", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformNotEqualTo(Long value) {
-			addCriterion("`platform` <>", value, "platform");
+		public Criteria andOsNotEqualTo(Long value) {
+			addCriterion("`os` <>", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformGreaterThan(Long value) {
-			addCriterion("`platform` >", value, "platform");
+		public Criteria andOsGreaterThan(Long value) {
+			addCriterion("`os` >", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformGreaterThanOrEqualTo(Long value) {
-			addCriterion("`platform` >=", value, "platform");
+		public Criteria andOsGreaterThanOrEqualTo(Long value) {
+			addCriterion("`os` >=", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformLessThan(Long value) {
-			addCriterion("`platform` <", value, "platform");
+		public Criteria andOsLessThan(Long value) {
+			addCriterion("`os` <", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformLessThanOrEqualTo(Long value) {
-			addCriterion("`platform` <=", value, "platform");
+		public Criteria andOsLessThanOrEqualTo(Long value) {
+			addCriterion("`os` <=", value, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformIn(List<Long> values) {
-			addCriterion("`platform` in", values, "platform");
+		public Criteria andOsIn(List<Long> values) {
+			addCriterion("`os` in", values, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformNotIn(List<Long> values) {
-			addCriterion("`platform` not in", values, "platform");
+		public Criteria andOsNotIn(List<Long> values) {
+			addCriterion("`os` not in", values, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformBetween(Long value1, Long value2) {
-			addCriterion("`platform` between", value1, value2, "platform");
+		public Criteria andOsBetween(Long value1, Long value2) {
+			addCriterion("`os` between", value1, value2, "os");
 			return (Criteria) this;
 		}
 
-		public Criteria andPlatformNotBetween(Long value1, Long value2) {
-			addCriterion("`platform` not between", value1, value2, "platform");
+		public Criteria andOsNotBetween(Long value1, Long value2) {
+			addCriterion("`os` not between", value1, value2, "os");
 			return (Criteria) this;
 		}
 

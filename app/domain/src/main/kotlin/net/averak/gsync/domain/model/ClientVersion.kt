@@ -24,9 +24,3 @@ data class RequiredClientVersionSetting(
     val version: Semver,
     val downloadUrl: String,
 )
-
-enum class Os(val id: Int, val platform: Platform) {
-
-    IOS(0, Platform.APPLE),
-    ANDROID(1, Platform.GOOGLE),
-}

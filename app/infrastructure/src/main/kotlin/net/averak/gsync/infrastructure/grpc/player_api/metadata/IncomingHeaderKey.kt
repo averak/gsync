@@ -3,7 +3,7 @@ package net.averak.gsync.infrastructure.grpc.player_api.metadata
 enum class IncomingHeaderKey(val key: String) {
 
     CLIENT_VERSION("x-client-version"),
-    PLATFORM("x-platform"),
+    CLIENT_OS("x-client-os"),
     IDEMPOTENCY_KEY("x-idempotency-key"),
     GAME_ID("x-game-id"),
 
