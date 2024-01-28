@@ -7,7 +7,7 @@ enum class ErrorCode(val summary: String) {
     MULTIPLE_VALID_MASTER_VERSIONS_ARE_DEFINED("Multiple valid master versions are defined."),
     REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND("Required client version definition is not found."),
 
-    PLATFORM_MUST_BE_SPECIFIED("Platform must be specified."),
+    CLIENT_OS_MUST_BE_SPECIFIED("Client OS must be specified."),
     CLIENT_VERSION_MUST_BE_SPECIFIED("Client version must be specified."),
     CLIENT_VERSION_IS_NOT_SUPPORTED("Client version is not supported."),
 

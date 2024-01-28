@@ -297,6 +297,7 @@ tasks {
     val mybatisGenerator: Configuration by configurations.creating
     dependencies {
         mybatisGenerator(project(":infrastructure"))
+        mybatisGenerator(project(":protobuf"))
         mybatisGenerator(libs.mybatis.generator.core)
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }

@@ -4,7 +4,7 @@ import com.google.protobuf.AbstractMessage
 import io.grpc.*
 import jakarta.annotation.PostConstruct
 import net.averak.gsync.core.config.Config
-import net.averak.gsync.domain.model.Platform
+import net.averak.gsync.domain.model.Os
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
@@ -65,9 +65,9 @@ class GrpcTester(
             metadata[IncomingHeaderKey.GAME_ID] = gameID.toString()
         }
 
-        fun client(version: String, platform: Platform) {
+        fun client(version: String, os: Os) {
             metadata[IncomingHeaderKey.CLIENT_VERSION] = version
-            metadata[IncomingHeaderKey.PLATFORM] = platform.name
+            metadata[IncomingHeaderKey.CLIENT_OS] = os.name
         }
 
         fun gameID(value: UUID) {

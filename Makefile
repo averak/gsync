@@ -38,7 +38,7 @@ codegen:
 		--java_out=protobuf/src/main/java \
 		--java-gsync-server_out=protobuf/src/main/java \
 		--grpc-java_out=protobuf/src/main/java {}
-	#./gradlew mbGenerate
+	./gradlew mbGenerate
 	./gradlew spotlessApply
 
 .PHONY: db-apply
