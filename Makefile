@@ -38,7 +38,7 @@ codegen:
 		--java_out=protobuf/src/main/java \
 		--java-gsync-server_out=protobuf/src/main/java \
 		--grpc-java_out=protobuf/src/main/java {}
-	#./gradlew mbGenerate
+	./gradlew mbGenerate
 	./gradlew spotlessApply
 
 .PHONY: db-apply
@@ -56,3 +56,7 @@ check_dependencies:
 .PHONY: update_dependencies
 update_dependencies:
 	./gradlew versionCatalogUpdate
+
+.PHONY: run-battle-server
+run-battle-server:
+	kubectl create -f ./infra/k8s/battle-server.yaml

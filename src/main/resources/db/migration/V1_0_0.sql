@@ -40,10 +40,10 @@ CREATE TABLE gsync_required_client_version
 (
     master_version STRING(36) NOT NULL,
     client_version STRING( MAX) NOT NULL,
-    platform       INT64     NOT NULL,
+    os             INT64     NOT NULL,
     created_at     TIMESTAMP NOT NULL,
     updated_at     TIMESTAMP NOT NULL,
-) PRIMARY KEY (master_version, client_version, platform);
+) PRIMARY KEY (master_version, client_version, os);
 
 CREATE TABLE gsync_player
 (

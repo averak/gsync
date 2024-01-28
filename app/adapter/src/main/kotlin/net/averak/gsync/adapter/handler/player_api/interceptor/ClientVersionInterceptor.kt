@@ -10,7 +10,8 @@ import net.averak.gsync.adapter.dao.mapper.base.RequiredClientVersionBaseMapper
 import net.averak.gsync.core.config.Config
 import net.averak.gsync.core.exception.ErrorCode
 import net.averak.gsync.core.exception.GsyncException
-import net.averak.gsync.domain.model.Platform
+import net.averak.gsync.domain.model.Os
+import net.averak.gsync.domain.model.Semver
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import org.springframework.core.annotation.Order
@@ -34,16 +35,16 @@ class ClientVersionInterceptor(
         val clientVersion = headers.get(
             Metadata.Key.of(IncomingHeaderKey.CLIENT_VERSION.key, Metadata.ASCII_STRING_MARSHALLER),
         )
-        val platform = headers.get(
-            Metadata.Key.of(IncomingHeaderKey.PLATFORM.key, Metadata.ASCII_STRING_MARSHALLER),
-        )?.let { Platform.valueOf(it) }
+        val os = headers.get(
+            Metadata.Key.of(IncomingHeaderKey.CLIENT_OS.key, Metadata.ASCII_STRING_MARSHALLER),
+        )?.let { Os.valueOf(it) }
 
         // デバッグモードの場合のみ、不正なクライアントをバイパスする
-        if ((clientVersion == null || platform == null) && config.debug) {
+        if ((clientVersion == null || os == null) && config.debug) {
             return next.startCall(call, headers)
         }
 
-        if (!verifyClientVersion(requestScope.gctx.masterVersion, clientVersion, platform)) {
+        if (!verifyClientVersion(requestScope.gctx.masterVersion, clientVersion, os)) {
             throw GsyncException(ErrorCode.CLIENT_VERSION_IS_NOT_SUPPORTED)
         }
         return next.startCall(call, headers)
@@ -51,42 +52,27 @@ class ClientVersionInterceptor(
 
     @Throws(GsyncException::class)
     @VisibleForTesting
-    fun verifyClientVersion(masterVersion: UUID, clientVersion: String?, platform: Platform?): Boolean {
-        if (clientVersion == null && platform == null) {
+    fun verifyClientVersion(masterVersion: UUID, clientVersion: String?, os: Os?): Boolean {
+        if (clientVersion == null && os == null) {
             return true
         }
 
         if (clientVersion == null) {
             throw GsyncException(ErrorCode.CLIENT_VERSION_MUST_BE_SPECIFIED)
         }
-        if (platform == null) {
-            throw GsyncException(ErrorCode.PLATFORM_MUST_BE_SPECIFIED)
+        if (os == null) {
+            throw GsyncException(ErrorCode.CLIENT_OS_MUST_BE_SPECIFIED)
         }
+        // TODO: クライアントバージョン情報は Repository 経由で取得するようにする
         val dtos = requiredClientVersionMapper.selectByExample(
             RequiredClientVersionExample().apply {
-                createCriteria().andMasterVersionEqualTo(masterVersion.toString()).andPlatformEqualTo(platform.id.toLong())
+                createCriteria().andMasterVersionEqualTo(masterVersion.toString()).andOsEqualTo(os.id.toLong())
             },
         )
         if (dtos.isEmpty()) {
             throw GsyncException(ErrorCode.REQUIRED_CLIENT_VERSION_DEFINITION_IS_NOT_FOUND)
         }
 
-        return compareSemver(clientVersion, dtos[0].clientVersion)
-    }
-
-    /**
-     * semver1 >= semver2 なら true を返す
-     *
-     * @param semver1 x.y.z 形式のバージョン文字列
-     * @param semver2 x.y.z 形式のバージョン文字列
-     */
-    private fun compareSemver(semver1: String, semver2: String): Boolean {
-        val major1 = semver1.split(".")[0].toInt()
-        val minor1 = semver1.split(".")[1].toInt()
-        val patch1 = semver1.split(".")[2].toInt()
-        val major2 = semver2.split(".")[0].toInt()
-        val minor2 = semver2.split(".")[1].toInt()
-        val patch2 = semver2.split(".")[2].toInt()
-        return major1 > major2 || (major1 == major2 && minor1 > minor2) || (major1 == major2 && minor1 == minor2 && patch1 >= patch2)
+        return !Semver.parse(clientVersion).lessThan(Semver.parse(dtos[0].clientVersion))
     }
 }
