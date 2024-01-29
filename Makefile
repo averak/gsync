@@ -7,7 +7,8 @@ build:
 
 .PHONY: test
 test:
-	./gradlew test jacocoTestReport mergeJacocoTestReports
+	./gradlew test
+	./gradlew jacocoTestReport
 
 .PHONY: lint
 lint:
