@@ -92,7 +92,7 @@ allprojects {
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
             property("sonar.exclusions", "protobuf/**,/protoc-gen-java-gsync-server/**,testkit/**,**/dto/**,**/mapper/base/**")
-            property("sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/mergeJacocoTestReports/mergeJacocoTestReports.xml")
+            property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/mergeJacocoTestReports/mergeJacocoTestReports.xml")
         }
     }
 
