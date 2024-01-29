@@ -326,7 +326,7 @@ tasks {
         }
     }
 
-    register("mergeJacocoTestReports", JacocoReport::class) {
+    jacocoTestReport {
         additionalSourceDirs.setFrom(
             files(
                 subprojects.map { it.projectDir.resolve("src/main/java") },
