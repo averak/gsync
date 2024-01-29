@@ -301,7 +301,7 @@ tasks {
         mybatisGenerator(libs.mybatis.generator.core)
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
-    register("mbgenerate", Task::class) {
+    register("mbGenerate", Task::class) {
         doFirst {
             fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base") {
                 include("**/*.java")
@@ -329,6 +329,44 @@ tasks {
                     "verbose" to true,
                 )
             }
+        }
+    }
+
+    register("mergeJacocoTestReports", JacocoReport::class) {
+        additionalSourceDirs.setFrom(
+            files(
+                subprojects.map { it.projectDir.resolve("src/main/java") },
+                subprojects.map { it.projectDir.resolve("src/main/kotlin") },
+            ),
+        )
+        sourceDirectories.setFrom(
+            files(
+                subprojects.map { it.projectDir.resolve("src/main/java") },
+                subprojects.map { it.projectDir.resolve("src/main/kotlin") },
+            ),
+        )
+        classDirectories.setFrom(
+            files(
+                subprojects.flatMap { project ->
+                    listOf(
+                        project.layout.buildDirectory.dir("classes/java/main"),
+                        project.layout.buildDirectory.dir("classes/kotlin/main"),
+                    )
+                },
+            ),
+        )
+        executionData.setFrom(
+            files(
+                subprojects.mapNotNull { project ->
+                    project.tasks.findByName("test")?.let { task ->
+                        project.layout.buildDirectory.file("jacoco/${task.name}.exec").get().asFile
+                    }
+                },
+            ),
+        )
+        reports {
+            xml.required = true
+            csv.required = true
         }
     }
 }
