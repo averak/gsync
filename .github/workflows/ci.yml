@@ -37,7 +37,7 @@ jobs:
 
       - name: backend test
         run: |
-          ./gradlew test jacocoTestReport
+          make test
 
       - name: backend analyze
         env:
@@ -59,7 +59,7 @@ jobs:
 
       - name: backend lint
         run: |
-          ./gradlew spotlessCheck
+          make lint
 
   build:
     runs-on: ubuntu-latest
