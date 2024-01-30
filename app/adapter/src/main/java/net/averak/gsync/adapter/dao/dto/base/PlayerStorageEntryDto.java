@@ -14,6 +14,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String key;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -59,6 +64,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private byte[] value;
 
 	/**
@@ -258,8 +264,28 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 		this.value = value;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerStorageEntryDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getKey(), other.getKey());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerStorageEntryDto(@Nonnull String playerId, @Nonnull String gameId, @Nonnull String key,
+			@Nonnull byte[] value) {
+		this.playerId = playerId;
+		this.gameId = gameId;
+		this.key = key;
+		this.value = value;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

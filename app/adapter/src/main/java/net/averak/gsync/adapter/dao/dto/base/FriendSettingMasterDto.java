@@ -14,6 +14,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String masterVersion;
 
 	/**
@@ -23,6 +24,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long maxFriendCount;
 
 	/**
@@ -32,6 +34,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long maxFriendRequestCount;
 
 	/**
@@ -41,6 +44,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,7 +212,26 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(FriendSettingMasterDto other) {
 		return Objects.equals(getMasterVersion(), other.getMasterVersion());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public FriendSettingMasterDto(@Nonnull String masterVersion, @Nonnull Long maxFriendCount,
+			@Nonnull Long maxFriendRequestCount) {
+		this.masterVersion = masterVersion;
+		this.maxFriendCount = maxFriendCount;
+		this.maxFriendRequestCount = maxFriendRequestCount;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

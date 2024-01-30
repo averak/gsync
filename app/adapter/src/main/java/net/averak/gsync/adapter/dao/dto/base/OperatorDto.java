@@ -14,6 +14,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String operatorId;
 
 	/**
@@ -23,6 +24,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String email;
 
 	/**
@@ -32,6 +34,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -41,6 +44,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -171,7 +175,24 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(OperatorDto other) {
 		return Objects.equals(getOperatorId(), other.getOperatorId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public OperatorDto(@Nonnull String operatorId, @Nonnull String email) {
+		this.operatorId = operatorId;
+		this.email = email;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

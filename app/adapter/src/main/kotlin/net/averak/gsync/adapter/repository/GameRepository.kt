@@ -32,8 +32,6 @@ open class GameRepository(
         val dto = GameDto(
             game.id.toString(),
             game.name,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         gameMapper.syncOriginal(dto)
         gameMapper.insertOrUpdate(dto)

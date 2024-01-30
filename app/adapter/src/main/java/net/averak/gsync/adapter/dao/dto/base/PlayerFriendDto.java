@@ -14,6 +14,7 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String friendPlayerId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime becomeFriendAt;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,8 +212,27 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerFriendDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId())
 				&& Objects.equals(getFriendPlayerId(), other.getFriendPlayerId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerFriendDto(@Nonnull String playerId, @Nonnull String friendPlayerId,
+			@Nonnull LocalDateTime becomeFriendAt) {
+		this.playerId = playerId;
+		this.friendPlayerId = friendPlayerId;
+		this.becomeFriendAt = becomeFriendAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

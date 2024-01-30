@@ -14,6 +14,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -23,6 +24,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String name;
 
 	/**
@@ -32,6 +34,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -41,6 +44,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -171,7 +175,24 @@ public class GameDto extends AbstractDto<GameDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(GameDto other) {
 		return Objects.equals(getGameId(), other.getGameId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public GameDto(@Nonnull String gameId, @Nonnull String name) {
+		this.gameId = gameId;
+		this.name = name;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

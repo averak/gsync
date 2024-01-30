@@ -1,4 +1,4 @@
-package net.averak.gsync.infrastructure.mybatis.plugin
+package net.averak.gsync.mybatis
 
 import org.mybatis.generator.api.IntrospectedColumn
 import org.mybatis.generator.api.IntrospectedTable
@@ -9,6 +9,7 @@ import java.util.*
 /**
  * InsertOrUpdate 関連コードを生成するプラグイン
  */
+@SuppressWarnings("kotlin:S1192")
 class InsertOrUpdatePlugin : PluginAdapter() {
 
     override fun validate(warnings: List<String>): Boolean {
@@ -23,6 +24,11 @@ class InsertOrUpdatePlugin : PluginAdapter() {
         method.visibility = JavaVisibility.PUBLIC
         method.addParameter(Parameter(FullyQualifiedJavaType(introspectedTable.baseRecordType), "other"))
         method.setReturnType(FullyQualifiedJavaType("boolean"))
+        method.javaDocLines += "/**"
+        method.javaDocLines += " * PK が一致するか判定"
+        method.javaDocLines += " *"
+        method.javaDocLines += " * @mbg.generated"
+        method.javaDocLines += " */"
 
         val expressions = mutableListOf<String>()
         introspectedTable.primaryKeyColumns.forEach { column ->

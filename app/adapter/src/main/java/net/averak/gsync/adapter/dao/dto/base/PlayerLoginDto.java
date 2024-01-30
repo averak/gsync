@@ -14,6 +14,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long totalLoginDays;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime lastLoggedInAt;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,7 +212,26 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerLoginDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerLoginDto(@Nonnull String playerId, @Nonnull Long totalLoginDays,
+			@Nonnull LocalDateTime lastLoggedInAt) {
+		this.playerId = playerId;
+		this.totalLoginDays = totalLoginDays;
+		this.lastLoggedInAt = lastLoggedInAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

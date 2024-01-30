@@ -14,6 +14,7 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String nickname;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String iconId;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,7 +212,25 @@ public class PlayerProfileDto extends AbstractDto<PlayerProfileDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerProfileDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerProfileDto(@Nonnull String playerId, @Nonnull String nickname, @Nonnull String iconId) {
+		this.playerId = playerId;
+		this.nickname = nickname;
+		this.iconId = iconId;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

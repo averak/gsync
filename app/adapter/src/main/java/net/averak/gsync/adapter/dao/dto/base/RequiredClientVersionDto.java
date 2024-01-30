@@ -14,6 +14,7 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String masterVersion;
 
 	/**
@@ -23,6 +24,7 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String clientVersion;
 
 	/**
@@ -32,6 +34,7 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long os;
 
 	/**
@@ -41,6 +44,7 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,9 +212,27 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(RequiredClientVersionDto other) {
 		return Objects.equals(getMasterVersion(), other.getMasterVersion())
 				&& Objects.equals(getClientVersion(), other.getClientVersion())
 				&& Objects.equals(getOs(), other.getOs());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public RequiredClientVersionDto(@Nonnull String masterVersion, @Nonnull String clientVersion, @Nonnull Long os) {
+		this.masterVersion = masterVersion;
+		this.clientVersion = clientVersion;
+		this.os = os;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

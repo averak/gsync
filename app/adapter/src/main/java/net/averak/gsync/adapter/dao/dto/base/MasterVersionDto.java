@@ -14,6 +14,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String version;
 
 	/**
@@ -23,6 +24,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Boolean isValid;
 
 	/**
@@ -32,6 +34,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String comment;
 
 	/**
@@ -41,6 +44,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,7 +212,25 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(MasterVersionDto other) {
 		return Objects.equals(getVersion(), other.getVersion());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public MasterVersionDto(@Nonnull String version, @Nonnull Boolean isValid, @Nonnull String comment) {
+		this.version = version;
+		this.isValid = isValid;
+		this.comment = comment;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

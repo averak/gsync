@@ -14,6 +14,7 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String friendId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Boolean isBanned;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,7 +212,25 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerDto(@Nonnull String playerId, @Nonnull String friendId, @Nonnull Boolean isBanned) {
+		this.playerId = playerId;
+		this.friendId = friendId;
+		this.isBanned = isBanned;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

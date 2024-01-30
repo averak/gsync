@@ -14,6 +14,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String receiverPlayerId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime sentAt;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -207,8 +212,27 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerFriendRequestDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId())
 				&& Objects.equals(getReceiverPlayerId(), other.getReceiverPlayerId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerFriendRequestDto(@Nonnull String playerId, @Nonnull String receiverPlayerId,
+			@Nonnull LocalDateTime sentAt) {
+		this.playerId = playerId;
+		this.receiverPlayerId = receiverPlayerId;
+		this.sentAt = sentAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }

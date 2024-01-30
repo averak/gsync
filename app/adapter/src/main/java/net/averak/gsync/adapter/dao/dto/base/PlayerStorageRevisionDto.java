@@ -14,6 +14,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerStorageRevisionId;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String idempotencyKey;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -59,6 +64,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -246,8 +252,28 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerStorageRevisionDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getPlayerStorageRevisionId(), other.getPlayerStorageRevisionId());
+	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerStorageRevisionDto(@Nonnull String playerId, @Nonnull String gameId,
+			@Nonnull String playerStorageRevisionId, @Nonnull String idempotencyKey) {
+		this.playerId = playerId;
+		this.gameId = gameId;
+		this.playerStorageRevisionId = playerStorageRevisionId;
+		this.idempotencyKey = idempotencyKey;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
 	}
 }
