@@ -18,8 +18,6 @@ open class EchoRepository(
             echo.id.toString(),
             echo.message,
             echo.timestamp,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         echoMapper.syncOriginal(dto)
         echoMapper.insertOrUpdate(dto)

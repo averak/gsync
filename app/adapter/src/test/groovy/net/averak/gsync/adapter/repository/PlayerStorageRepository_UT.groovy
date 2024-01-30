@@ -9,7 +9,6 @@ import net.averak.gsync.domain.model.PlayerStorageEntry
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
 import net.averak.gsync.domain.repository.exception.AlreadyDoneException
 import net.averak.gsync.testkit.AbstractDatabaseSpec
-import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.Fixture
 import org.springframework.beans.factory.annotation.Autowired
@@ -151,14 +150,10 @@ class PlayerStorageRepository_UT extends AbstractDatabaseSpec {
                 then: () -> {
                     with(sql.rows("SELECT * FROM gsync_player_storage_revision ORDER BY created_at")) {
                         it*.player_storage_revision_id == [Faker.uuidv5("r1").toString(), Faker.uuidv5("r2").toString()]
-                        Assert.timestampIs(it[1].created_at, now)
-                        Assert.timestampIs(it[1].updated_at, now)
                     }
                     with(sql.rows("SELECT * FROM gsync_player_storage_entry ORDER BY created_at")) {
                         it*.key == ["key1", "key2"]
                         it*.value == ["value1".bytes, "value2".bytes]
-                        Assert.timestampIs(it[1].created_at, now)
-                        Assert.timestampIs(it[1].updated_at, now)
                     }
                     return true
                 },
@@ -186,15 +181,11 @@ class PlayerStorageRepository_UT extends AbstractDatabaseSpec {
                     with(sql.rows("SELECT * FROM gsync_player_storage_revision")) {
                         it.size() == 1
                         it[0].player_storage_revision_id == Faker.uuidv5("r1").toString()
-                        Assert.timestampIs(it[0].created_at, LocalDateTime.of(2000, 1, 1, 0, 0, 0))
-                        Assert.timestampIs(it[0].updated_at, now)
                     }
                     with(sql.rows("SELECT * FROM gsync_player_storage_entry")) {
                         it.size() == 1
                         it[0].key == "key1"
                         it[0].value == "new value".bytes
-                        Assert.timestampIs(it[0].created_at, LocalDateTime.of(2000, 1, 1, 0, 0, 0))
-                        Assert.timestampIs(it[0].updated_at, now)
                     }
                     return true
                 },

@@ -37,8 +37,6 @@ open class PlayerRepository(
             player.id.toString(),
             player.friendID.toString(),
             player.isBanned,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerMapper.syncOriginal(dto)
         playerMapper.insertOrUpdate(dto)
@@ -47,8 +45,6 @@ open class PlayerRepository(
             player.id.toString(),
             player.profile.nickname,
             player.profile.iconID,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerProfileMapper.syncOriginal(profileDto)
         playerProfileMapper.insertOrUpdate(profileDto)
@@ -63,8 +59,6 @@ open class PlayerRepository(
             player.id.toString(),
             login.totalLoginDays.toLong(),
             login.lastLoggedInAt,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerLoginMapper.syncOriginal(loginDto)
         playerLoginMapper.insertOrUpdate(loginDto)

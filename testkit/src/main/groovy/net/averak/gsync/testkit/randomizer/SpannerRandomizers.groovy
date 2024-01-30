@@ -15,13 +15,10 @@ class EchoDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new EchoDto(
             Faker.uuidv4().toString(),
             Faker.alphanumeric(255),
             Faker.fake(LocalDateTime),
-            now,
-            now,
         )
     }
 }
@@ -33,13 +30,10 @@ class FriendSettingMasterDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new FriendSettingMasterDto(
             Faker.uuidv4().toString(),
             Faker.integer(1, 100),
             Faker.integer(1, 100),
-            now,
-            now,
         )
     }
 }
@@ -51,12 +45,9 @@ class GameDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new GameDto(
             Faker.uuidv4().toString(),
             Faker.alphanumeric(),
-            now,
-            now,
         )
     }
 }
@@ -68,13 +59,10 @@ class MasterVersionDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new MasterVersionDto(
             Faker.uuidv4().toString(),
             Faker.fake(Boolean),
             Faker.alphanumeric(),
-            now,
-            now,
         )
     }
 }
@@ -86,12 +74,9 @@ class OperatorDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new OperatorDto(
             Faker.uuidv4().toString(),
             Faker.email(),
-            now,
-            now,
         )
     }
 }
@@ -103,13 +88,10 @@ class PlayerDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             false,
-            now,
-            now,
         )
     }
 }
@@ -121,13 +103,10 @@ class PlayerFriendDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerFriendDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.fake(LocalDateTime),
-            now,
-            now,
         )
     }
 }
@@ -139,13 +118,10 @@ class PlayerFriendRequestDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerFriendRequestDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.fake(LocalDateTime),
-            now,
-            now,
         )
     }
 }
@@ -157,13 +133,10 @@ class PlayerLoginDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerLoginDto(
             Faker.uuidv4().toString(),
             Faker.integer(0, Integer.MAX_VALUE),
             Faker.fake(LocalDateTime),
-            now,
-            now,
         )
     }
 }
@@ -175,13 +148,10 @@ class PlayerProfileDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerProfileDto(
             Faker.uuidv4().toString(),
             Faker.alphanumeric(10),
             Faker.uuidv4().toString(),
-            now,
-            now,
         )
     }
 }
@@ -193,13 +163,10 @@ class PlayerStorageEntryDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerStorageEntryDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
-            now,
-            now,
             Faker.fake(byte[]),
         )
     }
@@ -212,14 +179,11 @@ class PlayerStorageRevisionDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new PlayerStorageRevisionDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
-            now,
-            now,
         )
     }
 }
@@ -231,13 +195,10 @@ class RequiredClientVersionDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new RequiredClientVersionDto(
             Faker.uuidv4().toString(),
             Faker.semver(),
             Faker.fake(Platform).id,
-            now,
-            now,
         )
     }
 }
@@ -249,13 +210,10 @@ class RGameOperatorDtoRandomizer implements IRandomizer {
 
     @Override
     Object getRandomValue() {
-        final now = LocalDateTime.now()
         return new RGameOperatorDto(
             Faker.uuidv4().toString(),
             Faker.uuidv4().toString(),
             Faker.fake(Boolean),
-            now,
-            now,
         )
     }
 }

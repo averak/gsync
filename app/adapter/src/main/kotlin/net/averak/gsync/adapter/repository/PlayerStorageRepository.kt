@@ -75,8 +75,6 @@ open class PlayerStorageRepository(
             playerStorage.gameID.toString(),
             playerStorage.revision.toString(),
             gctx.idempotencyKey.toString(),
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerStorageRevisionMapper.syncOriginal(revisionDto)
         playerStorageRevisionMapper.insertOrUpdate(revisionDto)
@@ -99,8 +97,6 @@ open class PlayerStorageRepository(
                 playerStorage.playerID.toString(),
                 playerStorage.gameID.toString(),
                 it.key,
-                gctx.currentTime,
-                gctx.currentTime,
                 it.value,
             )
         }

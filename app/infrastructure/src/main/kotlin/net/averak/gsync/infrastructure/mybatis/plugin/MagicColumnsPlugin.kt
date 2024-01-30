@@ -17,9 +17,6 @@ class MagicColumnsPlugin : PluginAdapter() {
     }
 
     override fun modelBaseRecordClassGenerated(topLevelClass: TopLevelClass, introspectedTable: IntrospectedTable): Boolean {
-        // マジックカラムを含むコンストラクタを削除したい場合は、以下のコメントを外せば良い
-        // topLevelClass.methods.removeIf { it.name == introspectedTable.baseRecordType.substringAfterLast(".") }
-
         val method = Method(introspectedTable.baseRecordType.substringAfterLast("."))
         method.isConstructor = true
         method.visibility = JavaVisibility.PUBLIC
