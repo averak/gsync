@@ -171,6 +171,11 @@ public class GameDto extends AbstractDto<GameDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(GameDto other) {
 		return Objects.equals(getGameId(), other.getGameId());
 	}

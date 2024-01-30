@@ -207,6 +207,11 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(MasterVersionDto other) {
 		return Objects.equals(getVersion(), other.getVersion());
 	}

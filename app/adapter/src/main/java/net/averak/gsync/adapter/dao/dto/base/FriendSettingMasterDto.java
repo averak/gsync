@@ -207,6 +207,11 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(FriendSettingMasterDto other) {
 		return Objects.equals(getMasterVersion(), other.getMasterVersion());
 	}

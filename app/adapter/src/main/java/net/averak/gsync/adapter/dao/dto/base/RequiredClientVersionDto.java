@@ -207,6 +207,11 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(RequiredClientVersionDto other) {
 		return Objects.equals(getMasterVersion(), other.getMasterVersion())
 				&& Objects.equals(getClientVersion(), other.getClientVersion())

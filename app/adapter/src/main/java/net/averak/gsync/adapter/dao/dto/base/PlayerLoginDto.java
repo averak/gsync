@@ -207,6 +207,11 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerLoginDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
 	}

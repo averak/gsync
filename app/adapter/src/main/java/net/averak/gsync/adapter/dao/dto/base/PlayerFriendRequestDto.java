@@ -207,6 +207,11 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerFriendRequestDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId())
 				&& Objects.equals(getReceiverPlayerId(), other.getReceiverPlayerId());

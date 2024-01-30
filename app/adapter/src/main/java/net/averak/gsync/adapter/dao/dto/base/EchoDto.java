@@ -207,6 +207,11 @@ public class EchoDto extends AbstractDto<EchoDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(EchoDto other) {
 		return Objects.equals(getEchoId(), other.getEchoId());
 	}

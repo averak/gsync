@@ -258,6 +258,11 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 		this.value = value;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerStorageEntryDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getKey(), other.getKey());

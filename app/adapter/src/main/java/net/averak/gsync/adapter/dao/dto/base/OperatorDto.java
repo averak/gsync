@@ -171,6 +171,11 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(OperatorDto other) {
 		return Objects.equals(getOperatorId(), other.getOperatorId());
 	}

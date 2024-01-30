@@ -207,6 +207,11 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(RGameOperatorDto other) {
 		return Objects.equals(getOperatorId(), other.getOperatorId()) && Objects.equals(getGameId(), other.getGameId());
 	}

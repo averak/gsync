@@ -246,6 +246,11 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 		this.updatedAt = updatedAt;
 	}
 
+	/**
+	 * PK が一致するか判定
+	 *
+	 * @mbg.generated
+	 */
 	public boolean isPrimaryKeyEquals(PlayerStorageRevisionDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getPlayerStorageRevisionId(), other.getPlayerStorageRevisionId());
