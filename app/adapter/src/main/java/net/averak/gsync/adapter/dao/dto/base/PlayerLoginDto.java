@@ -215,4 +215,18 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	public boolean isPrimaryKeyEquals(PlayerLoginDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerLoginDto(@Nonnull String playerId, @Nonnull Long totalLoginDays,
+			@Nonnull LocalDateTime lastLoggedInAt) {
+		this.playerId = playerId;
+		this.totalLoginDays = totalLoginDays;
+		this.lastLoggedInAt = lastLoggedInAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

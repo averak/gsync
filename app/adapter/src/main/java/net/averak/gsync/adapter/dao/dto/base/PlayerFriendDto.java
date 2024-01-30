@@ -216,4 +216,18 @@ public class PlayerFriendDto extends AbstractDto<PlayerFriendDto> {
 		return Objects.equals(getPlayerId(), other.getPlayerId())
 				&& Objects.equals(getFriendPlayerId(), other.getFriendPlayerId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerFriendDto(@Nonnull String playerId, @Nonnull String friendPlayerId,
+			@Nonnull LocalDateTime becomeFriendAt) {
+		this.playerId = playerId;
+		this.friendPlayerId = friendPlayerId;
+		this.becomeFriendAt = becomeFriendAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

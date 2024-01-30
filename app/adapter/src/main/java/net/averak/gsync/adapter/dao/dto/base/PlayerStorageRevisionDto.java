@@ -255,4 +255,19 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getPlayerStorageRevisionId(), other.getPlayerStorageRevisionId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerStorageRevisionDto(@Nonnull String playerId, @Nonnull String gameId,
+			@Nonnull String playerStorageRevisionId, @Nonnull String idempotencyKey) {
+		this.playerId = playerId;
+		this.gameId = gameId;
+		this.playerStorageRevisionId = playerStorageRevisionId;
+		this.idempotencyKey = idempotencyKey;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

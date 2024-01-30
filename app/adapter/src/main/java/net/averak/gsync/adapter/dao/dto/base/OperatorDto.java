@@ -179,4 +179,16 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	public boolean isPrimaryKeyEquals(OperatorDto other) {
 		return Objects.equals(getOperatorId(), other.getOperatorId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public OperatorDto(@Nonnull String operatorId, @Nonnull String email) {
+		this.operatorId = operatorId;
+		this.email = email;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

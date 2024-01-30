@@ -216,4 +216,18 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 		return Objects.equals(getPlayerId(), other.getPlayerId())
 				&& Objects.equals(getReceiverPlayerId(), other.getReceiverPlayerId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerFriendRequestDto(@Nonnull String playerId, @Nonnull String receiverPlayerId,
+			@Nonnull LocalDateTime sentAt) {
+		this.playerId = playerId;
+		this.receiverPlayerId = receiverPlayerId;
+		this.sentAt = sentAt;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

@@ -215,4 +215,17 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	public boolean isPrimaryKeyEquals(MasterVersionDto other) {
 		return Objects.equals(getVersion(), other.getVersion());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public MasterVersionDto(@Nonnull String version, @Nonnull Boolean isValid, @Nonnull String comment) {
+		this.version = version;
+		this.isValid = isValid;
+		this.comment = comment;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

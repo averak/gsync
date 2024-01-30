@@ -267,4 +267,19 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 		return Objects.equals(getPlayerId(), other.getPlayerId()) && Objects.equals(getGameId(), other.getGameId())
 				&& Objects.equals(getKey(), other.getKey());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerStorageEntryDto(@Nonnull String playerId, @Nonnull String gameId, @Nonnull String key,
+			@Nonnull byte[] value) {
+		this.playerId = playerId;
+		this.gameId = gameId;
+		this.key = key;
+		this.value = value;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

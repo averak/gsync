@@ -215,4 +215,17 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	public boolean isPrimaryKeyEquals(RGameOperatorDto other) {
 		return Objects.equals(getOperatorId(), other.getOperatorId()) && Objects.equals(getGameId(), other.getGameId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public RGameOperatorDto(@Nonnull String operatorId, @Nonnull String gameId, @Nonnull Boolean isAdmin) {
+		this.operatorId = operatorId;
+		this.gameId = gameId;
+		this.isAdmin = isAdmin;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

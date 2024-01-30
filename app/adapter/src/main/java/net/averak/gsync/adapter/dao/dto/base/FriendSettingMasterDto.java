@@ -215,4 +215,18 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	public boolean isPrimaryKeyEquals(FriendSettingMasterDto other) {
 		return Objects.equals(getMasterVersion(), other.getMasterVersion());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public FriendSettingMasterDto(@Nonnull String masterVersion, @Nonnull Long maxFriendCount,
+			@Nonnull Long maxFriendRequestCount) {
+		this.masterVersion = masterVersion;
+		this.maxFriendCount = maxFriendCount;
+		this.maxFriendRequestCount = maxFriendRequestCount;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

@@ -179,4 +179,16 @@ public class GameDto extends AbstractDto<GameDto> {
 	public boolean isPrimaryKeyEquals(GameDto other) {
 		return Objects.equals(getGameId(), other.getGameId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public GameDto(@Nonnull String gameId, @Nonnull String name) {
+		this.gameId = gameId;
+		this.name = name;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

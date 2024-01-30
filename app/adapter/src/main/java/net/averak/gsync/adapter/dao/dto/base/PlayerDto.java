@@ -215,4 +215,17 @@ public class PlayerDto extends AbstractDto<PlayerDto> {
 	public boolean isPrimaryKeyEquals(PlayerDto other) {
 		return Objects.equals(getPlayerId(), other.getPlayerId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public PlayerDto(@Nonnull String playerId, @Nonnull String friendId, @Nonnull Boolean isBanned) {
+		this.playerId = playerId;
+		this.friendId = friendId;
+		this.isBanned = isBanned;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

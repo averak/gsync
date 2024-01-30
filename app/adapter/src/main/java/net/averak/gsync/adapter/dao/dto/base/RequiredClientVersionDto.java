@@ -217,4 +217,17 @@ public class RequiredClientVersionDto extends AbstractDto<RequiredClientVersionD
 				&& Objects.equals(getClientVersion(), other.getClientVersion())
 				&& Objects.equals(getOs(), other.getOs());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public RequiredClientVersionDto(@Nonnull String masterVersion, @Nonnull String clientVersion, @Nonnull Long os) {
+		this.masterVersion = masterVersion;
+		this.clientVersion = clientVersion;
+		this.os = os;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }

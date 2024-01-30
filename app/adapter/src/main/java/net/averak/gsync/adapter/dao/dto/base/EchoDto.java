@@ -215,4 +215,17 @@ public class EchoDto extends AbstractDto<EchoDto> {
 	public boolean isPrimaryKeyEquals(EchoDto other) {
 		return Objects.equals(getEchoId(), other.getEchoId());
 	}
+
+	/**
+	 * マジックカラムにデフォルト値を設定するコンストラクタ
+	 *
+	 * @mbg.generated
+	 */
+	public EchoDto(@Nonnull String echoId, @Nonnull String message, @Nonnull LocalDateTime timestamp) {
+		this.echoId = echoId;
+		this.message = message;
+		this.timestamp = timestamp;
+		this.createdAt = LocalDateTime.now();
+		this.updatedAt = LocalDateTime.now();
+	}
 }
