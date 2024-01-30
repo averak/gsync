@@ -14,6 +14,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String version;
 
 	/**
@@ -23,6 +24,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Boolean isValid;
 
 	/**
@@ -32,6 +34,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String comment;
 
 	/**
@@ -41,6 +44,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class MasterVersionDto extends AbstractDto<MasterVersionDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

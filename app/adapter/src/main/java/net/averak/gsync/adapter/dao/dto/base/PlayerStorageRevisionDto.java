@@ -14,6 +14,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerStorageRevisionId;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String idempotencyKey;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -59,6 +64,7 @@ public class PlayerStorageRevisionDto extends AbstractDto<PlayerStorageRevisionD
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

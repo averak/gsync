@@ -14,6 +14,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String masterVersion;
 
 	/**
@@ -23,6 +24,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long maxFriendCount;
 
 	/**
@@ -32,6 +34,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long maxFriendRequestCount;
 
 	/**
@@ -41,6 +44,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class FriendSettingMasterDto extends AbstractDto<FriendSettingMasterDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

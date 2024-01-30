@@ -1,4 +1,4 @@
-package net.averak.gsync.infrastructure.mybatis.plugin
+package net.averak.gsync.mybatis
 
 import org.mybatis.generator.api.IntrospectedTable
 import org.mybatis.generator.api.PluginAdapter
@@ -38,6 +38,11 @@ class ResolveNullPlugin : PluginAdapter() {
                         parameter.addAnnotation(getAnnotationName(isNullable))
                     }
                 }
+            }
+        }
+        topLevelClass.fields.forEach { field ->
+            columnNullableMap[field.name]?.let { isNullable ->
+                field.addAnnotation(getAnnotationName(isNullable))
             }
         }
     }

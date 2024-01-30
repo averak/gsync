@@ -14,6 +14,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Long totalLoginDays;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime lastLoggedInAt;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerLoginDto extends AbstractDto<PlayerLoginDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

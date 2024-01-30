@@ -14,6 +14,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -23,6 +24,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String name;
 
 	/**
@@ -32,6 +34,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -41,6 +44,7 @@ public class GameDto extends AbstractDto<GameDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

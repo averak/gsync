@@ -14,6 +14,7 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String operatorId;
 
 	/**
@@ -23,6 +24,7 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -32,6 +34,7 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private Boolean isAdmin;
 
 	/**
@@ -41,6 +44,7 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class RGameOperatorDto extends AbstractDto<RGameOperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

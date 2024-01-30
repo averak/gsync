@@ -1,4 +1,4 @@
-package net.averak.gsync.infrastructure.mybatis.plugin
+package net.averak.gsync.mybatis
 
 import org.mybatis.generator.api.IntrospectedTable
 import org.mybatis.generator.api.PluginAdapter

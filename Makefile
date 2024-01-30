@@ -3,7 +3,7 @@ PROTOC_GEN_JAVA_PATH=tmp/bin/protoc-gen-grpc-java-${PROTOC_GEN_JAVA_VERSION}.exe
 
 .PHONY: build
 build:
-	./gradlew bootJar
+	./gradlew build -x test
 
 .PHONY: test
 test:
@@ -21,7 +21,7 @@ format:
 .PHONY: install-protoc-gen-plugin
 install-protoc-gen-plugin:
 	./gradlew :protoc-gen-java-gsync-server:build
-	chmod +x ./protoc-gen-java-gsync-server/build/scripts/protoc-gen-java-gsync-server
+	chmod +x ./plugin/protoc-gen-java-gsync-server/build/scripts/protoc-gen-java-gsync-server
 	mkdir -p tmp/bin
 	if [ ! -f ${PROTOC_GEN_JAVA_PATH} ]; then \
 		wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/${PROTOC_GEN_JAVA_VERSION}/protoc-gen-grpc-java-${PROTOC_GEN_JAVA_VERSION}-osx-x86_64.exe -O ${PROTOC_GEN_JAVA_PATH}; \
@@ -35,7 +35,7 @@ codegen:
 	find ./schema/protobuf -name "*.proto" | xargs -I {} protoc \
 		-I=schema/protobuf \
 		--plugin=protoc-gen-grpc-java=${PROTOC_GEN_JAVA_PATH} \
-		--plugin=protoc-gen-java-gsync-server=./protoc-gen-java-gsync-server/protoc-gen-java-gsync-server \
+		--plugin=protoc-gen-java-gsync-server=./plugin/protoc-gen-java-gsync-server/protoc-gen-java-gsync-server \
 		--java_out=protobuf/src/main/java \
 		--java-gsync-server_out=protobuf/src/main/java \
 		--grpc-java_out=protobuf/src/main/java {}

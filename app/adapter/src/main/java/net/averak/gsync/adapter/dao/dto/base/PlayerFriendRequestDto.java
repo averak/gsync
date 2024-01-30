@@ -14,6 +14,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String receiverPlayerId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime sentAt;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerFriendRequestDto extends AbstractDto<PlayerFriendRequestDto> 
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

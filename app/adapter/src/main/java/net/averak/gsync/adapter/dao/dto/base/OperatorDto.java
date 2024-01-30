@@ -14,6 +14,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String operatorId;
 
 	/**
@@ -23,6 +24,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String email;
 
 	/**
@@ -32,6 +34,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -41,6 +44,7 @@ public class OperatorDto extends AbstractDto<OperatorDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**

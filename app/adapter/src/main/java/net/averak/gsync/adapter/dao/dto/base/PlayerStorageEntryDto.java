@@ -14,6 +14,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String playerId;
 
 	/**
@@ -23,6 +24,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String gameId;
 
 	/**
@@ -32,6 +34,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private String key;
 
 	/**
@@ -41,6 +44,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime createdAt;
 
 	/**
@@ -50,6 +54,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private LocalDateTime updatedAt;
 
 	/**
@@ -59,6 +64,7 @@ public class PlayerStorageEntryDto extends AbstractDto<PlayerStorageEntryDto> {
 	 *
 	 * @mbg.generated
 	 */
+	@Nonnull
 	private byte[] value;
 
 	/**

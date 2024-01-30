@@ -91,7 +91,16 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "protobuf/**,/protoc-gen-java-gsync-server/**,testkit/**,**/dto/**,**/mapper/base/**")
+            property(
+                "sonar.exclusions",
+                listOf(
+                    "protobuf/**",
+                    "testkit/**",
+                    "plugin/**",
+                    "app/**/dto/**",
+                    "app/**/mapper/base/**",
+                ).joinToString(","),
+            )
         }
     }
 
@@ -165,7 +174,6 @@ project(":infrastructure") {
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
-        implementation(rootProject.libs.mybatis.generator.maven.plugin)
         implementation(rootProject.libs.google.protobuf)
         implementation(rootProject.libs.io.grpc.stub)
     }
@@ -219,6 +227,12 @@ project(":protobuf") {
         api(rootProject.libs.io.grpc.services)
         api(rootProject.libs.io.grpc.stub)
         api(rootProject.libs.google.protobuf.util)
+    }
+}
+
+project(":mybatis-generator-plugin") {
+    dependencies {
+        implementation(rootProject.libs.mybatis.generator.maven.plugin)
     }
 }
 
@@ -289,8 +303,7 @@ gitProperties {
 tasks {
     val mybatisGenerator: Configuration by configurations.creating
     dependencies {
-        mybatisGenerator(project(":infrastructure"))
-        mybatisGenerator(project(":protobuf"))
+        mybatisGenerator(project(":mybatis-generator-plugin"))
         mybatisGenerator(libs.mybatis.generator.core)
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
