@@ -4,7 +4,6 @@ import com.google.protobuf.GeneratedMessageV3
 import com.google.protobuf.util.JsonFormat
 import io.grpc.*
 import net.averak.gsync.core.logger.Logger
-import net.averak.gsync.infrastructure.grpc.player_api.metadata.OutgoingTrailerKey
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import net.averak.gsync.infrastructure.json.JsonUtils
 import org.springframework.core.annotation.Order
@@ -35,7 +34,7 @@ class AccessLogInterceptor(
             next.startCall(
                 object : ForwardingServerCall.SimpleForwardingServerCall<ReqT, RespT>(call) {
 
-                    lateinit var end: LocalDateTime
+                    var end: LocalDateTime? = null
 
                     @Suppress("kotlin:S108")
                     override fun sendMessage(message: RespT) {
@@ -62,14 +61,6 @@ class AccessLogInterceptor(
 
                         logger.info("access log", logMessage)
                         super.sendMessage(message)
-                    }
-
-                    override fun close(status: Status, trailers: Metadata) {
-                        trailers.put(
-                            Metadata.Key.of(OutgoingTrailerKey.RESPOND_TIMESTAMP.key, Metadata.ASCII_STRING_MARSHALLER),
-                            end.toString(),
-                        )
-                        super.close(status, trailers)
                     }
                 },
                 headers,

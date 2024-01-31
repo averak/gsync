@@ -27,6 +27,26 @@ class FriendUsecase(
         }
     }
 
+    fun sendRequest(gctx: GameContext, playerID: UUID, targetPlayerID: UUID) {
+        val setting = transaction.roTx {
+            friendRepository.getSetting(gctx)
+        }
+
+        transaction.rwTx {
+            val sentFriendRequests = friendRepository.getSentFriendRequests(gctx, playerID)
+            check(sentFriendRequests.size < setting.maxFriendRequestCount) {
+                "player sent friend requests is over max count."
+            }
+
+            val friendRequest = FriendRequest(
+                playerID,
+                targetPlayerID,
+                gctx.currentTime,
+            )
+            friendRepository.saveFriendRequest(gctx, friendRequest)
+        }
+    }
+
     data class ListResult(
         val friends: List<Friend>,
         val sentFriendRequests: List<FriendRequest>,

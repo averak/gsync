@@ -5,7 +5,7 @@ import net.averak.gsync.testkit.Faker
 import java.util.*
 
 data class PlayerDataBuilder(
-    val data: PlayerData,
+    private val data: PlayerData,
 ) {
 
     constructor(playerID: UUID) : this(
