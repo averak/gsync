@@ -12,3 +12,9 @@ message Friend {
   google.protobuf.Timestamp     become_friend_at = 2;
   resource.player.PlayerProfile profile          = 3;
 }
+
+message FriendRequest {
+  string                    sender_player_id   = 1;
+  string                    receiver_player_id = 2;
+  google.protobuf.Timestamp sent_at            = 3;
+}

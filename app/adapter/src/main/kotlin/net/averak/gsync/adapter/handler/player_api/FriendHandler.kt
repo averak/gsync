@@ -13,9 +13,11 @@ class FriendHandler(
 ) : IFriendHandler {
 
     override fun listV1(request: Request<FriendListV1.Request>): FriendListV1.Response {
-        val friends = friendUsecase.list(request.gctx, request.mustPrincipal().playerID)
-        return FriendListV1.Response.newBuilder().addAllFriends(
-            friends.map { FriendConverter.toPb(it) },
-        ).build()
+        val result = friendUsecase.list(request.gctx, request.mustPrincipal().playerID)
+        return FriendListV1.Response.newBuilder()
+            .addAllFriends(result.friends.map { FriendConverter.toPb(it) })
+            .addAllSentFriendRequests(result.sentFriendRequests.map { FriendConverter.toPb(it) })
+            .addAllReceivedFriendRequests(result.receivedFriendRequests.map { FriendConverter.toPb(it) })
+            .build()
     }
 }

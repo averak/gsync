@@ -13,6 +13,8 @@ service Friend {
 message FriendListV1 {
   message Request {}
   message Response {
-    repeated resource.friend.Friend friends = 1;
+    repeated resource.friend.Friend friends                         = 1;
+    repeated resource.friend.FriendRequest sent_friend_requests     = 2;
+    repeated resource.friend.FriendRequest received_friend_requests = 3;
   }
 }

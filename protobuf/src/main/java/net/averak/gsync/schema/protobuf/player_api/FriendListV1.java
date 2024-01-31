@@ -433,6 +433,50 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 		 * <code>repeated .gsync.resource.friend.Friend friends = 1;</code>
 		 */
 		net.averak.gsync.schema.protobuf.resource.friend.FriendOrBuilder getFriendsOrBuilder(int index);
+
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getSentFriendRequestsList();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getSentFriendRequests(int index);
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		int getSentFriendRequestsCount();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getSentFriendRequestsOrBuilderList();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getSentFriendRequestsOrBuilder(
+				int index);
+
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getReceivedFriendRequestsList();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getReceivedFriendRequests(int index);
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		int getReceivedFriendRequestsCount();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getReceivedFriendRequestsOrBuilderList();
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getReceivedFriendRequestsOrBuilder(
+				int index);
 	}
 	/**
 	 * Protobuf type {@code gsync.player_api.FriendListV1.Response}
@@ -448,6 +492,8 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 		}
 		private Response() {
 			friends_ = java.util.Collections.emptyList();
+			sentFriendRequests_ = java.util.Collections.emptyList();
+			receivedFriendRequests_ = java.util.Collections.emptyList();
 		}
 
 		@java.lang.Override
@@ -507,6 +553,86 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 			return friends_.get(index);
 		}
 
+		public static final int SENT_FRIEND_REQUESTS_FIELD_NUMBER = 2;
+		@SuppressWarnings("serial")
+		private java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> sentFriendRequests_;
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		@java.lang.Override
+		public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getSentFriendRequestsList() {
+			return sentFriendRequests_;
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		@java.lang.Override
+		public java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getSentFriendRequestsOrBuilderList() {
+			return sentFriendRequests_;
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		@java.lang.Override
+		public int getSentFriendRequestsCount() {
+			return sentFriendRequests_.size();
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		@java.lang.Override
+		public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getSentFriendRequests(int index) {
+			return sentFriendRequests_.get(index);
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+		 */
+		@java.lang.Override
+		public net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getSentFriendRequestsOrBuilder(
+				int index) {
+			return sentFriendRequests_.get(index);
+		}
+
+		public static final int RECEIVED_FRIEND_REQUESTS_FIELD_NUMBER = 3;
+		@SuppressWarnings("serial")
+		private java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> receivedFriendRequests_;
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		@java.lang.Override
+		public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getReceivedFriendRequestsList() {
+			return receivedFriendRequests_;
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		@java.lang.Override
+		public java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getReceivedFriendRequestsOrBuilderList() {
+			return receivedFriendRequests_;
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		@java.lang.Override
+		public int getReceivedFriendRequestsCount() {
+			return receivedFriendRequests_.size();
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		@java.lang.Override
+		public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getReceivedFriendRequests(int index) {
+			return receivedFriendRequests_.get(index);
+		}
+		/**
+		 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+		 */
+		@java.lang.Override
+		public net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getReceivedFriendRequestsOrBuilder(
+				int index) {
+			return receivedFriendRequests_.get(index);
+		}
+
 		private byte memoizedIsInitialized = -1;
 		@java.lang.Override
 		public final boolean isInitialized() {
@@ -525,6 +651,12 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 			for (int i = 0; i < friends_.size(); i++) {
 				output.writeMessage(1, friends_.get(i));
 			}
+			for (int i = 0; i < sentFriendRequests_.size(); i++) {
+				output.writeMessage(2, sentFriendRequests_.get(i));
+			}
+			for (int i = 0; i < receivedFriendRequests_.size(); i++) {
+				output.writeMessage(3, receivedFriendRequests_.get(i));
+			}
 			getUnknownFields().writeTo(output);
 		}
 
@@ -537,6 +669,12 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 			size = 0;
 			for (int i = 0; i < friends_.size(); i++) {
 				size += com.google.protobuf.CodedOutputStream.computeMessageSize(1, friends_.get(i));
+			}
+			for (int i = 0; i < sentFriendRequests_.size(); i++) {
+				size += com.google.protobuf.CodedOutputStream.computeMessageSize(2, sentFriendRequests_.get(i));
+			}
+			for (int i = 0; i < receivedFriendRequests_.size(); i++) {
+				size += com.google.protobuf.CodedOutputStream.computeMessageSize(3, receivedFriendRequests_.get(i));
 			}
 			size += getUnknownFields().getSerializedSize();
 			memoizedSize = size;
@@ -555,6 +693,10 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 
 			if (!getFriendsList().equals(other.getFriendsList()))
 				return false;
+			if (!getSentFriendRequestsList().equals(other.getSentFriendRequestsList()))
+				return false;
+			if (!getReceivedFriendRequestsList().equals(other.getReceivedFriendRequestsList()))
+				return false;
 			if (!getUnknownFields().equals(other.getUnknownFields()))
 				return false;
 			return true;
@@ -570,6 +712,14 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 			if (getFriendsCount() > 0) {
 				hash = (37 * hash) + FRIENDS_FIELD_NUMBER;
 				hash = (53 * hash) + getFriendsList().hashCode();
+			}
+			if (getSentFriendRequestsCount() > 0) {
+				hash = (37 * hash) + SENT_FRIEND_REQUESTS_FIELD_NUMBER;
+				hash = (53 * hash) + getSentFriendRequestsList().hashCode();
+			}
+			if (getReceivedFriendRequestsCount() > 0) {
+				hash = (37 * hash) + RECEIVED_FRIEND_REQUESTS_FIELD_NUMBER;
+				hash = (53 * hash) + getReceivedFriendRequestsList().hashCode();
 			}
 			hash = (29 * hash) + getUnknownFields().hashCode();
 			memoizedHashCode = hash;
@@ -694,6 +844,20 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 					friendsBuilder_.clear();
 				}
 				bitField0_ = (bitField0_ & ~0x00000001);
+				if (sentFriendRequestsBuilder_ == null) {
+					sentFriendRequests_ = java.util.Collections.emptyList();
+				} else {
+					sentFriendRequests_ = null;
+					sentFriendRequestsBuilder_.clear();
+				}
+				bitField0_ = (bitField0_ & ~0x00000002);
+				if (receivedFriendRequestsBuilder_ == null) {
+					receivedFriendRequests_ = java.util.Collections.emptyList();
+				} else {
+					receivedFriendRequests_ = null;
+					receivedFriendRequestsBuilder_.clear();
+				}
+				bitField0_ = (bitField0_ & ~0x00000004);
 				return this;
 			}
 
@@ -738,6 +902,24 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 					result.friends_ = friends_;
 				} else {
 					result.friends_ = friendsBuilder_.build();
+				}
+				if (sentFriendRequestsBuilder_ == null) {
+					if (((bitField0_ & 0x00000002) != 0)) {
+						sentFriendRequests_ = java.util.Collections.unmodifiableList(sentFriendRequests_);
+						bitField0_ = (bitField0_ & ~0x00000002);
+					}
+					result.sentFriendRequests_ = sentFriendRequests_;
+				} else {
+					result.sentFriendRequests_ = sentFriendRequestsBuilder_.build();
+				}
+				if (receivedFriendRequestsBuilder_ == null) {
+					if (((bitField0_ & 0x00000004) != 0)) {
+						receivedFriendRequests_ = java.util.Collections.unmodifiableList(receivedFriendRequests_);
+						bitField0_ = (bitField0_ & ~0x00000004);
+					}
+					result.receivedFriendRequests_ = receivedFriendRequests_;
+				} else {
+					result.receivedFriendRequests_ = receivedFriendRequestsBuilder_.build();
 				}
 			}
 
@@ -810,6 +992,58 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 						}
 					}
 				}
+				if (sentFriendRequestsBuilder_ == null) {
+					if (!other.sentFriendRequests_.isEmpty()) {
+						if (sentFriendRequests_.isEmpty()) {
+							sentFriendRequests_ = other.sentFriendRequests_;
+							bitField0_ = (bitField0_ & ~0x00000002);
+						} else {
+							ensureSentFriendRequestsIsMutable();
+							sentFriendRequests_.addAll(other.sentFriendRequests_);
+						}
+						onChanged();
+					}
+				} else {
+					if (!other.sentFriendRequests_.isEmpty()) {
+						if (sentFriendRequestsBuilder_.isEmpty()) {
+							sentFriendRequestsBuilder_.dispose();
+							sentFriendRequestsBuilder_ = null;
+							sentFriendRequests_ = other.sentFriendRequests_;
+							bitField0_ = (bitField0_ & ~0x00000002);
+							sentFriendRequestsBuilder_ = com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders
+									? getSentFriendRequestsFieldBuilder()
+									: null;
+						} else {
+							sentFriendRequestsBuilder_.addAllMessages(other.sentFriendRequests_);
+						}
+					}
+				}
+				if (receivedFriendRequestsBuilder_ == null) {
+					if (!other.receivedFriendRequests_.isEmpty()) {
+						if (receivedFriendRequests_.isEmpty()) {
+							receivedFriendRequests_ = other.receivedFriendRequests_;
+							bitField0_ = (bitField0_ & ~0x00000004);
+						} else {
+							ensureReceivedFriendRequestsIsMutable();
+							receivedFriendRequests_.addAll(other.receivedFriendRequests_);
+						}
+						onChanged();
+					}
+				} else {
+					if (!other.receivedFriendRequests_.isEmpty()) {
+						if (receivedFriendRequestsBuilder_.isEmpty()) {
+							receivedFriendRequestsBuilder_.dispose();
+							receivedFriendRequestsBuilder_ = null;
+							receivedFriendRequests_ = other.receivedFriendRequests_;
+							bitField0_ = (bitField0_ & ~0x00000004);
+							receivedFriendRequestsBuilder_ = com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders
+									? getReceivedFriendRequestsFieldBuilder()
+									: null;
+						} else {
+							receivedFriendRequestsBuilder_.addAllMessages(other.receivedFriendRequests_);
+						}
+					}
+				}
 				this.mergeUnknownFields(other.getUnknownFields());
 				onChanged();
 				return this;
@@ -846,6 +1080,30 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 								}
 								break;
 							} // case 10
+							case 18 : {
+								net.averak.gsync.schema.protobuf.resource.friend.FriendRequest m = input.readMessage(
+										net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.parser(),
+										extensionRegistry);
+								if (sentFriendRequestsBuilder_ == null) {
+									ensureSentFriendRequestsIsMutable();
+									sentFriendRequests_.add(m);
+								} else {
+									sentFriendRequestsBuilder_.addMessage(m);
+								}
+								break;
+							} // case 18
+							case 26 : {
+								net.averak.gsync.schema.protobuf.resource.friend.FriendRequest m = input.readMessage(
+										net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.parser(),
+										extensionRegistry);
+								if (receivedFriendRequestsBuilder_ == null) {
+									ensureReceivedFriendRequestsIsMutable();
+									receivedFriendRequests_.add(m);
+								} else {
+									receivedFriendRequestsBuilder_.addMessage(m);
+								}
+								break;
+							} // case 26
 							default : {
 								if (!super.parseUnknownField(input, extensionRegistry, tag)) {
 									done = true; // was an endgroup tag
@@ -1087,6 +1345,472 @@ public final class FriendListV1 extends com.google.protobuf.GeneratedMessageV3
 					friends_ = null;
 				}
 				return friendsBuilder_;
+			}
+
+			private java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> sentFriendRequests_ = java.util.Collections
+					.emptyList();
+			private void ensureSentFriendRequestsIsMutable() {
+				if (!((bitField0_ & 0x00000002) != 0)) {
+					sentFriendRequests_ = new java.util.ArrayList<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest>(
+							sentFriendRequests_);
+					bitField0_ |= 0x00000002;
+				}
+			}
+
+			private com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> sentFriendRequestsBuilder_;
+
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getSentFriendRequestsList() {
+				if (sentFriendRequestsBuilder_ == null) {
+					return java.util.Collections.unmodifiableList(sentFriendRequests_);
+				} else {
+					return sentFriendRequestsBuilder_.getMessageList();
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public int getSentFriendRequestsCount() {
+				if (sentFriendRequestsBuilder_ == null) {
+					return sentFriendRequests_.size();
+				} else {
+					return sentFriendRequestsBuilder_.getCount();
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getSentFriendRequests(int index) {
+				if (sentFriendRequestsBuilder_ == null) {
+					return sentFriendRequests_.get(index);
+				} else {
+					return sentFriendRequestsBuilder_.getMessage(index);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder setSentFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (sentFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.set(index, value);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.setMessage(index, value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder setSentFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (sentFriendRequestsBuilder_ == null) {
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.set(index, builderForValue.build());
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.setMessage(index, builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder addSentFriendRequests(net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (sentFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.add(value);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.addMessage(value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder addSentFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (sentFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.add(index, value);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.addMessage(index, value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder addSentFriendRequests(
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (sentFriendRequestsBuilder_ == null) {
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.add(builderForValue.build());
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.addMessage(builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder addSentFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (sentFriendRequestsBuilder_ == null) {
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.add(index, builderForValue.build());
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.addMessage(index, builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder addAllSentFriendRequests(
+					java.lang.Iterable<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> values) {
+				if (sentFriendRequestsBuilder_ == null) {
+					ensureSentFriendRequestsIsMutable();
+					com.google.protobuf.AbstractMessageLite.Builder.addAll(values, sentFriendRequests_);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.addAllMessages(values);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder clearSentFriendRequests() {
+				if (sentFriendRequestsBuilder_ == null) {
+					sentFriendRequests_ = java.util.Collections.emptyList();
+					bitField0_ = (bitField0_ & ~0x00000002);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.clear();
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public Builder removeSentFriendRequests(int index) {
+				if (sentFriendRequestsBuilder_ == null) {
+					ensureSentFriendRequestsIsMutable();
+					sentFriendRequests_.remove(index);
+					onChanged();
+				} else {
+					sentFriendRequestsBuilder_.remove(index);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder getSentFriendRequestsBuilder(
+					int index) {
+				return getSentFriendRequestsFieldBuilder().getBuilder(index);
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getSentFriendRequestsOrBuilder(
+					int index) {
+				if (sentFriendRequestsBuilder_ == null) {
+					return sentFriendRequests_.get(index);
+				} else {
+					return sentFriendRequestsBuilder_.getMessageOrBuilder(index);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getSentFriendRequestsOrBuilderList() {
+				if (sentFriendRequestsBuilder_ != null) {
+					return sentFriendRequestsBuilder_.getMessageOrBuilderList();
+				} else {
+					return java.util.Collections.unmodifiableList(sentFriendRequests_);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder addSentFriendRequestsBuilder() {
+				return getSentFriendRequestsFieldBuilder().addBuilder(
+						net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.getDefaultInstance());
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder addSentFriendRequestsBuilder(
+					int index) {
+				return getSentFriendRequestsFieldBuilder().addBuilder(index,
+						net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.getDefaultInstance());
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest sent_friend_requests = 2;</code>
+			 */
+			public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder> getSentFriendRequestsBuilderList() {
+				return getSentFriendRequestsFieldBuilder().getBuilderList();
+			}
+			private com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getSentFriendRequestsFieldBuilder() {
+				if (sentFriendRequestsBuilder_ == null) {
+					sentFriendRequestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder>(
+							sentFriendRequests_, ((bitField0_ & 0x00000002) != 0), getParentForChildren(), isClean());
+					sentFriendRequests_ = null;
+				}
+				return sentFriendRequestsBuilder_;
+			}
+
+			private java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> receivedFriendRequests_ = java.util.Collections
+					.emptyList();
+			private void ensureReceivedFriendRequestsIsMutable() {
+				if (!((bitField0_ & 0x00000004) != 0)) {
+					receivedFriendRequests_ = new java.util.ArrayList<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest>(
+							receivedFriendRequests_);
+					bitField0_ |= 0x00000004;
+				}
+			}
+
+			private com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> receivedFriendRequestsBuilder_;
+
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> getReceivedFriendRequestsList() {
+				if (receivedFriendRequestsBuilder_ == null) {
+					return java.util.Collections.unmodifiableList(receivedFriendRequests_);
+				} else {
+					return receivedFriendRequestsBuilder_.getMessageList();
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public int getReceivedFriendRequestsCount() {
+				if (receivedFriendRequestsBuilder_ == null) {
+					return receivedFriendRequests_.size();
+				} else {
+					return receivedFriendRequestsBuilder_.getCount();
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest getReceivedFriendRequests(int index) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					return receivedFriendRequests_.get(index);
+				} else {
+					return receivedFriendRequestsBuilder_.getMessage(index);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder setReceivedFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.set(index, value);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.setMessage(index, value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder setReceivedFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.set(index, builderForValue.build());
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.setMessage(index, builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder addReceivedFriendRequests(
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.add(value);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.addMessage(value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder addReceivedFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest value) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					if (value == null) {
+						throw new NullPointerException();
+					}
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.add(index, value);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.addMessage(index, value);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder addReceivedFriendRequests(
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.add(builderForValue.build());
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.addMessage(builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder addReceivedFriendRequests(int index,
+					net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder builderForValue) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.add(index, builderForValue.build());
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.addMessage(index, builderForValue.build());
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder addAllReceivedFriendRequests(
+					java.lang.Iterable<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequest> values) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					ensureReceivedFriendRequestsIsMutable();
+					com.google.protobuf.AbstractMessageLite.Builder.addAll(values, receivedFriendRequests_);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.addAllMessages(values);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder clearReceivedFriendRequests() {
+				if (receivedFriendRequestsBuilder_ == null) {
+					receivedFriendRequests_ = java.util.Collections.emptyList();
+					bitField0_ = (bitField0_ & ~0x00000004);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.clear();
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public Builder removeReceivedFriendRequests(int index) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					ensureReceivedFriendRequestsIsMutable();
+					receivedFriendRequests_.remove(index);
+					onChanged();
+				} else {
+					receivedFriendRequestsBuilder_.remove(index);
+				}
+				return this;
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder getReceivedFriendRequestsBuilder(
+					int index) {
+				return getReceivedFriendRequestsFieldBuilder().getBuilder(index);
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder getReceivedFriendRequestsOrBuilder(
+					int index) {
+				if (receivedFriendRequestsBuilder_ == null) {
+					return receivedFriendRequests_.get(index);
+				} else {
+					return receivedFriendRequestsBuilder_.getMessageOrBuilder(index);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public java.util.List<? extends net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getReceivedFriendRequestsOrBuilderList() {
+				if (receivedFriendRequestsBuilder_ != null) {
+					return receivedFriendRequestsBuilder_.getMessageOrBuilderList();
+				} else {
+					return java.util.Collections.unmodifiableList(receivedFriendRequests_);
+				}
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder addReceivedFriendRequestsBuilder() {
+				return getReceivedFriendRequestsFieldBuilder().addBuilder(
+						net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.getDefaultInstance());
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder addReceivedFriendRequestsBuilder(
+					int index) {
+				return getReceivedFriendRequestsFieldBuilder().addBuilder(index,
+						net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.getDefaultInstance());
+			}
+			/**
+			 * <code>repeated .gsync.resource.friend.FriendRequest received_friend_requests = 3;</code>
+			 */
+			public java.util.List<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder> getReceivedFriendRequestsBuilderList() {
+				return getReceivedFriendRequestsFieldBuilder().getBuilderList();
+			}
+			private com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder> getReceivedFriendRequestsFieldBuilder() {
+				if (receivedFriendRequestsBuilder_ == null) {
+					receivedFriendRequestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<net.averak.gsync.schema.protobuf.resource.friend.FriendRequest, net.averak.gsync.schema.protobuf.resource.friend.FriendRequest.Builder, net.averak.gsync.schema.protobuf.resource.friend.FriendRequestOrBuilder>(
+							receivedFriendRequests_, ((bitField0_ & 0x00000004) != 0), getParentForChildren(),
+							isClean());
+					receivedFriendRequests_ = null;
+				}
+				return receivedFriendRequestsBuilder_;
 			}
 			@java.lang.Override
 			public final Builder setUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {

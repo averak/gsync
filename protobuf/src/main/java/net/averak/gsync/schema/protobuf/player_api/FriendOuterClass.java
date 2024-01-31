@@ -26,11 +26,15 @@ public final class FriendOuterClass {
 	private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
 	static {
 		java.lang.String[] descriptorData = {"\n\027player_api/friend.proto\022\020gsync.player_"
-				+ "api\032\025resource/friend.proto\"U\n\014FriendList"
-				+ "V1\032\t\n\007Request\032:\n\010Response\022.\n\007friends\030\001 \003"
-				+ "(\0132\035.gsync.resource.friend.Friend2c\n\006Fri"
-				+ "end\022Y\n\006ListV1\022&.gsync.player_api.FriendL" + "istV1.Request\032\'.gsync.player_api.FriendL"
-				+ "istV1.ResponseB/\n+net.averak.gsync.schem" + "a.protobuf.player_apiP\001b\006proto3"};
+				+ "api\032\025resource/friend.proto\"\342\001\n\014FriendLis"
+				+ "tV1\032\t\n\007Request\032\306\001\n\010Response\022.\n\007friends\030\001"
+				+ " \003(\0132\035.gsync.resource.friend.Friend\022B\n\024s"
+				+ "ent_friend_requests\030\002 \003(\0132$.gsync.resour"
+				+ "ce.friend.FriendRequest\022F\n\030received_frie"
+				+ "nd_requests\030\003 \003(\0132$.gsync.resource.frien"
+				+ "d.FriendRequest2c\n\006Friend\022Y\n\006ListV1\022&.gs"
+				+ "ync.player_api.FriendListV1.Request\032\'.gs" + "ync.player_api.FriendListV1.ResponseB/\n+"
+				+ "net.averak.gsync.schema.protobuf.player_" + "apiP\001b\006proto3"};
 		descriptor = com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(descriptorData,
 				new com.google.protobuf.Descriptors.FileDescriptor[]{
 						net.averak.gsync.schema.protobuf.resource.friend.FriendOuterClass.getDescriptor(),});
@@ -44,7 +48,8 @@ public final class FriendOuterClass {
 		internal_static_gsync_player_api_FriendListV1_Response_descriptor = internal_static_gsync_player_api_FriendListV1_descriptor
 				.getNestedTypes().get(1);
 		internal_static_gsync_player_api_FriendListV1_Response_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-				internal_static_gsync_player_api_FriendListV1_Response_descriptor, new java.lang.String[]{"Friends",});
+				internal_static_gsync_player_api_FriendListV1_Response_descriptor,
+				new java.lang.String[]{"Friends", "SentFriendRequests", "ReceivedFriendRequests",});
 		net.averak.gsync.schema.protobuf.resource.friend.FriendOuterClass.getDescriptor();
 	}
 

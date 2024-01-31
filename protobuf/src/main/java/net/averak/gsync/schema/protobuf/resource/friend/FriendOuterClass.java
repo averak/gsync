@@ -15,6 +15,8 @@ public final class FriendOuterClass {
 	}
 	static final com.google.protobuf.Descriptors.Descriptor internal_static_gsync_resource_friend_Friend_descriptor;
 	static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gsync_resource_friend_Friend_fieldAccessorTable;
+	static final com.google.protobuf.Descriptors.Descriptor internal_static_gsync_resource_friend_FriendRequest_descriptor;
+	static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gsync_resource_friend_FriendRequest_fieldAccessorTable;
 
 	public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
 		return descriptor;
@@ -26,8 +28,11 @@ public final class FriendOuterClass {
 				+ "\025resource/player.proto\"\210\001\n\006Friend\022\021\n\tpla"
 				+ "yer_id\030\001 \001(\t\0224\n\020become_friend_at\030\002 \001(\0132\032"
 				+ ".google.protobuf.Timestamp\0225\n\007profile\030\003 "
-				+ "\001(\0132$.gsync.resource.player.PlayerProfil" + "eB4\n0net.averak.gsync.schema.protobuf.re"
-				+ "source.friendP\001b\006proto3"};
+				+ "\001(\0132$.gsync.resource.player.PlayerProfil"
+				+ "e\"r\n\rFriendRequest\022\030\n\020sender_player_id\030\001"
+				+ " \001(\t\022\032\n\022receiver_player_id\030\002 \001(\t\022+\n\007sent"
+				+ "_at\030\003 \001(\0132\032.google.protobuf.TimestampB4\n"
+				+ "0net.averak.gsync.schema.protobuf.resour" + "ce.friendP\001b\006proto3"};
 		descriptor = com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(descriptorData,
 				new com.google.protobuf.Descriptors.FileDescriptor[]{com.google.protobuf.TimestampProto.getDescriptor(),
 						net.averak.gsync.schema.protobuf.resource.player.Player.getDescriptor(),});
@@ -35,6 +40,10 @@ public final class FriendOuterClass {
 		internal_static_gsync_resource_friend_Friend_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
 				internal_static_gsync_resource_friend_Friend_descriptor,
 				new java.lang.String[]{"PlayerId", "BecomeFriendAt", "Profile",});
+		internal_static_gsync_resource_friend_FriendRequest_descriptor = getDescriptor().getMessageTypes().get(1);
+		internal_static_gsync_resource_friend_FriendRequest_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+				internal_static_gsync_resource_friend_FriendRequest_descriptor,
+				new java.lang.String[]{"SenderPlayerId", "ReceiverPlayerId", "SentAt",});
 		com.google.protobuf.TimestampProto.getDescriptor();
 		net.averak.gsync.schema.protobuf.resource.player.Player.getDescriptor();
 	}
