@@ -12,7 +12,6 @@ data class PlayerDataBuilder(
         PlayerData(
             player = Player(
                 id = playerID,
-                friendID = UUID.randomUUID(),
                 isBanned = false,
                 profile = PlayerProfile(
                     nickname = Faker.alphanumeric(10),
