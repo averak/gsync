@@ -8,7 +8,7 @@ import net.averak.gsync.schema.protobuf.player_api.EchoEchoV1
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
-import net.averak.gsync.testkit.Fixture
+import net.averak.gsync.testkit.fixture.Fixture
 import org.springframework.beans.factory.annotation.Autowired
 
 class ClientVersionInterceptor_UT extends AbstractDatabaseSpec {

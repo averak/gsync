@@ -3,6 +3,9 @@ package net.averak.gsync.testkit
 import groovy.sql.Sql
 import jakarta.annotation.PostConstruct
 import net.averak.gsync.infrastructure.redis.RedisClient
+import net.averak.gsync.testkit.fixture.Fixture
+import net.averak.gsync.testkit.fixture.setupper.MasterUp
+import net.averak.gsync.testkit.fixture.setupper.PlayerUp
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import spock.lang.Shared
@@ -17,6 +20,14 @@ abstract class AbstractDatabaseSpec extends AbstractSpec {
     @Autowired
     @Shared
     RedisClient redis
+
+    @Autowired
+    @Shared
+    MasterUp masterUp
+
+    @Autowired
+    @Shared
+    PlayerUp playerUp
 
     @PostConstruct
     private void init() {
