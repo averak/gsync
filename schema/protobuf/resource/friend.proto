@@ -1,0 +1,14 @@
+syntax = "proto3";
+package gsync.resource.friend;
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.resource.friend";
+
+import "google/protobuf/timestamp.proto";
+import "resource/player.proto";
+
+message Friend {
+  string                        player_id        = 1;
+  google.protobuf.Timestamp     become_friend_at = 2;
+  resource.player.PlayerProfile profile          = 3;
+}
