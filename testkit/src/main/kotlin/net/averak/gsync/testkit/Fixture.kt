@@ -52,9 +52,12 @@ class Fixture {
         private fun extractColumns(dto: Any): Map<String, Any> {
             val result = LinkedHashMap<String, Any>()
             dto.javaClass.declaredFields.forEach {
+                if (it.name == "serialVersionUID") {
+                    return@forEach
+                }
+
                 val columnName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, it.name)
                 it.isAccessible = true
-
                 when (val value = it[dto]) {
                     is LocalDateTime -> {
                         result["`$columnName`"] = Timestamp.valueOf(value)
