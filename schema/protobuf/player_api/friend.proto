@@ -1,0 +1,20 @@
+syntax = "proto3";
+package gsync.player_api;
+
+option java_multiple_files = true;
+option java_package        = "net.averak.gsync.schema.protobuf.player_api";
+
+import "resource/friend.proto";
+
+service Friend {
+  rpc ListV1(FriendListV1.Request) returns (FriendListV1.Response);
+}
+
+message FriendListV1 {
+  message Request {}
+  message Response {
+    repeated resource.friend.Friend friends                         = 1;
+    repeated resource.friend.FriendRequest sent_friend_requests     = 2;
+    repeated resource.friend.FriendRequest received_friend_requests = 3;
+  }
+}

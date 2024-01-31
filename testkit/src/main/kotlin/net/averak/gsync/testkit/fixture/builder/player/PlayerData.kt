@@ -5,8 +5,8 @@ import net.averak.gsync.domain.model.Friendship
 import net.averak.gsync.domain.model.Player
 import net.averak.gsync.domain.model.PlayerStorage
 
-data class Registry(
-    val player: Player? = null,
+data class PlayerData(
+    val player: Player,
     val playerStorage: PlayerStorage? = null,
     val friendships: List<Friendship> = emptyList(),
     val friendRequests: List<FriendRequest> = emptyList(),

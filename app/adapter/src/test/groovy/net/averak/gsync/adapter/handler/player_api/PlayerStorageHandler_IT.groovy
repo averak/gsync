@@ -9,7 +9,7 @@ import net.averak.gsync.schema.protobuf.player_api.PlayerStorageSetV1
 import net.averak.gsync.schema.protobuf.resource.player_storage.Criteria
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Faker
-import net.averak.gsync.testkit.fixture.builder.player.PlayerBuilder
+import net.averak.gsync.testkit.fixture.builder.player.PlayerDataBuilder
 import net.averak.gsync.testkit.fixture.builder.player.PlayerStorageBuilder
 
 class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
@@ -19,14 +19,16 @@ class PlayerStorageHandler_SearchV1_IT extends AbstractDatabaseSpec {
         final gctx = Faker.fake(GameContext)
         playerUp.setup(
             gctx,
-            new PlayerBuilder(Faker.uuidv5("p1")).build(),
-            new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-                .entries(
-                    new PlayerStorageEntry("group1#key1", "value1".bytes),
-                    new PlayerStorageEntry("group1#key2", "value2".bytes),
-                    new PlayerStorageEntry("group2#key1", "value3".bytes),
-                )
-                .build(),
+            new PlayerDataBuilder(Faker.uuidv5("p1"))
+                .playerStorage(
+                    new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+                        .entries(
+                            new PlayerStorageEntry("group1#key1", "value1".bytes),
+                            new PlayerStorageEntry("group1#key2", "value2".bytes),
+                            new PlayerStorageEntry("group2#key1", "value3".bytes),
+                        )
+                        .build(),
+                ).build()
         )
 
         when:
@@ -56,11 +58,13 @@ class PlayerStorageHandler_SetV1_IT extends AbstractDatabaseSpec {
         final gctx = Faker.fake(GameContext)
         playerUp.setup(
             gctx,
-            new PlayerBuilder(Faker.uuidv5("p1")).build(),
-            new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-                .revision(Faker.uuidv5("r1"))
-                .entries()
-                .build(),
+            new PlayerDataBuilder(Faker.uuidv5("p1"))
+                .playerStorage(
+                    new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+                        .revision(Faker.uuidv5("r1"))
+                        .entries()
+                        .build(),
+                ).build()
         )
 
         final entry = Faker.fake(PlayerStorageEntry)
@@ -100,15 +104,17 @@ class PlayerStorageHandler_ClearV1_IT extends AbstractDatabaseSpec {
         final gctx = Faker.fake(GameContext)
         playerUp.setup(
             gctx,
-            new PlayerBuilder(Faker.uuidv5("p1")).build(),
-            new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
-                .revision(Faker.uuidv5("current revision"))
-                .entries(
-                    new PlayerStorageEntry("group1#key1", "value1".bytes),
-                    new PlayerStorageEntry("group1#key2", "value2".bytes),
-                    new PlayerStorageEntry("group2#key1", "value3".bytes),
-                )
-                .build(),
+            new PlayerDataBuilder(Faker.uuidv5("p1"))
+                .playerStorage(
+                    new PlayerStorageBuilder(Faker.uuidv5("p1"), Faker.uuidv5("g1"))
+                        .revision(Faker.uuidv5("current revision"))
+                        .entries(
+                            new PlayerStorageEntry("group1#key1", "value1".bytes),
+                            new PlayerStorageEntry("group1#key2", "value2".bytes),
+                            new PlayerStorageEntry("group2#key1", "value3".bytes),
+                        )
+                        .build(),
+                ).build()
         )
 
         when:

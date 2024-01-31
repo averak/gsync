@@ -36,7 +36,7 @@ class PlayerStorageBuilder(
         return this
     }
 
-    fun build(): Registry {
-        return Registry(playerStorage = data)
+    fun build(): PlayerStorage {
+        return data
     }
 }
