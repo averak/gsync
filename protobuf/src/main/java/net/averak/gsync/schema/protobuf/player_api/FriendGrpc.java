@@ -40,6 +40,32 @@ public final class FriendGrpc {
 		return getListV1Method;
 	}
 
+	private static volatile io.grpc.MethodDescriptor<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> getSendRequestV1Method;
+
+	@io.grpc.stub.annotations.RpcMethod(fullMethodName = SERVICE_NAME + '/'
+			+ "SendRequestV1", requestType = net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request.class, responseType = net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response.class, methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+	public static io.grpc.MethodDescriptor<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> getSendRequestV1Method() {
+		io.grpc.MethodDescriptor<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> getSendRequestV1Method;
+		if ((getSendRequestV1Method = FriendGrpc.getSendRequestV1Method) == null) {
+			synchronized (FriendGrpc.class) {
+				if ((getSendRequestV1Method = FriendGrpc.getSendRequestV1Method) == null) {
+					FriendGrpc.getSendRequestV1Method = getSendRequestV1Method = io.grpc.MethodDescriptor.<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response>newBuilder()
+							.setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+							.setFullMethodName(generateFullMethodName(SERVICE_NAME, "SendRequestV1"))
+							.setSampledToLocalTracing(true)
+							.setRequestMarshaller(io.grpc.protobuf.ProtoUtils
+									.marshaller(net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request
+											.getDefaultInstance()))
+							.setResponseMarshaller(io.grpc.protobuf.ProtoUtils
+									.marshaller(net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response
+											.getDefaultInstance()))
+							.setSchemaDescriptor(new FriendMethodDescriptorSupplier("SendRequestV1")).build();
+				}
+			}
+		}
+		return getSendRequestV1Method;
+	}
+
 	/**
 	 * Creates a new async stub that supports all call types for the service
 	 */
@@ -91,6 +117,13 @@ public final class FriendGrpc {
 				io.grpc.stub.StreamObserver<net.averak.gsync.schema.protobuf.player_api.FriendListV1.Response> responseObserver) {
 			io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListV1Method(), responseObserver);
 		}
+
+		/**
+		 */
+		default void sendRequestV1(net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request request,
+				io.grpc.stub.StreamObserver<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> responseObserver) {
+			io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendRequestV1Method(), responseObserver);
+		}
 	}
 
 	/**
@@ -124,6 +157,14 @@ public final class FriendGrpc {
 			io.grpc.stub.ClientCalls.asyncUnaryCall(getChannel().newCall(getListV1Method(), getCallOptions()), request,
 					responseObserver);
 		}
+
+		/**
+		 */
+		public void sendRequestV1(net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request request,
+				io.grpc.stub.StreamObserver<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> responseObserver) {
+			io.grpc.stub.ClientCalls.asyncUnaryCall(getChannel().newCall(getSendRequestV1Method(), getCallOptions()),
+					request, responseObserver);
+		}
 	}
 
 	/**
@@ -144,6 +185,14 @@ public final class FriendGrpc {
 		public net.averak.gsync.schema.protobuf.player_api.FriendListV1.Response listV1(
 				net.averak.gsync.schema.protobuf.player_api.FriendListV1.Request request) {
 			return io.grpc.stub.ClientCalls.blockingUnaryCall(getChannel(), getListV1Method(), getCallOptions(),
+					request);
+		}
+
+		/**
+		 */
+		public net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response sendRequestV1(
+				net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request request) {
+			return io.grpc.stub.ClientCalls.blockingUnaryCall(getChannel(), getSendRequestV1Method(), getCallOptions(),
 					request);
 		}
 	}
@@ -169,9 +218,18 @@ public final class FriendGrpc {
 			return io.grpc.stub.ClientCalls.futureUnaryCall(getChannel().newCall(getListV1Method(), getCallOptions()),
 					request);
 		}
+
+		/**
+		 */
+		public com.google.common.util.concurrent.ListenableFuture<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response> sendRequestV1(
+				net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request request) {
+			return io.grpc.stub.ClientCalls
+					.futureUnaryCall(getChannel().newCall(getSendRequestV1Method(), getCallOptions()), request);
+		}
 	}
 
 	private static final int METHODID_LIST_V1 = 0;
+	private static final int METHODID_SEND_REQUEST_V1 = 1;
 
 	private static final class MethodHandlers<Req, Resp>
 			implements
@@ -195,6 +253,11 @@ public final class FriendGrpc {
 					serviceImpl.listV1((net.averak.gsync.schema.protobuf.player_api.FriendListV1.Request) request,
 							(io.grpc.stub.StreamObserver<net.averak.gsync.schema.protobuf.player_api.FriendListV1.Response>) responseObserver);
 					break;
+				case METHODID_SEND_REQUEST_V1 :
+					serviceImpl.sendRequestV1(
+							(net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request) request,
+							(io.grpc.stub.StreamObserver<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response>) responseObserver);
+					break;
 				default :
 					throw new AssertionError();
 			}
@@ -215,6 +278,9 @@ public final class FriendGrpc {
 				.addMethod(getListV1Method(), io.grpc.stub.ServerCalls.asyncUnaryCall(
 						new MethodHandlers<net.averak.gsync.schema.protobuf.player_api.FriendListV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendListV1.Response>(
 								service, METHODID_LIST_V1)))
+				.addMethod(getSendRequestV1Method(), io.grpc.stub.ServerCalls.asyncUnaryCall(
+						new MethodHandlers<net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Request, net.averak.gsync.schema.protobuf.player_api.FriendSendRequestV1.Response>(
+								service, METHODID_SEND_REQUEST_V1)))
 				.build();
 	}
 
@@ -266,7 +332,7 @@ public final class FriendGrpc {
 				if (result == null) {
 					serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
 							.setSchemaDescriptor(new FriendFileDescriptorSupplier()).addMethod(getListV1Method())
-							.build();
+							.addMethod(getSendRequestV1Method()).build();
 				}
 			}
 		}

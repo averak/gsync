@@ -22,4 +22,10 @@ public class FriendHandlerWrapper extends FriendGrpc.FriendImplBase {
 		handlerWrapper.invoke(handler::listV1, request, responseObserver);
 	}
 
+	@Override
+	public void sendRequestV1(FriendSendRequestV1.Request request,
+			StreamObserver<FriendSendRequestV1.Response> responseObserver) {
+		handlerWrapper.invoke(handler::sendRequestV1, request, responseObserver);
+	}
+
 }
