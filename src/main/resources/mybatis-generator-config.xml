@@ -10,10 +10,12 @@
 
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
         <plugin type="net.averak.gsync.mybatis.BulkInsertPlugin"/>
         <plugin type="net.averak.gsync.mybatis.InsertOrUpdatePlugin"/>
         <plugin type="net.averak.gsync.mybatis.MagicColumnsPlugin"/>
+        <plugin type="net.averak.gsync.mybatis.MasterDataCachePlugin"/>
         <plugin type="net.averak.gsync.mybatis.RenameGeneratedFilesPlugin"/>
         <plugin type="net.averak.gsync.mybatis.ResolveNullPlugin"/>
         <plugin type="net.averak.gsync.mybatis.SuppressWarningsPlugin"/>
