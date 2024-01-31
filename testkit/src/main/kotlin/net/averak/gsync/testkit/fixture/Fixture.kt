@@ -1,4 +1,4 @@
-package net.averak.gsync.testkit
+package net.averak.gsync.testkit.fixture
 
 import com.google.common.base.CaseFormat
 import groovy.sql.Sql
@@ -19,7 +19,7 @@ class Fixture {
          */
         @JvmStatic
         fun init(sql: Sql) {
-            Fixture.sql = sql
+            Companion.sql = sql
         }
 
         /**

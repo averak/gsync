@@ -4,6 +4,7 @@ import com.google.protobuf.AbstractMessage
 import io.grpc.*
 import jakarta.annotation.PostConstruct
 import net.averak.gsync.core.config.Config
+import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.model.Os
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
@@ -74,6 +75,10 @@ class GrpcTester(
             metadata[IncomingHeaderKey.GAME_ID] = value.toString()
         }
 
+        fun idempotencyKey(value: UUID) {
+            metadata[IncomingHeaderKey.IDEMPOTENCY_KEY] = value.toString()
+        }
+
         fun spoofingPlayerID(value: UUID) {
             metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
         }
@@ -84,6 +89,12 @@ class GrpcTester(
 
         fun spoofingCurrentTime(value: LocalDateTime) {
             metadata[IncomingHeaderKey.DEBUG_SPOOFING_CURRENT_TIME] = value.toString()
+        }
+
+        fun gameContext(gctx: GameContext) {
+            idempotencyKey(gctx.idempotencyKey)
+            spoofingMasterVersion(gctx.masterVersion)
+            spoofingCurrentTime(gctx.currentTime)
         }
     }
 

@@ -10,7 +10,7 @@ import net.averak.gsync.domain.model.PlayerProfile
 import net.averak.gsync.testkit.AbstractDatabaseSpec
 import net.averak.gsync.testkit.Assert
 import net.averak.gsync.testkit.Faker
-import net.averak.gsync.testkit.Fixture
+import net.averak.gsync.testkit.fixture.Fixture
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Shared
 

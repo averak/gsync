@@ -53,7 +53,6 @@ allprojects {
         }
 
         // 現時点で K2 compiler はベータ版なので、導入を見送っている
-        // K2 コンパイラはまだ試験的なものなので、
         // sourceSets {
         //     all {
         //         languageSettings {
