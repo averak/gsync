@@ -5,14 +5,13 @@ import net.averak.gsync.testkit.Faker
 import java.util.*
 
 data class PlayerDataBuilder(
-    val data: PlayerData,
+    private val data: PlayerData,
 ) {
 
     constructor(playerID: UUID) : this(
         PlayerData(
             player = Player(
                 id = playerID,
-                friendID = UUID.randomUUID(),
                 isBanned = false,
                 profile = PlayerProfile(
                     nickname = Faker.alphanumeric(10),

@@ -48,12 +48,10 @@ CREATE TABLE gsync_required_client_version
 CREATE TABLE gsync_player
 (
     player_id  STRING(36) NOT NULL,
-    friend_id  STRING(36) NOT NULL,
     is_banned  BOOL      NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
 ) PRIMARY KEY (player_id);
-CREATE UNIQUE INDEX idx__gsync_player__friend_id ON gsync_player (friend_id);
 
 CREATE TABLE gsync_player_profile
 (

@@ -4,6 +4,7 @@ import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.repository.IFriendRepository
 import net.averak.gsync.domain.repository.IPlayerRepository
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
+import net.averak.gsync.testkit.Faker
 import net.averak.gsync.testkit.fixture.builder.player.PlayerData
 import org.springframework.stereotype.Component
 
@@ -13,6 +14,10 @@ class PlayerUp(
     private val playerStorageRepository: IPlayerStorageRepository,
     private val friendRepository: IFriendRepository,
 ) {
+
+    fun setup(vararg data: PlayerData) {
+        setup(Faker.fake(GameContext::class.java), *data)
+    }
 
     fun setup(gctx: GameContext, vararg data: PlayerData) {
         data.forEach { player ->

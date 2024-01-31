@@ -90,7 +90,6 @@ class PlayerDtoRandomizer implements IRandomizer {
     Object getRandomValue() {
         return new PlayerDto(
             Faker.uuidv4().toString(),
-            Faker.uuidv4().toString(),
             false,
         )
     }

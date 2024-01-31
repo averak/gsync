@@ -3,7 +3,7 @@ package net.averak.gsync.testkit.fixture.builder.master
 import net.averak.gsync.domain.model.FriendSetting
 
 data class MasterDataBuilder(
-    val data: MasterData,
+    private val data: MasterData,
 ) {
 
     constructor() : this(MasterData())

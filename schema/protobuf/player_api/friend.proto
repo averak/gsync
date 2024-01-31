@@ -8,6 +8,7 @@ import "resource/friend.proto";
 
 service Friend {
   rpc ListV1(FriendListV1.Request) returns (FriendListV1.Response);
+  rpc SendRequestV1(FriendSendRequestV1.Request) returns (FriendSendRequestV1.Response);
 }
 
 message FriendListV1 {
@@ -17,4 +18,11 @@ message FriendListV1 {
     repeated resource.friend.FriendRequest sent_friend_requests     = 2;
     repeated resource.friend.FriendRequest received_friend_requests = 3;
   }
+}
+
+message FriendSendRequestV1 {
+  message Request {
+    string player_id = 1;
+  }
+  message Response {}
 }

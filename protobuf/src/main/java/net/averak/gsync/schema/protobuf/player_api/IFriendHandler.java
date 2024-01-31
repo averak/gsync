@@ -9,4 +9,6 @@ import javax.annotation.Nonnull;
 public interface IFriendHandler {
 	@Nonnull
 	FriendListV1.Response listV1(@Nonnull Request<FriendListV1.Request> request);
+	@Nonnull
+	FriendSendRequestV1.Response sendRequestV1(@Nonnull Request<FriendSendRequestV1.Request> request);
 }

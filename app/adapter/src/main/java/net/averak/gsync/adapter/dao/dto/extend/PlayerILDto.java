@@ -1,15 +1,13 @@
 package net.averak.gsync.adapter.dao.dto.extend;
 
-import java.time.LocalDateTime;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.NotNull;
-
 import net.averak.gsync.adapter.dao.dto.base.PlayerDto;
 import net.averak.gsync.adapter.dao.dto.base.PlayerLoginDto;
 import net.averak.gsync.adapter.dao.dto.base.PlayerProfileDto;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.time.LocalDateTime;
 
 @SuppressWarnings({"NotNullFieldNotInitialized", "java:S2637"})
 public class PlayerILDto extends PlayerDto {
@@ -20,9 +18,9 @@ public class PlayerILDto extends PlayerDto {
 	@Nullable
 	PlayerLoginDto playerLogin;
 
-	public PlayerILDto(@NotNull String playerId, @NotNull String friendId, @NotNull Boolean isBanned,
-			@NotNull LocalDateTime createdAt, @NotNull LocalDateTime updatedAt) {
-		super(playerId, friendId, isBanned, createdAt, updatedAt);
+	public PlayerILDto(@NotNull String playerId, @NotNull Boolean isBanned, @NotNull LocalDateTime createdAt,
+			@NotNull LocalDateTime updatedAt) {
+		super(playerId, isBanned, createdAt, updatedAt);
 	}
 
 	@Nonnull

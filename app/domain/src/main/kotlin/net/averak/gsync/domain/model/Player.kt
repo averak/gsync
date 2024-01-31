@@ -5,7 +5,6 @@ import java.util.*
 
 data class Player(
     val id: UUID,
-    val friendID: UUID,
     val isBanned: Boolean,
     val profile: PlayerProfile,
     var login: PlayerLogin?,
