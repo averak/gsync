@@ -23,7 +23,7 @@ class FriendSettingBuilder(
         return this
     }
 
-    fun build(): Registry {
-        return Registry(friendSetting = data)
+    fun build(): FriendSetting {
+        return data
     }
 }

@@ -4,7 +4,7 @@ import net.averak.gsync.core.game_context.GameContext
 import net.averak.gsync.domain.repository.IFriendRepository
 import net.averak.gsync.domain.repository.IPlayerRepository
 import net.averak.gsync.domain.repository.IPlayerStorageRepository
-import net.averak.gsync.testkit.fixture.builder.player.Registry
+import net.averak.gsync.testkit.fixture.builder.player.PlayerData
 import org.springframework.stereotype.Component
 
 @Component
@@ -14,18 +14,16 @@ class PlayerUp(
     private val friendRepository: IFriendRepository,
 ) {
 
-    fun setup(gctx: GameContext, vararg registry: Registry) {
-        registry.forEach { data ->
-            if (data.player != null) {
-                playerRepository.save(gctx, data.player)
+    fun setup(gctx: GameContext, vararg data: PlayerData) {
+        data.forEach { player ->
+            playerRepository.save(gctx, player.player)
+            if (player.playerStorage != null) {
+                playerStorageRepository.save(gctx, player.playerStorage)
             }
-            if (data.playerStorage != null) {
-                playerStorageRepository.save(gctx, data.playerStorage)
-            }
-            data.friendships.forEach { friendship ->
+            player.friendships.forEach { friendship ->
                 friendRepository.saveFriendship(gctx, friendship)
             }
-            data.friendRequests.forEach { friendRequest ->
+            player.friendRequests.forEach { friendRequest ->
                 friendRepository.saveFriendRequest(gctx, friendRequest)
             }
         }
