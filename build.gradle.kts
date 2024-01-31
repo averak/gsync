@@ -43,22 +43,24 @@ allprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlin {
         jvmToolchain {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(21)
         }
 
-        sourceSets {
-            all {
-                languageSettings {
-                    languageVersion = "2.0"
-                }
-            }
-        }
+        // 現時点で K2 compiler はベータ版なので、導入を見送っている
+        // K2 コンパイラはまだ試験的なものなので、
+        // sourceSets {
+        //     all {
+        //         languageSettings {
+        //             languageVersion = "2.0"
+        //         }
+        //     }
+        // }
     }
 
     spotless {
