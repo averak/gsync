@@ -1,6 +1,7 @@
 package net.averak.gsync.infrastructure.grpc.player_api
 
 import com.google.protobuf.AbstractMessage
+import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.RequestScope
 import org.springframework.stereotype.Component
@@ -32,10 +33,14 @@ class HandlerWrapper(
         try {
             val response = method(request)
             responseObserver.onNext(response)
-        } catch (ex: Exception) {
-            responseObserver.onError(ex)
-        } finally {
             responseObserver.onCompleted()
+        } catch (ex: Exception) {
+            responseObserver.onError(
+                Status.ABORTED
+                    .withDescription(ex.message)
+                    .withCause(ex)
+                    .asRuntimeException(),
+            )
         }
     }
 }

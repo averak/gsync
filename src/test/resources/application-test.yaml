@@ -3,6 +3,10 @@ spring:
     redis:
       database: 1
 
+mybatis:
+  configuration:
+    cache-enabled: false
+
 gsync:
   debug: true
   player-api:

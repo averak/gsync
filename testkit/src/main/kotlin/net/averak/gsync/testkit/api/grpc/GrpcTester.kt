@@ -7,6 +7,7 @@ import net.averak.gsync.core.config.Config
 import net.averak.gsync.domain.model.Os
 import net.averak.gsync.infrastructure.grpc.player_api.metadata.IncomingHeaderKey
 import net.averak.gsync.schema.protobuf.player_api.EchoGrpc
+import net.averak.gsync.schema.protobuf.player_api.FriendGrpc
 import net.averak.gsync.schema.protobuf.player_api.PlayerStorageGrpc
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -23,7 +24,10 @@ class GrpcTester(
 
         private lateinit var channel: ManagedChannel
 
+        // TODO: grpc stub を自動生成する（したい）
         lateinit var echo: EchoGrpc.EchoBlockingStub
+
+        lateinit var friend: FriendGrpc.FriendBlockingStub
 
         lateinit var playerStorage: PlayerStorageGrpc.PlayerStorageBlockingStub
     }
@@ -35,6 +39,7 @@ class GrpcTester(
             .intercept(MetadataInterceptor())
             .build()
         echo = EchoGrpc.newBlockingStub(channel)
+        friend = FriendGrpc.newBlockingStub(channel)
         playerStorage = PlayerStorageGrpc.newBlockingStub(channel)
     }
 
@@ -70,12 +75,8 @@ class GrpcTester(
             metadata[IncomingHeaderKey.CLIENT_OS] = os.name
         }
 
-        fun gameID(value: UUID) {
-            metadata[IncomingHeaderKey.GAME_ID] = value.toString()
-        }
-
-        fun spoofingPlayerID(value: UUID) {
-            metadata[IncomingHeaderKey.DEBUG_SPOOFING_PLAYER_ID] = value.toString()
+        fun idempotencyKey(value: UUID) {
+            metadata[IncomingHeaderKey.IDEMPOTENCY_KEY] = value.toString()
         }
 
         fun spoofingMasterVersion(value: UUID) {

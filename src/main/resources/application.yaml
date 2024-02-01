@@ -43,7 +43,10 @@ server:
 
 mybatis:
   configuration:
+    cache-enabled: true
+    default-executor-type: REUSE
     map-underscore-to-camel-case: true
+    local-cache-scope: statement
   mapperLocations:
     - classpath:/dao/base/*.xml
     - classpath:/dao/extend/*.xml

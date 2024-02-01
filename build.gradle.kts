@@ -43,22 +43,23 @@ allprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlin {
         jvmToolchain {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(21)
         }
 
-        sourceSets {
-            all {
-                languageSettings {
-                    languageVersion = "2.0"
-                }
-            }
-        }
+        // 現時点で K2 compiler はベータ版なので、導入を見送っている
+        // sourceSets {
+        //     all {
+        //         languageSettings {
+        //             languageVersion = "2.0"
+        //         }
+        //     }
+        // }
     }
 
     spotless {
@@ -91,7 +92,16 @@ allprojects {
             property("sonar.projectKey", "averak_gsync")
             property("sonar.organization", "averak")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.exclusions", "protobuf/**,/protoc-gen-java-gsync-server/**,testkit/**,**/dto/**,**/mapper/base/**")
+            property(
+                "sonar.exclusions",
+                listOf(
+                    "protobuf/**",
+                    "testkit/**",
+                    "plugin/**",
+                    "app/**/dto/**",
+                    "app/**/mapper/base/**",
+                ).joinToString(","),
+            )
         }
     }
 
@@ -110,13 +120,6 @@ allprojects {
 
         processTestResources {
             dependsOn(":generateGitProperties")
-        }
-
-        jacocoTestReport {
-            reports {
-                xml.required = true
-                csv.required = true
-            }
         }
     }
 }
@@ -172,7 +175,6 @@ project(":infrastructure") {
         implementation(rootProject.libs.jackson.module.kotlin)
         implementation(rootProject.libs.jackson.datatype.jsr310)
         implementation(rootProject.libs.mybatis.spring.boot.starter)
-        implementation(rootProject.libs.mybatis.generator.maven.plugin)
         implementation(rootProject.libs.google.protobuf)
         implementation(rootProject.libs.io.grpc.stub)
     }
@@ -226,6 +228,12 @@ project(":protobuf") {
         api(rootProject.libs.io.grpc.services)
         api(rootProject.libs.io.grpc.stub)
         api(rootProject.libs.google.protobuf.util)
+    }
+}
+
+project(":mybatis-generator-plugin") {
+    dependencies {
+        implementation(rootProject.libs.mybatis.generator.maven.plugin)
     }
 }
 
@@ -296,12 +304,11 @@ gitProperties {
 tasks {
     val mybatisGenerator: Configuration by configurations.creating
     dependencies {
-        mybatisGenerator(project(":infrastructure"))
-        mybatisGenerator(project(":protobuf"))
+        mybatisGenerator(project(":mybatis-generator-plugin"))
         mybatisGenerator(libs.mybatis.generator.core)
         mybatisGenerator(libs.google.cloud.spanner.jdbc)
     }
-    register("mbgenerate", Task::class) {
+    register("mbGenerate", Task::class) {
         doFirst {
             fileTree("$rootDir/app/adapter/src/main/java/net/averak/gsync/adapter/dao/dto/base") {
                 include("**/*.java")
@@ -329,6 +336,44 @@ tasks {
                     "verbose" to true,
                 )
             }
+        }
+    }
+
+    jacocoTestReport {
+        additionalSourceDirs.setFrom(
+            files(
+                subprojects.map { it.projectDir.resolve("src/main/java") },
+                subprojects.map { it.projectDir.resolve("src/main/kotlin") },
+            ),
+        )
+        sourceDirectories.setFrom(
+            files(
+                subprojects.map { it.projectDir.resolve("src/main/java") },
+                subprojects.map { it.projectDir.resolve("src/main/kotlin") },
+            ),
+        )
+        classDirectories.setFrom(
+            files(
+                subprojects.flatMap { project ->
+                    listOf(
+                        project.layout.buildDirectory.dir("classes/java/main"),
+                        project.layout.buildDirectory.dir("classes/kotlin/main"),
+                    )
+                },
+            ),
+        )
+        executionData.setFrom(
+            files(
+                subprojects.mapNotNull { project ->
+                    project.tasks.findByName("test")?.let { task ->
+                        project.layout.buildDirectory.file("jacoco/${task.name}.exec").get().asFile
+                    }
+                },
+            ),
+        )
+        reports {
+            xml.required = true
+            csv.required = true
         }
     }
 }

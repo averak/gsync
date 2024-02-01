@@ -104,15 +104,11 @@ open class FriendRepository(
                 friendship.playerIDs.first.toString(),
                 friendship.playerIDs.second.toString(),
                 friendship.becomeFriendAt,
-                gctx.currentTime,
-                gctx.currentTime,
             ),
             PlayerFriendDto(
                 friendship.playerIDs.second.toString(),
                 friendship.playerIDs.first.toString(),
                 friendship.becomeFriendAt,
-                gctx.currentTime,
-                gctx.currentTime,
             ),
         )
         playerFriendMapper.syncOriginal(dtos)
@@ -137,8 +133,6 @@ open class FriendRepository(
             friendRequest.playerID.toString(),
             friendRequest.receiverPlayerID.toString(),
             friendRequest.sentAt,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerFriendRequestMapper.syncOriginal(dto)
         playerFriendRequestMapper.insertOrUpdate(dto)

@@ -24,7 +24,7 @@ For more information, see [Makefile](./Makefile).
 
 ### Environments
 
-* Java OpenJDK 17
+* Java OpenJDK 21
 * Kotlin 1.9
 * Spring Boot 3.2
 * Cloud Spanner

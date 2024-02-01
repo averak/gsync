@@ -35,10 +35,7 @@ open class PlayerRepository(
         // クエリ数が多いので、プロフィールとログイン履歴は別モデルに切り出した方が良いかもしれない
         val dto = PlayerDto(
             player.id.toString(),
-            player.friendID.toString(),
             player.isBanned,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerMapper.syncOriginal(dto)
         playerMapper.insertOrUpdate(dto)
@@ -47,8 +44,6 @@ open class PlayerRepository(
             player.id.toString(),
             player.profile.nickname,
             player.profile.iconID,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerProfileMapper.syncOriginal(profileDto)
         playerProfileMapper.insertOrUpdate(profileDto)
@@ -63,8 +58,6 @@ open class PlayerRepository(
             player.id.toString(),
             login.totalLoginDays.toLong(),
             login.lastLoggedInAt,
-            gctx.currentTime,
-            gctx.currentTime,
         )
         playerLoginMapper.syncOriginal(loginDto)
         playerLoginMapper.insertOrUpdate(loginDto)
@@ -75,7 +68,6 @@ open class PlayerRepository(
         fun convertDtoToModel(dto: PlayerILDto): Player {
             return Player(
                 id = UUID.fromString(dto.playerId),
-                friendID = UUID.fromString(dto.friendId),
                 isBanned = dto.isBanned,
                 profile = convertDtoToModel(dto.playerProfile),
                 login = dto.playerLogin?.let {
