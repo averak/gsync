@@ -14,10 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @Controller
 @RestControllerAdvice
-class GlobalRestControllerAdvice(
-    private val customLogger: Logger,
-    private val requestScope: RequestScope,
-) : ResponseEntityExceptionHandler() {
+class GlobalRestControllerAdvice : ResponseEntityExceptionHandler() {
 
     @RequestMapping("/**")
     fun handleApiNotFound(): ResponseEntity<Any> {
@@ -37,7 +34,7 @@ class GlobalRestControllerAdvice(
     @ExceptionHandler(ClientAbortException::class)
     fun handleException(ex: ClientAbortException) {
         // クライアントがリクエストを中断した場合は警告ログを残し、処理を中断する
-        customLogger.warn(requestScope.getGameContext(), ex)
+        Logger.warn(ex)
     }
 
     @SuppressWarnings("kotlin:S6510")
@@ -54,12 +51,7 @@ class GlobalRestControllerAdvice(
             }
 
             else -> {
-                try {
-                    this.customLogger.error(requestScope.getGameContext(), e)
-                } catch (_: HttpMetadataNotFoundException) {
-                    // ゲームコンテキストの取得に失敗する場合でも確実にログを吐く
-                    this.customLogger.error(e)
-                }
+                Logger.error(e)
                 return ResponseEntity(ErrorResponse(e), HttpStatus.INTERNAL_SERVER_ERROR)
             }
         }
