@@ -1,89 +1,68 @@
 package net.averak.gsync.core.logger
 
 import net.averak.gsync.core.config.Config
-import net.averak.gsync.core.game_context.GameContext
 import net.logstash.logback.argument.StructuredArgument
 import net.logstash.logback.argument.StructuredArguments
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class Logger(
-    private val config: Config,
-) {
+class Logger {
 
-    private val logger = LoggerFactory.getLogger(Logger::class.java)
-
-    fun info(message: String, payload: Map<String, Any?>) {
-        this.logger.info(
-            message,
-            makeServerInfoPayload(),
-            StructuredArguments.value("payload", payload),
-        )
+    @Autowired
+    private fun init(config: Config) {
+        Logger.config = config
     }
 
-    fun info(gctx: GameContext, message: String, payload: Map<String, Any?>) {
-        this.logger.info(
-            message,
-            makeServerInfoPayload(),
-            makeGameContextPayload(gctx),
-            StructuredArguments.value("payload", payload),
-        )
-    }
+    companion object {
 
-    fun warn(gctx: GameContext, exception: Exception) {
-        this.logger.warn(
-            exception.toString(),
-            makeServerInfoPayload(),
-            makeGameContextPayload(gctx),
-            StructuredArguments.value("exception", exception),
-        )
-    }
+        private lateinit var config: Config
 
-    fun error(message: String, exception: Exception, payload: Map<String, Any?>) {
-        this.logger.error(
-            message,
-            makeServerInfoPayload(),
-            StructuredArguments.value("payload", payload),
-            StructuredArguments.value("exception", exception),
-        )
-    }
+        private val logger = LoggerFactory.getLogger(Logger::class.java)
 
-    fun error(exception: Exception) {
-        this.logger.error(
-            exception.toString(),
-            makeServerInfoPayload(),
-            StructuredArguments.value("exception", exception),
-        )
-    }
+        fun info(payload: Any? = null) {
+            val structuredArgs = mutableListOf<StructuredArgument>()
+            structuredArgs.add(makeServerInfoPayload())
+            if (payload != null) {
+                structuredArgs.add(StructuredArguments.value("payload", payload))
+            }
+            logger.info("", *structuredArgs.toTypedArray())
+        }
 
-    fun error(gctx: GameContext, exception: Exception) {
-        this.logger.error(
-            exception.toString(),
-            makeServerInfoPayload(),
-            makeGameContextPayload(gctx),
-            StructuredArguments.value("exception", exception),
-        )
-    }
+        @Suppress("DuplicatedCode")
+        fun warn(exception: Exception? = null, payload: Any? = null) {
+            val structuredArgs = mutableListOf<StructuredArgument>()
+            structuredArgs.add(makeServerInfoPayload())
+            if (payload != null) {
+                structuredArgs.add(StructuredArguments.value("payload", payload))
+            }
+            if (exception != null) {
+                structuredArgs.add(StructuredArguments.value("exception", exception))
+            }
+            logger.warn("", *structuredArgs.toTypedArray())
+        }
 
-    private fun makeGameContextPayload(gctx: GameContext): StructuredArgument {
-        return StructuredArguments.value(
-            "game_context",
-            mapOf(
-                "master_version" to gctx.masterVersion.toString(),
-                "idempotencyKey" to gctx.idempotencyKey.toString(),
-                "dateline" to gctx.dateline.toString(),
-                "currentTime" to gctx.currentTime.toString(),
-            ),
-        )
-    }
+        @Suppress("DuplicatedCode")
+        fun error(exception: Exception? = null, payload: Any? = null) {
+            val structuredArgs = mutableListOf<StructuredArgument>()
+            structuredArgs.add(makeServerInfoPayload())
+            if (payload != null) {
+                structuredArgs.add(StructuredArguments.value("payload", payload))
+            }
+            if (exception != null) {
+                structuredArgs.add(StructuredArguments.value("exception", exception))
+            }
+            logger.error("", *structuredArgs.toTypedArray())
+        }
 
-    private fun makeServerInfoPayload(): StructuredArgument {
-        return StructuredArguments.value(
-            "server",
-            mapOf(
-                "version" to config.version,
-            ),
-        )
+        private fun makeServerInfoPayload(): StructuredArgument {
+            return StructuredArguments.value(
+                "server",
+                mapOf(
+                    "version" to config.version,
+                ),
+            )
+        }
     }
 }

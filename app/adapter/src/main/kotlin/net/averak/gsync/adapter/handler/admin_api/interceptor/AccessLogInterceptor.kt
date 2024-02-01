@@ -15,7 +15,6 @@ import java.time.LocalDateTime
  */
 @Component
 class AccessLogInterceptor(
-    private val logger: Logger,
     private val requestScope: RequestScope,
 ) : IRequestInterceptor {
 
@@ -25,10 +24,9 @@ class AccessLogInterceptor(
 
     override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any, modelAndView: ModelAndView?) {
         val gctx = requestScope.getGameContext()
-        logger.info(
-            gctx,
-            "access log",
+        Logger.info(
             mapOf(
+                "message" to "access log",
                 "http_request" to mapOf(
                     "client_version" to requestScope.getClientVersion(),
                     "idempotency_key" to gctx.idempotencyKey.toString(),

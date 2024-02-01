@@ -13,7 +13,6 @@ import java.time.LocalDateTime
 @Component
 @Order(Int.MAX_VALUE)
 class AccessLogInterceptor(
-    private val logger: Logger,
     private val requestScope: RequestScope,
 ) : ServerInterceptor {
 
@@ -23,10 +22,10 @@ class AccessLogInterceptor(
         next: ServerCallHandler<ReqT, RespT>,
     ): ServerCall.Listener<ReqT> {
         val begin = LocalDateTime.now()
-        val logMessage = mutableMapOf<String, Any?>()
-        logMessage["method"] = call.methodDescriptor.fullMethodName
-        logMessage["requested_at"] = begin.toString()
-        logMessage["metadata"] = headers.keys().associateWith {
+        val requestDetail = mutableMapOf<String, Any?>()
+        requestDetail["method"] = call.methodDescriptor.fullMethodName
+        requestDetail["requested_at"] = begin.toString()
+        requestDetail["metadata"] = headers.keys().associateWith {
             headers[Metadata.Key.of(it, Metadata.ASCII_STRING_MARSHALLER)]
         }
 
@@ -39,11 +38,11 @@ class AccessLogInterceptor(
                     @Suppress("kotlin:S108")
                     override fun sendMessage(message: RespT) {
                         end = LocalDateTime.now()
-                        logMessage["metadata"] = headers.keys().associateWith {
+                        requestDetail["metadata"] = headers.keys().associateWith {
                             headers[Metadata.Key.of(it, Metadata.ASCII_STRING_MARSHALLER)]
                         }
                         if (message is GeneratedMessageV3) {
-                            logMessage["response"] = JsonUtils.decode(
+                            requestDetail["response"] = JsonUtils.decode(
                                 JsonFormat.printer().print(message),
                                 Map::class.java,
                             )
@@ -57,16 +56,16 @@ class AccessLogInterceptor(
                             )
                         } catch (_: NullPointerException) {
                         }
-                        logMessage["hint"] = hint
+                        requestDetail["hint"] = hint
 
-                        logger.info("access log", logMessage)
+                        Logger.info(mapOf("message" to "access log", "request" to requestDetail))
                         super.sendMessage(message)
                     }
                 },
                 headers,
             )
         } catch (e: Exception) {
-            logger.error("access log", e, logMessage)
+            Logger.error(payload = mapOf("message" to "access log", "request" to requestDetail))
             throw Status.INTERNAL.withCause(e).asException()
         }
     }
